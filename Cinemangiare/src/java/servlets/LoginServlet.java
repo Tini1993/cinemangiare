@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 
             req.setAttribute("message", "Username/password non esistente !");
 
-            RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
+            RequestDispatcher rd = req.getRequestDispatcher("/login.jsp"); //login.jsp da fare
             rd.forward(req, resp);
 
         } else {
@@ -60,9 +60,9 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession(true);
             session.setAttribute("user", user);
 
-            // mando un redirect alla servlet che carica i prodotti
+            // mando un redirect a un'altra servlet
 
-            resp.sendRedirect(req.getContextPath() + "/LoadProducts");
+            resp.sendRedirect(req.getContextPath() + "/altra_servlet");
         }
     }
 
