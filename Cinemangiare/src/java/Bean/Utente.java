@@ -14,7 +14,7 @@ public class Utente {
     public int id;
     public String email;
     public String password;
-    public int credito;
+    public double credito;
     public int id_ruolo;
     
     public Utente(){
@@ -45,11 +45,11 @@ public class Utente {
         this.password = password;
     }
 
-    public int getCredito() {
+    public double getCredito() {
         return credito;
     }
 
-    public void setCredito(int credito) {
+    public void setCredito(double credito) {
         this.credito = credito;
     }
 
