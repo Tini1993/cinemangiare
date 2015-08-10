@@ -70,7 +70,8 @@ public class DBManager implements Serializable {
      * @throws SQLException 
      */
     public Utente authenticate(String userEmail, String password) throws SQLException {
-        
+        // usare SEMPRE i PreparedStatement, anche per query banali. 
+        // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! ***
         
         PreparedStatement statement = con.prepareStatement("SELECT * FROM utente WHERE email = ? AND password = ?");
         
@@ -99,11 +100,11 @@ public class DBManager implements Serializable {
                     return null;
                 }
             } finally {
-                // Chiusura del ResultSet
+                // Chiusura del ResultSet, da fare SEMPRE in un blocco finally
                 results.close();
             }
         } finally {
-            // Chiusura del PreparedStatement
+            // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
             statement.close();
         }
     }
