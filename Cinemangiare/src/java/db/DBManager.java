@@ -108,4 +108,29 @@ public class DBManager implements Serializable {
             statement.close();
         }
     }
+    
+    public void list() throws SQLException {
+        
+        PreparedStatement statement = con.prepareStatement("SELECT titolo FROM film");
+        
+        try {
+            
+            ResultSet results = statement.executeQuery();
+
+            try {
+                
+                while (results.next()) {
+                    String titolo = results.getString("titolo");
+                    System.out.println(titolo);
+                }
+                
+            } finally {
+                // Chiusura del ResultSet, da fare SEMPRE in un blocco finally
+                results.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
+            statement.close();
+        }       
+    }
 }

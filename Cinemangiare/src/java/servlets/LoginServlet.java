@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
 
             // mando un redirect a un'altra servlet
 
-            resp.sendRedirect(req.getContextPath() + "/altra_servlet");
+            resp.sendRedirect(req.getContextPath() + "/ListaFilmServlet");
         }
     }
 
