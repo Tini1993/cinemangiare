@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import Bean.Film;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -28,30 +29,33 @@ import javax.servlet.http.HttpSession;
 public class ListaFilmServlet extends HttpServlet {
 
     private DBManager manager;
-    
+
     @Override
     public void init() throws ServletException {
         // inizializza il DBManager dagli attributi di Application
-        this.manager = (DBManager)super.getServletContext().getAttribute("dbmanager");
+        this.manager = (DBManager) super.getServletContext().getAttribute("dbmanager");
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                try {
-                    manager.list();
-                } catch (SQLException ex) {
-                    throw new ServletException(ex);
-                }
-                
-                RequestDispatcher rd = request.getRequestDispatcher("/lista.html");
-                rd.forward(request, response);
+        
+        Film film;
+
+        try {
+            film = manager.list();
+        } catch (SQLException ex) {
+            throw new ServletException(ex);
         }
-    
+
+        request.setAttribute("film", film);
+        RequestDispatcher rd = request.getRequestDispatcher("/lista.jsp");
+        rd.forward(request, response);
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
 
 }

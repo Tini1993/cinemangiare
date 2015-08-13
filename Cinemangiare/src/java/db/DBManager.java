@@ -1,4 +1,5 @@
 package db;
+import Bean.Film;
 import Bean.Utente;
 import java.io.File;
 import java.io.FileInputStream;
@@ -109,7 +110,7 @@ public class DBManager implements Serializable {
         }
     }
     
-    public void list() throws SQLException {
+    public Film list() throws SQLException {
         
         PreparedStatement statement = con.prepareStatement("SELECT titolo FROM film");
         
@@ -120,9 +121,10 @@ public class DBManager implements Serializable {
             try {
                 
                 while (results.next()) {
-                    String titolo = results.getString("titolo");
-                    System.out.println(titolo);
-                }
+                    Film film = new Film();
+                    film.setTitolo(results.getString("titolo"));
+                    return film;
+                }              
                 
             } finally {
                 // Chiusura del ResultSet, da fare SEMPRE in un blocco finally
@@ -131,6 +133,8 @@ public class DBManager implements Serializable {
         } finally {
             // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
             statement.close();
-        }       
+        }    
+        
+        return null;
     }
 }
