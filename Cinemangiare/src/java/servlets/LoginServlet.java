@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 
             req.setAttribute("message", "Username/password non esistente !");
 
-            RequestDispatcher rd = req.getRequestDispatcher("/login.jsp"); //login.jsp da fare
+            RequestDispatcher rd = req.getRequestDispatcher("/errore.html"); //login.jsp da fare
             rd.forward(req, resp);
 
         } else {
