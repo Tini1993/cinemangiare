@@ -93,8 +93,7 @@ public class DBManager implements Serializable {
                     user.setId_ruolo(results.getInt("id_ruolo"));
                     
                     //Se è autenticato ritorna l'oggetto User
-                    return user;
-                    
+                    return user;                  
                 }
                 
                 // Altrimenti ritorno null. Questo vuol dire che l'utente non esiste, o che i dati inseriti nel form non sono corretti
@@ -105,6 +104,30 @@ public class DBManager implements Serializable {
                 // Chiusura del ResultSet, da fare SEMPRE in un blocco finally
                 results.close();
             }
+        } finally {
+            // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
+            statement.close();
+        }
+    }
+    
+    public void register(String userEmail, String password) throws SQLException {
+        // usare SEMPRE i PreparedStatement, anche per query banali. 
+        // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! ***
+        
+        // l'id_utente bisogna mettere che si autoinvremente
+        PreparedStatement statement = con.prepareStatement("INSERT INTO utente(id_utente, email, password) VALUES (2, ?, ?)");
+        
+        try {
+            statement.setString(1, userEmail); // il primo "?" nella query è la mail dell'user
+            statement.setString(2, password); // il secondo "?" è la psw dell'user
+            
+            int i = statement.executeUpdate();
+
+            if(i>0)
+            {
+                System.out.println("success!!!");
+            }
+          
         } finally {
             // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
             statement.close();
