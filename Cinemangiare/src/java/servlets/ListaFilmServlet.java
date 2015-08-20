@@ -49,8 +49,7 @@ public class ListaFilmServlet extends HttpServlet {
             throws ServletException, IOException, SQLException {
         
         HttpSession session = request.getSession(true);
-        
-        System.out.print("arriva666");
+
         List<Film> listFilm = manager.getListFilm();
         
         Iterator i = listFilm.iterator();
@@ -64,7 +63,8 @@ public class ListaFilmServlet extends HttpServlet {
     }
 
      @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
@@ -74,7 +74,6 @@ public class ListaFilmServlet extends HttpServlet {
         }
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

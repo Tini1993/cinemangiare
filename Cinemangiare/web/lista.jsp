@@ -13,10 +13,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>ciao       
+    <body>ciao    
         <ol>
-            <c:forEach items="${listFilm}" var="listFilm">
-                    <li>${listFilm.titolo}</li>            
+            <c:forEach items="${Films}" var="film">
+                    <li>${film.titolo}</li>            
             </c:forEach>
         </ol>
     </body>
