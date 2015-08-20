@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.lang.Exception;
 //import utils.Hall;
 //import utils.Seat;
 
@@ -110,20 +111,30 @@ public class DBManager implements Serializable {
         }
     }
     
-    public Film list() throws SQLException {
+    public List<Film> getListFilm() throws SQLException {
         
-        PreparedStatement statement = con.prepareStatement("SELECT titolo FROM film");
+        List<Film> listFilm = new ArrayList();
+        
+        PreparedStatement stm = null;
+        System.out.print("arriva33");
+        //PreparedStatement statement = con.prepareStatement("SELECT titolo FROM film");
         
         try {
             
-            ResultSet results = statement.executeQuery();
+            //ResultSet results = statement.executeQuery();
+            String sqlInsert = "SELECT titolo FROM film";
+            System.out.print("arriva");
+            stm = con.prepareStatement(sqlInsert);
+            ResultSet results = stm.executeQuery();
 
             try {
                 
                 while (results.next()) {
                     Film film = new Film();
+                    film.setId(results.getInt("id_film"));
                     film.setTitolo(results.getString("titolo"));
-                    return film;
+                    listFilm.add(film);
+                     /*Debug*/ System.out.println("Sono in dfgd");
                 }              
                 
             } finally {
@@ -132,9 +143,9 @@ public class DBManager implements Serializable {
             }
         } finally {
             // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
-            statement.close();
+            stm.close();
         }    
         
-        return null;
+        return listFilm;
     }
 }

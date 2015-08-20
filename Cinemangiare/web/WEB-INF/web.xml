@@ -47,7 +47,5 @@
 
         <param-value>jdbc:derby://localhost:1527/cinemangiare_db;user=cinemangiare;password=password</param-value>
 
-    
-
         /</context-param>
 </web-app>
