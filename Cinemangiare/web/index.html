@@ -1,97 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cinema Limoni</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cinema Limoni</title>
 
-  </head>
-  <body>
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
   <nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
+    <div class="container">
       <div class="navbar-header">
-      <a class="navbar-brand" href="http://www.google.com">
-        <img alt="Brand" src="img/icona.png">
-      </a>
+        <a class="navbar-brand" href="http://www.google.com">
+          <img alt="Brand" src="img/icona.png">
+        </a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
+          <li><a href="acquista.html">Acquista </a></li>
+          <li><a href="sale.html">Le Sale </a></li>
+          <li><a href="films.html">I Film </a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cinema e Orari <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="orari.html">Orari </a></li>
+              <li><a href="#">Prezzi </a></li>
+              <li><a href="#">Chi siamo </a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Come Raggiungerci </a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Promozioni </a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <p class="navbar-text">Hai già un account?</p>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                    <form class="form" role="form" method="post" action="LoginServlet" accept-charset="UTF-8" id="login-nav">
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Indirizzo Email</label>
+                        <input type="text" name="username" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword2">Password</label>
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                        <div class="help-block text-right"><a href="">Password dimenticata ?</a></div>
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> tienimi loggato
+                        </label>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="bottom text-center">
+                    Nuovo ? <a href="register.html"><b>Registrati</b></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+
     </div>
 
-     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
-        <li><a href="acquista.html">Acquista </a></li>
-        <li><a href="sale.html">Le Sale </a></li>
-        <li><a href="films.html">I Film </a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cinema e Orari <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="orari.html">Orari </a></li>
-            <li><a href="#">Prezzi </a></li>
-            <li><a href="#">Chi siamo </a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Come Raggiungerci </a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Promozioni </a></li>
-          </ul>
-        </li>
-      </ul>
+  </nav>
 
-      <ul class="nav navbar-nav navbar-right">
-       <li><p class="navbar-text">Already have an account?</p></li>
-       <li class="dropdown">
-         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-     <ul id="login-dp" class="dropdown-menu">
-       <li>
-          <div class="row">
-             <div class="col-md-12">
-                <form class="form" role="form" method="post" action="LoginServlet" accept-charset="UTF-8" id="login-nav">
-                   <div class="form-group">
-                      <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                      <input type="text" name="username" value="username" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
-                   </div>
-                   <div class="form-group">
-                      <label class="sr-only" for="exampleInputPassword2">Password</label>
-                      <input type="password" name="password" value="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                                            <div class="help-block text-right"><a href="">Forget the password ?</a></div>
-                   </div>
-                   <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                   </div>
-                   <div class="checkbox">
-                      <label>
-                      <input type="checkbox"> keep me logged-in
-                      </label>
-                   </div>
-                </form>
-             </div>
-             <div class="bottom text-center">
-               New here ? <a href="#"><b>Join Us</b></a>
-             </div>
-          </div>
-       </li>
-     </ul>
-       </li>
-     </ul>
-    </div><!-- /.navbar-collapse -->
+  <div class="container">
+    <div class="row">
 
+      <div class="col-sm-offset-1 col-sm-10">
+        <h1>Benvenuto in Cinema Limoni</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam beatae itaque sunt ut dolor voluptates temporibus porro maxime omnis ducimus.</p>
+      </div>
+
+    </div>
   </div>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
+</body>
 
-</nav>
-
-        <div class="container">
-            <div class="row">
-
-                <div class="col-sm-offset-1 col-sm-10"><h1>Benvenuto in Cinema Limoni</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam beatae itaque sunt ut dolor voluptates temporibus porro maxime omnis ducimus.</p> </div>
-
-            </div>
-        </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-  </body>
 </html>
