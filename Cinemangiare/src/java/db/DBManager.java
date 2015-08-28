@@ -86,8 +86,7 @@ public class DBManager implements Serializable {
 
             try {
                 if (results.next()) {
-                    Utente user = new Utente();
-                    user.setId(results.getInt("id_utente"));
+                    Utente user = new Utente();                   
                     user.setEmail(userEmail);
                     user.setCredito(results.getDouble("credito"));
                     user.setId_ruolo(results.getInt("id_ruolo"));
@@ -115,7 +114,7 @@ public class DBManager implements Serializable {
         // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! ***
         
         // l'id_utente bisogna mettere che si autoinvremente
-        PreparedStatement statement = con.prepareStatement("INSERT INTO utente(id_utente, email, password) VALUES (2, ?, ?)");
+        PreparedStatement statement = con.prepareStatement("INSERT INTO utente(email, password) VALUES (?, ?)");
         
         try {
             statement.setString(1, userEmail); // il primo "?" nella query è la mail dell'user

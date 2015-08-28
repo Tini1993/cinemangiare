@@ -11,7 +11,6 @@ package Bean;
  */
 public class Utente {
     
-    public int id;
     public String email;
     public String password;
     public double credito;
@@ -19,14 +18,6 @@ public class Utente {
     
     public Utente(){
         
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getEmail() {
