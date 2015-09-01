@@ -11,7 +11,7 @@ package Bean;
  * @author Mattia
  */
 public class Film {
-    public int id;
+    public int id_film;
     public String titolo;
     public int durata;
     public int id_genere;
@@ -23,11 +23,11 @@ public class Film {
     }
 
     public int getId() {
-        return id;
+        return id_film;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id_film = id_film;
     }
 
     public String getTitolo() {

@@ -138,7 +138,6 @@ public class DBManager implements Serializable {
         List<Film> listFilm = new ArrayList();
         
         PreparedStatement stm = null;
-        System.out.print("arriva33");
         //PreparedStatement statement = con.prepareStatement("SELECT titolo FROM film");
         
         try {
@@ -153,10 +152,9 @@ public class DBManager implements Serializable {
                 
                 while (results.next()) {
                     Film film = new Film();
-                    film.setId(results.getInt("id_film"));
+                    //film.setId(results.getInt("ID_FILM"));
                     film.setTitolo(results.getString("titolo"));
                     listFilm.add(film);
-                     /*Debug*/ System.out.println("Sono in dfgd");
                 }              
                 
             } finally {

@@ -29,7 +29,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
 /**
  *
  * @author Mattia
@@ -47,22 +46,46 @@ public class ListaFilmServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
+
         HttpSession session = request.getSession(true);
 
         List<Film> listFilm = manager.getListFilm();
-        
+
         Iterator i = listFilm.iterator();
-        while(i.hasNext()) {
-            Film film = (Film)i.next();
+        while (i.hasNext()) {
+            Film film = (Film) i.next();
         }
-        
+
         session.setAttribute("Films", listFilm);
         RequestDispatcher rd = request.getRequestDispatcher("/lista.jsp");
         rd.forward(request, response);
     }
 
-     @Override
+    /*@Override
+     protected void doGet(HttpServletRequest request, HttpServletResponse response)
+     throws ServletException, IOException {
+     HttpSession session = request.getSession(true);
+        
+     List<Film> listFilm;
+
+     try {
+
+     listFilm = manager.getListFilm();
+
+     } catch (SQLException ex) {
+     throw new ServletException(ex);
+     }
+
+     Iterator i = listFilm.iterator();
+     while (i.hasNext()) {
+     Film film = (Film) i.next();
+     }
+
+     session.setAttribute("Films", listFilm);
+     RequestDispatcher rd = request.getRequestDispatcher("/lista.jsp");
+     rd.forward(request, response);
+     }*/
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -85,5 +108,4 @@ public class ListaFilmServlet extends HttpServlet {
             rd.forward(request, response);
         }
     }
-
 }
