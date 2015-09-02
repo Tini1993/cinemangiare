@@ -69,7 +69,7 @@ public class ListaFilmServlet extends HttpServlet {
             processRequest(request, response);
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna2.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna.jsp");
             rd.forward(request, response);
         }
     }
@@ -81,7 +81,7 @@ public class ListaFilmServlet extends HttpServlet {
             processRequest(request, response);
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna2.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna.jsp");
             rd.forward(request, response);
         }
     }
