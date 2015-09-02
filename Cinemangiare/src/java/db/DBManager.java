@@ -143,8 +143,7 @@ public class DBManager implements Serializable {
         try {
             
             //ResultSet results = statement.executeQuery();
-            String sqlInsert = "SELECT titolo FROM film";
-            System.out.print("arriva");
+            String sqlInsert = "SELECT id_film, titolo FROM film";
             stm = con.prepareStatement(sqlInsert);
             ResultSet results = stm.executeQuery();
 
@@ -152,7 +151,7 @@ public class DBManager implements Serializable {
                 
                 while (results.next()) {
                     Film film = new Film();
-                    //film.setId(results.getInt("ID_FILM"));
+                    film.setId(results.getInt("id_film"));
                     film.setTitolo(results.getString("titolo"));
                     listFilm.add(film);
                 }              

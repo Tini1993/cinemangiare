@@ -55,36 +55,13 @@ public class ListaFilmServlet extends HttpServlet {
         while (i.hasNext()) {
             Film film = (Film) i.next();
         }
-
+       
         session.setAttribute("Films", listFilm);
-        RequestDispatcher rd = request.getRequestDispatcher("/lista.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/lista.jsp");       
         rd.forward(request, response);
     }
 
-    /*@Override
-     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-     throws ServletException, IOException {
-     HttpSession session = request.getSession(true);
-        
-     List<Film> listFilm;
-
-     try {
-
-     listFilm = manager.getListFilm();
-
-     } catch (SQLException ex) {
-     throw new ServletException(ex);
-     }
-
-     Iterator i = listFilm.iterator();
-     while (i.hasNext()) {
-     Film film = (Film) i.next();
-     }
-
-     session.setAttribute("Films", listFilm);
-     RequestDispatcher rd = request.getRequestDispatcher("/lista.jsp");
-     rd.forward(request, response);
-     }*/
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
