@@ -142,7 +142,7 @@ public class DBManager implements Serializable {
         try {
             
             //ResultSet results = statement.executeQuery();
-            String sqlInsert = "SELECT id_film, titolo,id_genere,url_trailer,durata,url_locandina FROM film";
+            String sqlInsert = "SELECT id_film, titolo,id_genere,url_trailer,durata,uri_locandina FROM film";
             stm = con.prepareStatement(sqlInsert);
             ResultSet results = stm.executeQuery();
 
@@ -152,10 +152,10 @@ public class DBManager implements Serializable {
                     Film film = new Film();
                     film.setId(results.getInt("id_film"));
                     film.setTitolo(results.getString("titolo"));
-                    //film.setId_genere(results.getInt("id_genere"));
-                   // film.setDurata(results.getInt("durata"));
-                   // film.setUrl_locandina(results.getString("locandina"));
-                   // film.setUrl_trailer(results.getString("trailer"));
+                    film.setId_genere(results.getInt("id_genere"));
+                   film.setDurata(results.getInt("durata"));
+                   film.setUrl_locandina(results.getString("uri_locandina"));
+                    film.setUrl_trailer(results.getString("url_trailer"));
                     listFilm.add(film);
                 }              
                 

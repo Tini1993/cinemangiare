@@ -90,11 +90,28 @@
     
     
   <div class="container">
+   <table class="table table-striped">
+   <thead>
+      <tr>
+         <th>titolo</th>
+         <th>durata</th>
+      </tr>
+   </thead>
+   <tbody>
+      
+      <c:forEach items="${Films}" var="film">
+      <tr>
+         <td> ${film.titolo}</td>
+         <td> ${film.durata}</td>
+      </tr>
+       </c:forEach>
+   </tbody>
+</table>
    
-    <c:forEach items="${Films}" var="film">
-                     ${film.titolo}
+                    
+                    
     
-                </c:forEach>
+               
 
       
   </div>
