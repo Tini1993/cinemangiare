@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.lang.Exception;
-//import utils.Hall;
-//import utils.Seat;
+
 
 /**
  * Classe che ingloba tutti i metodi necessari per interagire con il database locale
