@@ -142,7 +142,7 @@ public class DBManager implements Serializable {
         try {
             
             //ResultSet results = statement.executeQuery();
-            String sqlInsert = "SELECT id_film, titolo FROM film";
+            String sqlInsert = "SELECT id_film, titolo,id_genere,url_trailer,durata,url_locandina FROM film";
             stm = con.prepareStatement(sqlInsert);
             ResultSet results = stm.executeQuery();
 
@@ -152,6 +152,10 @@ public class DBManager implements Serializable {
                     Film film = new Film();
                     film.setId(results.getInt("id_film"));
                     film.setTitolo(results.getString("titolo"));
+                    //film.setId_genere(results.getInt("id_genere"));
+                   // film.setDurata(results.getInt("durata"));
+                   // film.setUrl_locandina(results.getString("locandina"));
+                   // film.setUrl_trailer(results.getString("trailer"));
                     listFilm.add(film);
                 }              
                 
@@ -166,4 +170,34 @@ public class DBManager implements Serializable {
         
         return listFilm;
     }
+    
+    public Film getFilm() throws SQLException {
+        Film films = new Film();
+        
+        PreparedStatement stm = null;
+        //PreparedStatement statement = con.prepareStatement("SELECT titolo FROM film");
+        
+        try {
+            
+            //ResultSet results = statement.executeQuery();
+            String sqlInsert = "SELECT titolo FROM film WHERE id_film=1";
+            stm = con.prepareStatement(sqlInsert);
+            ResultSet results = stm.executeQuery();
+                 try {    
+                    films.setTitolo(results.getString("titolo"));
+                               
+                
+            } finally {
+                // Chiusura del ResultSet, da fare SEMPRE in un blocco finally
+                results.close();
+            }}
+        finally {
+            // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
+            stm.close();
+        }    
+        
+        return films;
+    }
+
+
 }

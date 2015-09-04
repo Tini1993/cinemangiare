@@ -32,6 +32,10 @@
         <servlet-name>Evento</servlet-name>
         <servlet-class>Bean.Evento</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FilmServlet</servlet-name>
+        <servlet-class>servlets.FilmServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -52,6 +56,10 @@
         <servlet-name>Evento</servlet-name>
         <url-pattern>/Evento</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilmServlet</servlet-name>
+        <url-pattern>/FilmServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -63,5 +71,5 @@
 
         <param-value>jdbc:derby://localhost:1527/cinemangiare_db;user=cinemangiare;password=password</param-value>
 
-        /</context-param>
+        </context-param>
 </web-app>
