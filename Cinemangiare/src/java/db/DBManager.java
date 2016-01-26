@@ -153,8 +153,8 @@ public class DBManager implements Serializable {
                     film.setId(results.getInt("id_film"));
                     film.setTitolo(results.getString("titolo"));
                     film.setId_genere(results.getInt("id_genere"));
-                   film.setDurata(results.getInt("durata"));
-                   film.setUrl_locandina(results.getString("uri_locandina"));
+                    film.setDurata(results.getInt("durata"));
+                    film.setUrl_locandina(results.getString("uri_locandina"));
                     film.setUrl_trailer(results.getString("url_trailer"));
                     listFilm.add(film);
                 }              
