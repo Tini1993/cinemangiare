@@ -85,9 +85,6 @@
 
   </nav>
 
-
-
-    
     
   <div class="container">
    <table class="table table-striped">
@@ -108,11 +105,6 @@
    </tbody>
 </table>
    
-                    
-                    
-    
-               
-
       
   </div>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
