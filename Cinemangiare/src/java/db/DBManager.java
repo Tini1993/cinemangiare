@@ -279,12 +279,12 @@ public class DBManager implements Serializable {
                 }
                 
             } finally {
-                // Chiusura del ResultSet
+
                 rs.close();
                 rsOccupati.close();
             }
         } finally {
-            // Chiusura del PreparedStatement
+
             stmTotali.close();
             stmOccupati.close();
         }
@@ -299,29 +299,60 @@ public class DBManager implements Serializable {
       */
      public List<Integer> getHallID() throws SQLException {
         
-        // Lista dei film più visti
         List<Integer> hallID = new ArrayList();
         PreparedStatement stm = null;
         
         try {
             
-            // Select SQL
             String sqlQuery = "SELECT id_sala FROM sala";
-            
             stm = con.prepareStatement(sqlQuery);
-            
-            // Raccogliamo i risultati in un ResultSet
             ResultSet rs = stm.executeQuery();
             
             try {
-                // Per ogni risultato nel ResultSet, includo un film
+                
                 while(rs.next()) {
                     Integer extract = rs.getInt("id_sala");
                     hallID.add(extract);
                 }
    
             } finally {
-                // Chiusura del ResultSet
+
+                rs.close();
+            }
+        } finally {
+
+            stm.close();
+        }
+        
+        return hallID;
+    }
+     
+     public boolean getSeatAvailability(ArrayList<Integer> posti, String idSpettacolo) throws SQLException {
+        
+        String sqlQueryPostiOccupati = "SELECT * FROM spettacolo NATURAL JOIN posto NATURAL JOIN prenotazione WHERE id_spettacolo=?";
+        PreparedStatement stm = null;
+        
+        try {
+            stm = con.prepareStatement(sqlQueryPostiOccupati);
+            
+            stm.setString(1, idSpettacolo);
+            ResultSet rs = stm.executeQuery();
+            
+            try {
+                
+                while(rs.next()) {
+                    Integer extractSeat = rs.getInt("id_posto");
+                    // Controlla per ogni posto se è già stato prenotato
+                    for(int i=0;i<posti.size();i++) {
+                        // Se il posto è già stato prenotato allora ritorna false
+                        if(extractSeat.equals(posti.get(i))) {
+                            return false;
+                        }
+                    }             
+                }
+        
+            } finally {
+             
                 rs.close();
             }
         } finally {
@@ -329,8 +360,85 @@ public class DBManager implements Serializable {
             stm.close();
         }
         
-        return hallID;
+        // Se non sono stati prenotati i posti scelti allora ritorna true
+        return true;
     }
     
+     public Integer getTrueSeatID(int riga, int colonna, int hallID) throws SQLException {
+        PreparedStatement stm = null;
+        
+        try {
+            String sqlInsert = "SELECT * FROM posto WHERE riga=? and colonna=? and id_sala=?";
+            stm = con.prepareStatement(sqlInsert);
+            
+            stm.setInt(1, riga);
+            stm.setInt(2, colonna);
+            stm.setInt(3, hallID);
+            
+            ResultSet rs = stm.executeQuery();
+            
+            try {
+                if(rs.next()) {
+                    return rs.getInt("id_posto");
+                }
+                
+            } finally {
+                rs.close();
+            }
+        } finally {
+            stm.close();
+        }
+        return null;
+    }
+    
+    /**
+     * Setta i posti in inesistenti
+     * @param idTickets
+     * @param hallID
+     * @return risultato operazione
+     * @throws SQLException 
+     */
+    public boolean deleteSeats(ArrayList<Integer> idTickets, int hallID) throws SQLException {
+        
+        PreparedStatement stm = null;
+        boolean result = true;
+        try {
+            // Disabilito il commit automatico
+            con.setAutoCommit(false);
+            String sqlDelete = "UPDATE posto SET esiste=false WHERE id_posto=?";
+            stm = con.prepareStatement(sqlDelete);
+            for(int i=0; i<idTickets.size(); i++) {
+                stm.setInt(1, idTickets.get(i));
+                if(stm.executeUpdate()==0) {
+                    result = false;
+                }
+            }
+            
+
+            // Commit manuale, in quanto quello automatico e' stato disattivato
+            if(result) con.commit();
+
+
+        } catch (SQLException se) {
+            // Rollback nel caso generi un'eccezione
+            if (!con.getAutoCommit()) {
+                con.rollback();
+            }
+            // Dopo il rollback, rilancio l'eccezione in alto per farla gestire al layer di applicazione
+            throw se;
+        } finally {
+            
+            // Chiudo lo statement
+            if (stm != null) {
+                stm.close();
+            }
+            // Riabilito il commit automatico
+            if (!con.getAutoCommit()) {
+                con.setAutoCommit(true);
+            }
+        }
+        
+        return result;
+    }  
 
 }

@@ -258,7 +258,7 @@
                 });
                 postiString = selSeat.join(",");
                 console.log(postiString);
-                post('CheckSeatAvailabilityServlet', {postiString: postiString, showId: showId, hallId: hallId});
+                post('DisponibilitàPostiServlet', {postiString: postiString, showId: showId, hallId: hallId});
             }
             );
         </script>
