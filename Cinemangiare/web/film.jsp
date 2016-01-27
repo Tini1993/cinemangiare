@@ -7,6 +7,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%--se inculudo sta roba da errore--%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.*"%>
+<%@page import="Bean.Film"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -16,7 +17,8 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <c:set var="film" value="DettagliFilm"/>
          
-             ${Films}.titolo
+        <h1>{$film.titolo}</h1>
     </body>
 </html>

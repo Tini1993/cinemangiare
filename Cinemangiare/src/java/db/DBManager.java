@@ -198,6 +198,49 @@ public class DBManager implements Serializable {
         
         return films;
     }
+    
+    public Film getFilm(int id_film) throws SQLException {
+        
+        
+        PreparedStatement stm = null;
+        
+        try {
+            
+            
+            String sqlInsert = "SELECT * FROM film NATURAL JOIN genere WHERE ID_FILM=?";
+            stm = con.prepareStatement(sqlInsert);
+            
+            stm.setInt(1, id_film);
+            
+            ResultSet rs = stm.executeQuery();
+            
+            try {
+                if(rs.next()) {
+                    
+                    Film movie = new Film();
+                    
+                    movie.setId(rs.getInt("id_film"));
+                    movie.setTitolo(rs.getString("titolo"));
+                    movie.setId_genere(rs.getInt("id_genere"));
+                  
+                    
+                    return movie;
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                rs.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        
+        return null;
+        
+    }
+
+ 
 
 
 }
