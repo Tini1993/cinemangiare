@@ -171,33 +171,6 @@ public class DBManager implements Serializable {
         return listFilm;
     }
     
-    public Film getFilm() throws SQLException {
-        Film films = new Film();
-        
-        PreparedStatement stm = null;
-        //PreparedStatement statement = con.prepareStatement("SELECT titolo FROM film");
-        
-        try {
-            
-            //ResultSet results = statement.executeQuery();
-            String sqlInsert = "SELECT titolo FROM film WHERE id_film=1";
-            stm = con.prepareStatement(sqlInsert);
-            ResultSet results = stm.executeQuery();
-                 try {    
-                    films.setTitolo(results.getString("titolo"));
-                               
-                
-            } finally {
-                // Chiusura del ResultSet, da fare SEMPRE in un blocco finally
-                results.close();
-            }}
-        finally {
-            // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
-            stm.close();
-        }    
-        
-        return films;
-    }
     
     public Film getFilm(int id_film) throws SQLException {
         
@@ -207,29 +180,28 @@ public class DBManager implements Serializable {
         try {
             
             
-            String sqlInsert = "SELECT * FROM film NATURAL JOIN genere WHERE ID_FILM=?";
+            String sqlInsert = "SELECT * FROM film WHERE id_film=?";
             stm = con.prepareStatement(sqlInsert);
             
             stm.setInt(1, id_film);
             
-            ResultSet rs = stm.executeQuery();
+            ResultSet results = stm.executeQuery();
             
             try {
-                if(rs.next()) {
+                if(results.next()) {
                     
-                    Film movie = new Film();
-                    
-                    movie.setId(rs.getInt("id_film"));
-                    movie.setTitolo(rs.getString("titolo"));
-                    movie.setId_genere(rs.getInt("id_genere"));
-                  
-                    
-                    return movie;
+                   Film film = new Film();
+                    film.setId(results.getInt("id_film"));
+                    film.setTitolo(results.getString("titolo"));
+                    film.setId_genere(results.getInt("id_genere"));
+                    film.setDurata(results.getInt("durata"));
+                    film.setUrl_locandina(results.getString("uri_locandina"));
+                    film.setUrl_trailer(results.getString("url_trailer"));
                 }
                 
             } finally {
                 // Chiusura del ResultSet
-                rs.close();
+                results.close();
             }
         } finally {
             // Chiusura del PreparedStatement

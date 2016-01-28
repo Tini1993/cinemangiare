@@ -55,7 +55,7 @@ public class ListaFilmServlet extends HttpServlet {
         while (i.hasNext()) {
             Film film = (Film) i.next();
         }
-       
+       System.out.print("si");
         session.setAttribute("Films", listFilm);
         RequestDispatcher rd = request.getRequestDispatcher("/lista.jsp");       
         rd.forward(request, response);

@@ -36,7 +36,6 @@ import javax.servlet.http.HttpSession;
 public class FilmServlet extends HttpServlet {
 
     private DBManager manager;
-    public static ServletContext servletContext;
 
     @Override
     public void init() throws ServletException {
@@ -44,42 +43,30 @@ public class FilmServlet extends HttpServlet {
         this.manager = (DBManager) super.getServletContext().getAttribute("dbmanager");
     }
 
+   
+
+ 
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-
-        HttpSession session = request.getSession(true);
-        Film films = manager.getFilm();
+      
+            HttpSession session = request.getSession(true);
+        int id_film=1;
+                    // Prendo l'id del film che viene messo in GET request
+           // int id_film = Integer.parseInt(request.getParameter("idMovie"));
+        Film film = this.manager.getFilm(id_film);
 
      
-       
-        session.setAttribute("Films", films);
+        session.setAttribute("Filmsel", film);
         RequestDispatcher rd = request.getRequestDispatcher("/film.jsp");       
         rd.forward(request, response);
         
-    }
-
-    
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna2.jsp");
-            rd.forward(request, response);
-        }
+        
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna2.jsp");
-            rd.forward(request, response);
-        }
+        
     }
 }
