@@ -15,9 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import db.Hall;
+import java.sql.SQLException;
 
 /**
- *
+ * Questa servlet serve per comporre la visualizzazione dei posti di una sala
  * @author Mattia
  */
 
@@ -37,13 +39,27 @@ public class PostiServlet extends HttpServlet {
     public static ServletContext servletContext;    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         
         HttpSession session = request.getSession(true);
         
-        //session.setAttribute("Films", listFilm);
-        RequestDispatcher rd = request.getRequestDispatcher("/posti.jsp");       
-        rd.forward(request, response);
+        int id_spettacolo = Integer.parseInt(request.getParameter("idShow"));
+        int id_sala = Integer.parseInt(request.getParameter("idHall"));
+        
+        Hall hall = manager.getSeatMatrix(id_spettacolo, id_sala);
+        
+        if(hall==null) {
+            // Metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
+            request.setAttribute("errorMessage", "Errore durante il caricamento dei posti disponibili!");
+            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            rd.forward(request, response);
+        }
+        else {
+            System.out.println(hall.getMapString());
+            session.setAttribute("SeatString", hall.getMapString());
+            RequestDispatcher rd = request.getRequestDispatcher("/posti.jsp");
+            rd.forward(request, response);
+        }
     }
     
     @Override
