@@ -410,5 +410,48 @@ public class DBManager implements Serializable {
 
         return result;
     }
+    
+    
+    
+    
+    
+     public String getPassword(String userEmail) throws SQLException {
+        
+        String utentePassword = null;
+        PreparedStatement stm = null;
+        
+        try {
+            
+            // SELECT SQL
+            String sqlQuery = "SELECT password FROM utente WHERE email=?";
+            stm = con.prepareStatement(sqlQuery);
+            
+            // Compilazione dei valori mancanti della query
+            stm.setString(1, userEmail);
+            
+            ResultSet rs = stm.executeQuery();
+            
+            try {
+                if(rs.next()) {
+                    
+                    utentePassword = rs.getString("password");
+                    return utentePassword;
+                    
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                rs.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        
+        return null;
+        
+        
+    }
+    
 
 }

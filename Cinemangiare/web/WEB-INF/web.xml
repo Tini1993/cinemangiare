@@ -48,6 +48,10 @@
         <servlet-name>Prenotazione</servlet-name>
         <servlet-class>Bean.Prenotazione</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RecuperoPasswordServlet</servlet-name>
+        <servlet-class>servlets.RecuperoPasswordServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -83,6 +87,10 @@
     <servlet-mapping>
         <servlet-name>Prenotazione</servlet-name>
         <url-pattern>/Prenotazione</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecuperoPasswordServlet</servlet-name>
+        <url-pattern>/RecuperoPasswordServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
