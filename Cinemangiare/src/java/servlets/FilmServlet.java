@@ -64,9 +64,27 @@ public class FilmServlet extends HttpServlet {
         
     }
 
+        @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
+            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna.jsp");
+            rd.forward(request, response);
+        }
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
+            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna.jsp");
+            rd.forward(request, response);
+        }
     }
 }

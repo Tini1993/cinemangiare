@@ -197,6 +197,7 @@ public class DBManager implements Serializable {
                     film.setDurata(results.getInt("durata"));
                     film.setUrl_locandina(results.getString("uri_locandina"));
                     film.setUrl_trailer(results.getString("url_trailer"));
+                    return film;
                 }
                 
             } finally {

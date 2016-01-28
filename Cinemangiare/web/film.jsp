@@ -22,7 +22,6 @@
       <tr>
          <td> ${film.titolo}</td>
          <td>ccdcdcd</td>
-         
        </c:forEach>
          <c:forEach items="${Films}" var="film">
       <tr>
