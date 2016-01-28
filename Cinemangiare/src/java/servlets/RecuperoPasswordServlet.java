@@ -51,7 +51,7 @@ public class RecuperoPasswordServlet extends HttpServlet {
         
         if(utenteEmail!=null && utenteEmail!="" && utenteEmail.contains("@")) {
             // Prendo la password dell'utente dal database
-            String userPassword = this.manager.getPassword(utenteEmail);
+            String utentePassword = this.manager.getPassword(utenteEmail);
 
 
             // Invio della mail con la password
@@ -62,28 +62,28 @@ public class RecuperoPasswordServlet extends HttpServlet {
                                 + "è stata ripristinata in seguito ad una richiesta" + "\n"
                                 + "da lei effettuata." + "\n"
                                 + "Potrà continuare ad utilizzare i servizi disponibili " + "\n"
-                                + "in cinema.kogna@gmail.com, utilizzando la seguente password: " + userPassword + "\n"
+                                + "in cinema.kogna@gmail.com, utilizzando la seguente password: " + utentePassword + "\n"
                                 + "Cordiali saluti.");
 
             } catch (MessagingException ex) {
 
                 // Gestione dell'errore
                 request.setAttribute("errorMessage", "Errore durante l'invio della mail!");
-                RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/errore.html");
                 rd.forward(request, response);
 
             }
-            // TODO: Inserire pagina per confermare l'invio della mail
+            // qui il problema
             // L'email contenente la password dell'utente è stata inviata
             request.setAttribute("mailSentMessage", "La mail contenente la sua password è stata inviata");
-            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/recupero.jsp");
             rd.forward(request, response);
         }
         
         else {
             // Gestione dell'errore
             request.setAttribute("errorMessage", "L'email inserita non è una mail valida!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/errore.jsp");
             rd.forward(request, response);
         }
         
@@ -115,43 +115,5 @@ public class RecuperoPasswordServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
             rd.forward(request, response);
         }
-    }// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
