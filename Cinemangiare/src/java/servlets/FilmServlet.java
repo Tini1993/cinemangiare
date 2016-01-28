@@ -43,32 +43,20 @@ public class FilmServlet extends HttpServlet {
         this.manager = (DBManager) super.getServletContext().getAttribute("dbmanager");
     }
 
-   
 
- 
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-      
-            HttpSession session = request.getSession(true);
-        int id_film=1;
-                    // Prendo l'id del film che viene messo in GET request
-           // int id_film = Integer.parseInt(request.getParameter("idMovie"));
-        Film film = this.manager.getFilm(id_film);
-
-     
-        session.setAttribute("Filmsel", film);
-        RequestDispatcher rd = request.getRequestDispatcher("/film.jsp");       
-        rd.forward(request, response);
-        
-        
-    }
-
-        @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
+             HttpSession session = request.getSession(true);
+            int id_film = 1;
+                    // Prendo l'id del film che viene messo in GET request
+        //id_film = Integer.parseInt(request.getParameter("id_film"));
+        Film film = manager.getFilm(id_film);
+
+        session.setAttribute("Filmsel", film);
+        RequestDispatcher rd = request.getRequestDispatcher("/film.jsp");
+        rd.forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
             RequestDispatcher rd = request.getRequestDispatcher("/errorLogna.jsp");
@@ -80,11 +68,7 @@ public class FilmServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
         } catch (Exception ex) {
-            request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna.jsp");
-            rd.forward(request, response);
         }
     }
 }

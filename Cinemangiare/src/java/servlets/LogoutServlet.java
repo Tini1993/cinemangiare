@@ -20,16 +20,16 @@ public class LogoutServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = req.getSession(false);
+        HttpSession sessione = req.getSession(false);
 
-        if (session != null) {
-            session.removeAttribute("user");
-            session.invalidate();
+        if (sessione != null) {
+            sessione.removeAttribute("user");
+            sessione.invalidate();
         }
 
         req.setAttribute("message", "Logout effettuato con successo");
         RequestDispatcher rd = req.getRequestDispatcher("/boh.jsp");
         rd.forward(req, resp);
-
+        resp.sendRedirect(req.getContextPath() + "/lista.jsp");
     }
 }

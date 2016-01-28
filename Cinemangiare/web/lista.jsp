@@ -98,8 +98,8 @@
       
       <c:forEach items="${Films}" var="film">
       <tr>
-         <td> ${film.titolo}</td>
-         <td> ${film.durata}</td>
+          <td><a href="google.it"> ${film.titolo}</a></td>
+          <td><a href="FilmServlet.java"> ${film.durata}</a></td>
       </tr>
        </c:forEach>
    </tbody>

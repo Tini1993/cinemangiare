@@ -17,18 +17,19 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
+
         <c:forEach items="${Filmsel}" var="film">
-      <tr>
-         <td> ${film.titolo}</td>
-         <td>ccdcdcd</td>
-       </c:forEach>
-         <c:forEach items="${Films}" var="film">
-      <tr>
-         <td> ${film.titolo}</td>
-         <td> ${film.durata}</td>
-      </tr>
-       </c:forEach>
-      </tr>
-    </body>
+        <tr>
+            <td> ${film.titolo}</td>
+            <td><p>ccdcdcd</p></td>
+        </tr>
+    </c:forEach>
+    <c:forEach items="${Films}" var="film">
+        <tr>
+            <td> ${film.titolo}</td>
+            <td> ${film.durata}</td>
+        </tr>
+    </c:forEach>
+
+</body>
 </html>
