@@ -98,8 +98,8 @@
       
       <c:forEach items="${Films}" var="film">
       <tr>
-         <td> ${film.titolo}</td>
-         <td> ${film.durata}</td>
+          <td> ${film.titolo}</td>
+          <td> <a href="film.jsp"><button class="btn btn-success">Prenota</button></a>
       </tr>
        </c:forEach>
    </tbody>

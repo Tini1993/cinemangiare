@@ -51,11 +51,12 @@ public class ListaFilmServlet extends HttpServlet {
 
         List<Film> listFilm = manager.getListFilm();
 
-        Iterator i = listFilm.iterator();
+        // Questa in teoria non serve e va cancellata //
+        /*Iterator i = listFilm.iterator();
         while (i.hasNext()) {
             Film film = (Film) i.next();
-        }
-       System.out.print("si");
+        }*/
+   
         session.setAttribute("Films", listFilm);
         RequestDispatcher rd = request.getRequestDispatcher("/lista.jsp");       
         rd.forward(request, response);
