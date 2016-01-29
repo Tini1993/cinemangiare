@@ -91,22 +91,19 @@
    <thead>
       <tr>
          <th>titolo</th>
-         <th>durata</th>
       </tr>
    </thead>
    <tbody>
       
       <c:forEach items="${Films}" var="film">
       <tr>
-<<<<<<< HEAD
-          <td><a href="google.it"> ${film.titolo}</a></td>
-          <td><a href="FilmServlet.java"> ${film.durata}</a></td>
-=======
-          <td> ${film.titolo}</td>
-          <td> <a href="film.jsp"><button class="btn btn-success">Prenota</button></a>
->>>>>>> origin/master
+          <td>  </td>
+              <td><a href="FilmServlet?titolo=${film.titolo}">${film.titolo}</td>
+          <!--<td> <button class="btn btn-success">Prenota</button></a> -->
+      
       </tr>
        </c:forEach>
+      
    </tbody>
 </table>
    

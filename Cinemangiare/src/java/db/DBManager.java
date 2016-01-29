@@ -169,16 +169,16 @@ public class DBManager implements Serializable {
         return listFilm;
     }
 
-    public Film getFilm(int id_film) throws SQLException {
+    public Film getFilm(String titolo) throws SQLException {
 
         PreparedStatement stm = null;
 
         try {
 
-            String sqlInsert = "SELECT id_film, titolo,id_genere,url_trailer,durata,uri_locandina FROM film WHERE id_film=?";
+            String sqlInsert = "SELECT * FROM film WHERE titolo=?";
             stm = con.prepareStatement(sqlInsert);
 
-            stm.setInt(1, id_film);
+            stm.setString(1, titolo);
 
             ResultSet results = stm.executeQuery();
             

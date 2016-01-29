@@ -13,23 +13,92 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cinema Limoni</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="http://www.google.com">
+                        <img alt="Brand" src="img/icona.png">
+                    </a>
+                </div>
 
-        <c:forEach items="${Filmsel}" var="film">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
+                        <li  class="active"><a href="films.html">I Film </a></li>
+                        <li><a href="prices.html">Prezzi </a></li>
+                        <li><a href="contact.html">Dove Siamo </a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="register.html">Registrati</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>Login</b> <span class="caret"></span></a>
+                            <ul id="login-dp" class="dropdown-menu">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form class="form" role="form" method="post" action="LoginServlet" accept-charset="UTF-8" id="login-nav">
+                                                <div class="form-group">
+                                                    <label class="sr-only" for="exampleInputEmail2">Indirizzo Email</label>
+                                                    <input type="text" name="username" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                    <input type="password" name="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                                                    <div class="help-block text-right"><a href="recupero.jsp">Password dimenticata ?</a></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> tienimi loggato
+                                                    </label>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="bottom text-center">
+                                            Nuovo ? <a href="register.html"><b>Registrati</b></a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+
+            </div>
+
+        </nav>
+
+        <c:forEach items="${FilmSel}" var="film">
         <tr>
             <td> ${film.titolo}</td>
             <td><p>ccdcdcd</p></td>
         </tr>
     </c:forEach>
-    <c:forEach items="${Films}" var="film">
+    <%--<c:forEach items="${Films}" var="film">
         <tr>
             <td> ${film.titolo}</td>
             <td> ${film.durata}</td>
         </tr>
-    </c:forEach>
+    </c:forEach>--%>
 
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

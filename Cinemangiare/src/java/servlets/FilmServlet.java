@@ -36,6 +36,7 @@ import javax.servlet.http.HttpSession;
 public class FilmServlet extends HttpServlet {
 
     private DBManager manager;
+    public static ServletContext servletContext;
 
     @Override
     public void init() throws ServletException {
@@ -43,23 +44,24 @@ public class FilmServlet extends HttpServlet {
         this.manager = (DBManager) super.getServletContext().getAttribute("dbmanager");
     }
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-             HttpSession session = request.getSession(true);
-            int id_film = 1;
-                    // Prendo l'id del film che viene messo in GET request
-        //id_film = Integer.parseInt(request.getParameter("id_film"));
-        Film film = manager.getFilm(id_film);
+            
+            HttpSession session = request.getSession(false);
+            String titolo = request.getParameter("titolo");
+            // Prendo il titolo del film dall'url, perchè è un GET
+         
+            Film film = manager.getFilm(titolo);
 
-        session.setAttribute("Filmsel", film);
-        RequestDispatcher rd = request.getRequestDispatcher("/film.jsp");
-        rd.forward(request, response);
+            request.setAttribute("FilmSel", film);
+            RequestDispatcher rd = request.getRequestDispatcher("/film.jsp");
+            rd.forward(request, response);
+            
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/errore.html");
             rd.forward(request, response);
         }
     }
