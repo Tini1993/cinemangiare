@@ -58,6 +58,7 @@ public class ListaFilmServlet extends HttpServlet {
         }*/
    
         session.setAttribute("Films", listFilm);
+        //response.sendRedirect(request.getContextPath() + "/FilmServlet");
         RequestDispatcher rd = request.getRequestDispatcher("/lista.jsp");       
         rd.forward(request, response);
     }
