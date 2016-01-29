@@ -51,7 +51,22 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher rd = req.getRequestDispatcher("/errore.html"); //login.jsp da fare
             rd.forward(req, resp);
 
-        } else {
+        } else if( user.id_ruolo == 1 ){
+            //se è admim parte admin servlet
+            // imposto l'utente connesso come attributo di sessione
+            // per adesso e' solo un oggetto String con il nome dell'utente, ma posso metterci anche un oggetto User
+            // con, ad esempio, il timestamp di login
+
+            HttpSession session = req.getSession(true);
+            session.setAttribute("user", user);
+
+            // mando un redirect a un'altra servlet
+
+            resp.sendRedirect(req.getContextPath() + "/AdminServlet");
+            
+            
+            
+        }else{
 
             // imposto l'utente connesso come attributo di sessione
             // per adesso e' solo un oggetto String con il nome dell'utente, ma posso metterci anche un oggetto User
