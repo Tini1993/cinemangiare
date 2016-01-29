@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.lang.Exception;
+import static java.lang.Math.random;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Classe che ingloba tutti i metodi necessari per interagire con il database
@@ -31,6 +34,8 @@ public class DBManager implements Serializable {
 
     // transient -> Non viene serializzato, quando viene caricato DBmanager torna al valore di default
     private transient Connection con;
+    
+    static final long ONE_MINUTE_IN_MILLIS=60000;//millisecs
 
     /**
      * Carica il driver ed inizializza la connessione con il database
@@ -452,6 +457,19 @@ public class DBManager implements Serializable {
         
         
     }
+     
+     public void setShow(int x) throws SQLException{
+        //data odierna
+        Calendar now = Calendar.getInstance();
+        long time= now.getTimeInMillis();
+        Date new_date=new Date(time + (long)(random()*x*ONE_MINUTE_IN_MILLIS));
+        
+        //QUERY
+        PreparedStatement stm = null;
+        String slqQuery = "DELETE * FROM SPETTACOLO";
+        stm = con.prepareStatement(slqQuery);
+        ResultSet rs = stm.executeQuery();
+     }
     
 
 }
