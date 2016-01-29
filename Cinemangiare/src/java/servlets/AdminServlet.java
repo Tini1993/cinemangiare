@@ -47,10 +47,13 @@ public class AdminServlet extends HttpServlet {
     }
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+           try {
+            processRequest(request, response);
         } catch (Exception ex) {
+            request.setAttribute("errorMessage", "Errore durante login admin!");
+            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            rd.forward(request, response);
         }
     }
     
@@ -59,7 +62,7 @@ public class AdminServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!");
+            request.setAttribute("errorMessage", "Errore durante login admin!");
             RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
             rd.forward(request, response);
         }

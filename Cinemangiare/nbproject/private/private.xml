@@ -5,11 +5,12 @@
         <group>
             <file>file:/C:/Users/jack/Documents/GitHub/cinemangiare/Cinemangiare/src/java/servlets/LoginServlet.java</file>
             <file>file:/C:/Users/jack/Documents/GitHub/cinemangiare/Cinemangiare/src/java/Bean/Utente.java</file>
+            <file>file:/C:/Users/jack/Documents/GitHub/cinemangiare/Cinemangiare/src/java/Bean/Prenotazione.java</file>
             <file>file:/C:/Users/jack/Documents/GitHub/cinemangiare/Cinemangiare/src/java/db/DBManager.java</file>
             <file>file:/C:/Users/jack/Documents/GitHub/cinemangiare/Cinemangiare/src/java/servlets/AdminServlet.java</file>
+            <file>file:/C:/Users/jack/Documents/GitHub/cinemangiare/Cinemangiare/src/java/Bean/Posto.java</file>
             <file>file:/C:/Users/jack/Documents/GitHub/cinemangiare/Cinemangiare/src/java/servlets/RegistrazioneServlet.java</file>
             <file>file:/C:/Users/jack/Documents/GitHub/cinemangiare/Cinemangiare/src/java/servlets/DisponibilitàPostiServlet.java</file>
-            <file>file:/C:/Users/jack/Documents/GitHub/cinemangiare/Cinemangiare/src/java/servlets/FilmServlet.java</file>
         </group>
     </open-files>
 </project-private>
