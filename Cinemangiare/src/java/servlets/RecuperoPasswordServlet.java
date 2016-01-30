@@ -10,6 +10,8 @@ import funzioni.Email;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,8 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 public class RecuperoPasswordServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -48,16 +48,14 @@ public class RecuperoPasswordServlet extends HttpServlet {
         
         // Prendo email utente dalla request
         String utenteEmail = request.getParameter("utenteEmail");
-        
+       // String utenteEmail="anvion07@gmail.com";
         if(utenteEmail!=null && utenteEmail!="" && utenteEmail.contains("@")) {
             // Prendo la password dell'utente dal database
             String utentePassword = this.manager.getPassword(utenteEmail);
-
-
+//utentePassword="ciao";
             // Invio della mail con la password
             try {
-                 Email.InvioEmail("smtp.gmail.com", "587", "anvion07@gmail.com", "andrea",
-                        utenteEmail, "Password recovery service", "Gentile cliente," + "\n"
+                 Email.InvioEmail("smtp.gmail.com", "587", "cinemangiare@gmail.com", "Cinemangiaredb",utenteEmail, "Recupero password cinema", "Gentile cliente," + "\n"
                                 + "le confermiamo che la password del suo account " + utenteEmail + "\n"
                                 + "è stata ripristinata in seguito ad una richiesta" + "\n"
                                 + "da lei effettuata." + "\n"

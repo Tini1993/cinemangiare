@@ -32,41 +32,39 @@ import javax.mail.internet.MimeMultipart;
  * @author colom
  */
 public class Email {
-    public static void InvioEmail(String host, String port, final String userName, final String password, String toAddress,
-            String subject, String message) throws AddressException, MessagingException {
+    public static void InvioEmail(String host, String port, final String utente, final String password, String destinatario,
+            String oggetto, String messaggio) throws AddressException, MessagingException {
 
-        // connessione server smtp
         Properties properties = new Properties();
-        properties.put( "mail.smtp.host", host );
+        properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", port);
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put( "mail.debug", "true" );
+        properties.put("mail.debug", "true");
 
         
         
-        // Crea l'oggetto per autenticarsi
-        Authenticator auth = new Authenticator() {
-            public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(userName, password);
-            }
-        };
-        Session session = Session.getInstance(properties, auth);
-        
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(utente, password);
+                }
+            });
         // Creazione del messaggio
+        try{
         Message msg = new MimeMessage(session);
-        InternetAddress from = new InternetAddress(userName);
-        InternetAddress to[] = InternetAddress.parse(toAddress);
         
         // Compilazione del messaggio
-        msg.setFrom(from);
-        msg.setRecipients(Message.RecipientType.TO, to);
-        msg.setSubject(subject);
+        msg.setFrom(new InternetAddress(utente));
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
+        msg.setSubject(oggetto);
         msg.setSentDate(new Date());
-        msg.setText(message);
-
+        msg.setText(messaggio);
         // Spedisco il messaggio
         Transport.send(msg);
+        }catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
     
 }

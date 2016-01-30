@@ -459,7 +459,7 @@ public class DBManager implements Serializable {
     
     
     
-     public String getPassword(String userEmail) throws SQLException {
+     public String getPassword(String utenteEmail) throws SQLException {
         
         String utentePassword = null;
         PreparedStatement stm = null;
@@ -471,7 +471,7 @@ public class DBManager implements Serializable {
             stm = con.prepareStatement(sqlQuery);
             
             // Compilazione dei valori mancanti della query
-            stm.setString(1, userEmail);
+            stm.setString(1, utenteEmail);
             
             ResultSet rs = stm.executeQuery();
             

@@ -95,7 +95,7 @@
                                 <div class="form-group">
                                     <label for="inputEmail" class="col-sm-2 control-label">Email</label>
                                     <div class="col-sm-8">
-                                        <input type="email" name="utenteEmail" class="form-control" id="inputEmail" placeholder="Email" required>
+                                        <input type="email" name="utenteEmail" class="form-control" id="utenteEmail" placeholder="Email" required>
                                     </div>
                                 </div>
                                 
