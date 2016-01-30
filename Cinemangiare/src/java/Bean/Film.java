@@ -26,7 +26,7 @@ public class Film {
         return id_film;
     }
 
-    public void setId(int idfilm) {
+    public void setId(int id_film) {
         this.id_film = id_film;
     }
 

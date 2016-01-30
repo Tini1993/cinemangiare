@@ -23,7 +23,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
+    
         
         <%@ include file="navbar.jsp" %>
 
@@ -33,23 +33,20 @@
         <p><img src="${FilmSel.url_locandina}"/> </p>
         <p><iframe width="420" height="315" src="${FilmSel.url_trailer}"></iframe></p>
         
-        <tbody>
-        <c:forEach items="${ShowSel}" var="show">
-            <tr>
-                        
+        <table class="table table-striped">
+
+        <c:forEach items="${ShowSel}" var="show">   
+            <tr>                        
                 <td><p> ORA: ${show.data_ora} </p></td>
                 <td><p> SALA: ${show.id_sala} </p></td>
-
             </tr>
         </c:forEach>
-        </tbody>
-                        
-        <%-- DEVO METTERE LA SCELTA DELLA SALA/ORARIO CON IL LINK ALLA SERVLET DEI POSTI --%>
+        </table>
         
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-</body>
+
 </html>
