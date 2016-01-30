@@ -15,17 +15,18 @@
                 <li><a href="contact.html">Dove Siamo </a></li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="register.html">Registrati</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>Login</b> <span class="caret"></span></a>
-                    <ul id="login-dp" class="dropdown-menu">
-                        <li>
-                            <div class="row">
-                                <div class="col-md-12">
+            <c:if test="${empty user}"> 
+                <%-- FORM DI LOGIN IN CASO L'UTENTE SIA SLOGGATO --%>
 
-                                    <c:if test="${empty user}"> 
-                                        <%-- FORM DI LOGIN IN CASO L'UTENTE SIA SLOGGATO --%>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="register.html">Registrati</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>Login</b> <span class="caret"></span></a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+
                                         <form class="form" role="form" method="post" action="LoginServlet" accept-charset="UTF-8" id="login-nav">
 
                                             <div class="form-group">
@@ -49,30 +50,35 @@
                                                 </label>
                                             </div>
 
-                                        </form>
-                                        
-                                        <div class="bottom text-center">
-                                            Nuovo ? <a href="register.html"><b>Registrati</b></a>
-                                        </div>
-                                        
-                                    </c:if>
-                                    <c:if test="${! empty user}"> 
+                                        </form>                      
+                                    </div>                                
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>                                        
+            </c:if>
 
-                                        Benvenuto <span class="label label-default">${user.email}</span>
+            <%-- questo lo fa se invece c'è un utente connesso --%>
+            <c:if test="${! empty user}"> 
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>${user.email}</b> <span class="caret"></span></a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <a href="LoadUserInfoServlet"><button type="button" class="btn btn-success" >Visualizza profilo</button></a>
                                         <button type="button" data-toggle="modal" class="btn btn-info" onclick="location.href = 'LogoutServlet'">Logout</button>
-                                        
-                                    </c:if>
+                                    </div>
                                 </div>
-                                
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>  
+            </c:if>
+
         </div>
         <!-- /.navbar-collapse -->
-
     </div>
-
 </nav>
