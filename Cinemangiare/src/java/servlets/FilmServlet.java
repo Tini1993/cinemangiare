@@ -48,20 +48,28 @@ public class FilmServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            
+
             HttpSession session = request.getSession(true);
             String titolo = request.getParameter("titolo");
             // Prendo il titolo del film dall'url, perchè è un GET
-         
+
             Film film = manager.getFilm(titolo);
 
-            session.setAttribute("FilmSel", film);
-            
+            // guardo se la query ha dato dei risultati
+            if (film == null) {
+                
+                request.setAttribute("message", "Film non esistente !");
+                RequestDispatcher rd = request.getRequestDispatcher("/errore.html"); 
+                rd.forward(request, response);
+                
+            } else {
+                session.setAttribute("FilmSel", film);
+            }
+
             RequestDispatcher rd = request.getRequestDispatcher("/film.jsp");
             rd.forward(request, response);
-            
+
         } catch (Exception ex) {
-            System.out.println("CCCCCCCCCCCCC" + ex.getCause());
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
             RequestDispatcher rd = request.getRequestDispatcher("login_grezzona.html");
             rd.forward(request, response);

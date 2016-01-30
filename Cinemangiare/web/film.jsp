@@ -82,23 +82,16 @@
 
         </nav>
 
-        <c:forEach items="${FilmSel}" var="film">
-        <tr>
-            <td> ${film.titolo}</td>
-            <td><p>ccdcdcd</p></td>
-        </tr>
-    </c:forEach>
-    <%--<c:forEach items="${Films}" var="film">
-        <tr>
-            <td> ${film.titolo}</td>
-            <td> ${film.durata}</td>
-        </tr>
-    </c:forEach>--%>
-
-</div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+        <p> TTOLO: <c:out value="${FilmSel.titolo}"/> </p>
+        <p> DURATA: <c:out value="${FilmSel.durata}"/> </p>
+        <p> TRAMA: <c:out value="${FilmSel.trama}"/> </p>
+        
+        <%-- DEVO METTERE LA SCELTA DELLA SALA/ORARIO CON IL LINK ALLA SERVLET DEI POSTI --%>
+        
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

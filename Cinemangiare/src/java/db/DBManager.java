@@ -180,7 +180,7 @@ public class DBManager implements Serializable {
 
         try {
 
-            String sqlInsert = "SELECT * FROM film NATURAL JOIN genere WHERE titolo=?";
+            String sqlInsert = "SELECT * FROM film WHERE titolo=?";
             stm = con.prepareStatement(sqlInsert);
 
             stm.setString(1, titolo);
