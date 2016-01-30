@@ -192,6 +192,7 @@ public class DBManager implements Serializable {
                     Film film = new Film();
                     film.setId(results.getInt("id_film"));
                     film.setTitolo(results.getString("titolo"));
+                    film.setTrama(results.getString("trama"));
                     film.setId_genere(results.getInt("id_genere"));
                     film.setDurata(results.getInt("durata"));
                     film.setUrl_locandina(results.getString("uri_locandina"));
