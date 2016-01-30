@@ -469,6 +469,39 @@ public class DBManager implements Serializable {
         String slqQuery = "DELETE * FROM SPETTACOLO";
         stm = con.prepareStatement(slqQuery);
         ResultSet rs = stm.executeQuery();
+        
+        //QUERY update spettacolo
+        int id=1;
+        int sala=1;
+        for(int k=1; k<11; k++){
+            for(int j=0; j<20; j++){
+                PreparedStatement statement = con.prepareStatement("INSERT INTO spettacolo(id_spettacolo,id_film,data_ora,id_sala) VALUES (?, ?, ?, ?)");
+
+                try {
+                    statement.setInt(1,id );
+                    statement.setInt(2,k);
+                    statement.setDate(3, (java.sql.Date) new_date);
+                    statement.setInt(4,sala);
+                    int i = statement.executeUpdate();
+
+                    if (i > 0) {
+                        System.out.println("success!!!");
+                    }
+                    id++;
+
+                } finally {
+                // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
+                statement.close();
+                }
+            }
+            sala++;
+            if(sala>5){
+                sala=1;
+            }
+        }
+        
+        stm.close();
+        
      }
     
 
