@@ -27,9 +27,6 @@ public class LogoutServlet extends HttpServlet {
             sessione.invalidate();
         }
 
-        req.setAttribute("message", "Logout effettuato con successo");
-        RequestDispatcher rd = req.getRequestDispatcher("/boh.jsp");
-        rd.forward(req, resp);
         resp.sendRedirect(req.getContextPath() + "/lista.jsp");
     }
 }
