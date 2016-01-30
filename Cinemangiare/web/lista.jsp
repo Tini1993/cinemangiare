@@ -31,25 +31,22 @@
 
         <div class="container">
             <table class="table table-striped">
-                <thead>
+                <thead> <%-- table head, na roba tipo il titolo della colonna --%>
                     <tr>
                         <th>titolo</th>
                     </tr>
                 </thead>
-                <tbody>
-
-                    <c:forEach items="${Films}" var="film">
+                <tbody> 
+                    <%-- ciclo for che stampa in una tabella ogni elemento (film) salvato nella variabile di sessione ${Films} --%>             
+                    <c:forEach items="${Films}" var="film"> <%-- è come fare:   var film = ${Films} --%>
                         <tr>
-
-                            <td><a href="FilmServlet?titolo=${film.titolo}">${film.titolo}</td>
-                            <!--<td> <button class="btn btn-success">Prenota</button></a> -->
-
+                            <%-- link del tipo http://localhost:8080/Cinemangiare/FilmServlet?titolo=XXYYZZ , è un GET brutale ma giusto --%>
+                            <td><a href="FilmServlet?titolo=${film.titolo}">${film.titolo}</td> 
                         </tr>
                     </c:forEach>
 
                 </tbody>
             </table>
-
 
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
