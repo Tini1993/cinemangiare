@@ -8,6 +8,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.*"%>
 <%@page import="Bean.Film"%>
+<%@page import="Bean.Spettacolo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -32,6 +33,17 @@
         <p><img src="${FilmSel.url_locandina}"/> </p>
         <p><iframe width="420" height="315" src="${FilmSel.url_trailer}"></iframe></p>
         
+        <tbody>
+        <c:forEach items="${ShowSel}" var="show">
+            <tr>
+                        
+                <td><p> ORA: ${show.data_ora} </p></td>
+                <td><p> SALA: ${show.id_sala} </p></td>
+
+            </tr>
+        </c:forEach>
+        </tbody>
+                        
         <%-- DEVO METTERE LA SCELTA DELLA SALA/ORARIO CON IL LINK ALLA SERVLET DEI POSTI --%>
         
     </div>

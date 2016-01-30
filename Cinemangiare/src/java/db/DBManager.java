@@ -1,6 +1,7 @@
 package db;
 
 import Bean.Film;
+import Bean.Spettacolo;
 import Bean.Utente;
 import java.io.File;
 import java.io.FileInputStream;
@@ -209,6 +210,43 @@ public class DBManager implements Serializable {
             stm.close();
         }
         return null;
+    }
+    
+    public List<Spettacolo> getSpettacolo(int id_film) throws SQLException {
+
+        List<Spettacolo> listSpettacolo = new ArrayList();
+        
+        PreparedStatement stm = null;
+
+        try {
+
+            String sqlInsert = "SELECT * FROM spettacolo WHERE id_film=?";
+            stm = con.prepareStatement(sqlInsert);
+
+            stm.setInt(1, id_film);
+
+            ResultSet results = stm.executeQuery();
+            
+            try {
+                while (results.next()) {
+                    Spettacolo spettacolo = new Spettacolo();
+                    spettacolo.setId_spettacolo(results.getInt("id_spettacolo"));
+                    spettacolo.setId_film(results.getInt("id_film"));
+                    spettacolo.setData_ora(results.getTimestamp("data_ora"));
+                    spettacolo.setId_sala(results.getInt("id_sala"));
+                    
+                    listSpettacolo.add(spettacolo);
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                results.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        return listSpettacolo;
     }
 
     /**

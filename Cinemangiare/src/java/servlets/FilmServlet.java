@@ -6,6 +6,7 @@
 package servlets;
 
 import Bean.Film;
+import Bean.Spettacolo;
 import java.lang.Exception;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -54,7 +55,8 @@ public class FilmServlet extends HttpServlet {
             // Prendo il titolo del film dall'url, perchè è un GET
 
             Film film = manager.getFilm(titolo);
-
+            List <Spettacolo> spettacolo = manager.getSpettacolo(film.id_film);
+            
             // guardo se la query ha dato dei risultati
             if (film == null) {
                 
@@ -64,10 +66,10 @@ public class FilmServlet extends HttpServlet {
                 
             } else {
                 session.setAttribute("FilmSel", film);
+                session.setAttribute("ShowSel", spettacolo);
+                RequestDispatcher rd = request.getRequestDispatcher("/film.jsp");
+                rd.forward(request, response);
             }
-
-            RequestDispatcher rd = request.getRequestDispatcher("/film.jsp");
-            rd.forward(request, response);
 
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
