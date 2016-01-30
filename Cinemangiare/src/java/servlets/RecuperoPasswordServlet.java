@@ -58,23 +58,21 @@ public class RecuperoPasswordServlet extends HttpServlet {
                  Email.InvioEmail("smtp.gmail.com", "587", "cinemangiare@gmail.com", "Cinemangiaredb",utenteEmail, "Recupero password cinema", "Gentile cliente," + "\n"
                                 + "le confermiamo che la password del suo account " + utenteEmail + "\n"
                                 + "è stata ripristinata in seguito ad una richiesta" + "\n"
-                                + "da lei effettuata." + "\n"
-                                + "Potrà continuare ad utilizzare i servizi disponibili " + "\n"
-                                + "in cinema.kogna@gmail.com, utilizzando la seguente password: " + utentePassword + "\n"
+                                + "Potrà continuare ad utilizzare il servizio utilizzando la seguente password: " + utentePassword + "\n"
                                 + "Cordiali saluti.");
 
             } catch (MessagingException ex) {
 
                 // Gestione dell'errore
                 request.setAttribute("errorMessage", "Errore durante l'invio della mail!");
-                RequestDispatcher rd = request.getRequestDispatcher("/errore.html");
+                RequestDispatcher rd = request.getRequestDispatcher("/errore.jsp");
                 rd.forward(request, response);
 
             }
             // qui il problema
             // L'email contenente la password dell'utente è stata inviata
             request.setAttribute("mailSentMessage", "La mail contenente la sua password è stata inviata");
-            RequestDispatcher rd = request.getRequestDispatcher("/recupero.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/index.html");
             rd.forward(request, response);
         }
         
@@ -96,7 +94,7 @@ public class RecuperoPasswordServlet extends HttpServlet {
             
             // Gestione dell'errore
             request.setAttribute("errorMessage", "Errore durante il caricamento dei dati utente!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/errore.jsp");
             rd.forward(request, response);
         }
     }
@@ -110,7 +108,7 @@ public class RecuperoPasswordServlet extends HttpServlet {
             
             // Gestione dell'errore
             request.setAttribute("errorMessage", "Errore durante il caricamento dei dati utente!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/errore.jsp");
             rd.forward(request, response);
         }
     }
