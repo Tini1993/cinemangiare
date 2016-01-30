@@ -85,8 +85,8 @@
         <p> TTOLO: <c:out value="${FilmSel.titolo}"/> </p>
         <p> DURATA: <c:out value="${FilmSel.durata}"/> </p>
         <p> TRAMA: <c:out value="${FilmSel.trama}"/> </p>
-        <p> <c:out value="${FilmSel.url_locandina}"/> </p>
-        <p> <c:out value="${FilmSel.url_trailer}"/> </p>
+        <p><img src="${FilmSel.url_locandina}"/> </p>
+        <p><iframe width="420" height="315" src="${FilmSel.url_trailer}"></iframe></p>
         
         <%-- DEVO METTERE LA SCELTA DELLA SALA/ORARIO CON IL LINK ALLA SERVLET DEI POSTI --%>
         
