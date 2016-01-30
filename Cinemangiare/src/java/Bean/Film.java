@@ -17,7 +17,7 @@ public class Film {
     public int id_genere;
     public String url_trailer;
     public String trama;
-    public String url_locandina;
+    public String uri_locandina;
     
     public Film() {
     }
@@ -71,11 +71,11 @@ public class Film {
     }
 
     public String getUrl_locandina() {
-        return url_locandina;
+        return uri_locandina;
     }
 
-    public void setUrl_locandina(String url_locandina) {
-        this.url_locandina = url_locandina;
+    public void setUrl_locandina(String uri_locandina) {
+        this.uri_locandina = uri_locandina;
     }
     
     

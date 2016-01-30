@@ -50,14 +50,8 @@ public class ListaFilmServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         List<Film> listFilm = manager.getListFilm();
-
-        // Questa in teoria non serve e va cancellata //
-        /*Iterator i = listFilm.iterator();
-        while (i.hasNext()) {
-            Film film = (Film) i.next();
-        }*/
    
-        session.setAttribute("Films", listFilm);
+        request.setAttribute("Films", listFilm);
         //response.sendRedirect(request.getContextPath() + "/FilmServlet");
         RequestDispatcher rd = request.getRequestDispatcher("/lista.jsp");       
         rd.forward(request, response);
