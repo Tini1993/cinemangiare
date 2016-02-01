@@ -20,6 +20,8 @@ public class Spettacolo {
     public int id_film;
     public Timestamp data_ora;
     public int id_sala;
+    public int prezzo;
+    public int posti;
 
     public int getId_spettacolo() {
         return id_spettacolo;
@@ -33,6 +35,7 @@ public class Spettacolo {
         return id_film;
     }
 
+   
     public void setId_film(int id_film) {
         this.id_film = id_film;
     }
@@ -52,4 +55,20 @@ public class Spettacolo {
     public void setId_sala(int id_sala) {
         this.id_sala = id_sala;
     }
+    
+     public int get_prezzo(){
+        return prezzo;
+    }
+     
+     public void set_prezzo(int prezzo){
+         this.prezzo=prezzo;
+     }
+     
+     public int get_posti(){
+        return posti;
+    }
+     
+     public void set_posti(int posti){
+         this.posti=posti;
+     }
 }

@@ -5,7 +5,9 @@
  */
 package servlets;
 
+import Bean.Film;
 import Bean.Prenotazione;
+import Bean.Spettacolo;
 import db.DBManager;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -60,10 +62,27 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            processRequest(request, response);
+
+            HttpSession session = request.getSession(true);
+            
+            List <Spettacolo> spettacolo = manager.getVendorSeat();
+            
+            // guardo se la query ha dato dei risultati
+            if (spettacolo == null) {
+                
+                request.setAttribute("errorMessage", "spettacoli non trovati !");
+                RequestDispatcher rd = request.getRequestDispatcher("/error.jsp"); 
+                rd.forward(request, response);
+                
+            } else {
+                session.setAttribute("ShowSel", spettacolo);
+                RequestDispatcher rd = request.getRequestDispatcher("/admin.jsp");
+                rd.forward(request, response);
+            }
+
         } catch (Exception ex) {
-            request.setAttribute("errorMessage", "Errore durante login admin!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
     }

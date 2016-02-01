@@ -543,13 +543,41 @@ public class DBManager implements Serializable {
         
      }
      
-      public void getVendorSeat() throws SQLException{
+      public List<Spettacolo> getVendorSeat() throws SQLException{
           
           //QUERY
+       List<Spettacolo> listSpettacolo = new ArrayList();
+        
         PreparedStatement stm = null;
-        String slqQuery = "SELECT ID_POSTO, ID_SPETTACOLO, SUM(PREZZO) FROM PROGRAMMAZION NATURAL JOIN PREZZO GROUP BY ID_SPETTACOLO";
-        stm = con.prepareStatement(slqQuery);
-        stm.close();
+
+        try {
+
+            String slqQuery = "SELECT posti AS SUM(ID_POSTO), ID_FILM, ID_SPETTACOLO, prezzo AS SUM(PREZZO), ID_SALA FROM PROGRAMMAZION NATURAL JOIN PREZZO NATURAL JOIN SPETTACOLO GROUP BY ID_SPETTACOLO";
+            stm = con.prepareStatement(slqQuery);
+
+            ResultSet results = stm.executeQuery();
+            
+            try {
+                while (results.next()) {
+                    Spettacolo spettacolo = new Spettacolo();
+                    spettacolo.setId_spettacolo(results.getInt("id_spettacolo"));
+                    spettacolo.setId_film(results.getInt("id_film"));
+                    spettacolo.set_prezzo(results.getInt("prezzo"));
+                    spettacolo.set_posti(results.getInt("posti"));
+                    spettacolo.setId_sala(results.getInt("id_sala"));
+                    
+                    listSpettacolo.add(spettacolo);
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                results.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        return listSpettacolo;
           
       }
       
