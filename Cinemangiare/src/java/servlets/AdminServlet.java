@@ -61,6 +61,7 @@ public class AdminServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      int i=0;
         try {
 
             HttpSession session = request.getSession(true);
