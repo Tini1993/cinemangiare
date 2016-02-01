@@ -542,6 +542,35 @@ public class DBManager implements Serializable {
         stm.close();
         
      }
+     
+      public void getVendorSeat() throws SQLException{
+          
+          //QUERY
+        PreparedStatement stm = null;
+        String slqQuery = "SELECT ID_POSTO, ID_SPETTACOLO, SUM(PREZZO) FROM PROGRAMMAZION NATURAL JOIN PREZZO GROUP BY ID_SPETTACOLO";
+        stm = con.prepareStatement(slqQuery);
+        stm.close();
+          
+      }
+      
+      public void getIncassi() throws SQLException{
+           //QUERY
+        PreparedStatement stm = null;
+        String slqQuery = "SELECT ID_FILM, SUM(PREZZO) FROM PROGRAMMAZION NATURAL JOIN PREZZO NATURAL JOIN SPETTACOLO GROUP BY ID_FILM";
+        stm = con.prepareStatement(slqQuery);
+        stm.close();
+          
+          
+      }
+      
+      public void getTopClient() throws SQLException{
+           //QUERY
+        PreparedStatement stm = null;
+        String slqQuery = "SELECT ID_UTENTE, SUM(PREZZO) FROM UTENTE NATURAL JOIN SPETTACOLO NATURAL JOIN PREZZO GROUP BY ID_UTENTE";
+        stm = con.prepareStatement(slqQuery);
+        stm.close();
+      }
+     
     
 
 }
