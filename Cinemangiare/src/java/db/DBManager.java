@@ -554,7 +554,7 @@ public class DBManager implements Serializable {
 
         try {
 
-            String slqQuery = "SELECT posti AS SUM(id_posto), id_film, id_spettacolo, prezzo AS SUM(prezzo), id_sala FROM programmazione NATURAL JOIN prezzo NATURAL JOIN spettacolo GROUP BY id_spettacolo";
+            String slqQuery = "SELECT posti AS SUM(id_posto), id_film, id_spettacolo, prezzo AS SUM(prezzo), id_sala FROM prenotazione NATURAL JOIN prezzo NATURAL JOIN spettacolo GROUP BY id_spettacolo";
             stm = con.prepareStatement(slqQuery);
 
             ResultSet results = stm.executeQuery();
