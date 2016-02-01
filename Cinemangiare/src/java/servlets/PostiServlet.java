@@ -36,7 +36,13 @@ import java.sql.SQLException;
 public class PostiServlet extends HttpServlet {
     
     private DBManager manager;
-    public static ServletContext servletContext;    
+    public static ServletContext servletContext; 
+    
+    @Override
+    public void init() throws ServletException {
+        // inizializza il DBManager dagli attributi di Application
+        this.manager = (DBManager) super.getServletContext().getAttribute("dbmanager");
+    }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {

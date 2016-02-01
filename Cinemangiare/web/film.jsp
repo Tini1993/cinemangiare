@@ -37,9 +37,13 @@
         <c:forEach items="${ShowSel}" var="show">   
             <tr>                        
                 <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}">ORA: ${show.data_ora}</a></td>
+<<<<<<< HEAD
                 <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}"> SALA: ${show.id_sala}</a></td>
                 <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}">POSTI VENTUDI: ${show.posti}</a></td>
                 <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}"> INCASSI: ${show.prezzo}</a></td>
+=======
+                <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}">SALA: ${show.id_sala}</a></td>
+>>>>>>> origin/master
             </tr>
         </c:forEach>
         </table>
