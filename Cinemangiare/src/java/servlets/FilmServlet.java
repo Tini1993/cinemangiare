@@ -60,8 +60,8 @@ public class FilmServlet extends HttpServlet {
             // guardo se la query ha dato dei risultati
             if (film == null) {
                 
-                request.setAttribute("message", "Film non esistente !");
-                RequestDispatcher rd = request.getRequestDispatcher("/film.jsp"); 
+                request.setAttribute("errorMessage", "Film non esistente !");
+                RequestDispatcher rd = request.getRequestDispatcher("/error.jsp"); 
                 rd.forward(request, response);
                 
             } else {
@@ -73,7 +73,7 @@ public class FilmServlet extends HttpServlet {
 
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
-            RequestDispatcher rd = request.getRequestDispatcher("/film.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
     }

@@ -51,7 +51,7 @@ public class PostiServlet extends HttpServlet {
         if(hall==null) {
             // Metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
             request.setAttribute("errorMessage", "Errore durante il caricamento dei posti disponibili!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
         else {
@@ -68,8 +68,9 @@ public class PostiServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
+            request.setAttribute("errorEx", ex);
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
     }
@@ -81,7 +82,7 @@ public class PostiServlet extends HttpServlet {
             processRequest(request, response);
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorLogna.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
     }

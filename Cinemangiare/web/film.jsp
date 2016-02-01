@@ -34,11 +34,10 @@
         <p><iframe width="420" height="315" src="${FilmSel.url_trailer}"></iframe></p>
         
         <table class="table table-striped">
-
         <c:forEach items="${ShowSel}" var="show">   
             <tr>                        
-                <td><p> ORA: ${show.data_ora} </p></td>
-                <td><p> SALA: ${show.id_sala} </p></td>
+                <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}">ORA: ${show.data_ora}</a></td>
+                <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}"> SALA: ${show.id_sala}</a></td>
             </tr>
         </c:forEach>
         </table>

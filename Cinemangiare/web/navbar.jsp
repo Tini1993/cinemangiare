@@ -2,15 +2,15 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="http://www.google.com">
+            <a class="navbar-brand">
                 <img alt="Brand" src="img/icona.png">
             </a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
-                <li  class="active"><a href="films.html">I Film </a></li>
+                <%--<li><a href="index.html">Home <span class="sr-only">(current)</span></a></li>--%>
+                <li><a href="lista.jsp">I Film </a></li>
                 <li><a href="prices.html">Prezzi </a></li>
                 <li><a href="contact.html">Dove Siamo </a></li>
             </ul>
