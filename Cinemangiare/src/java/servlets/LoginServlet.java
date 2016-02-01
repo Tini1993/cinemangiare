@@ -45,10 +45,8 @@ public class LoginServlet extends HttpServlet {
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
         if (user == null) {
             // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
-
-            req.setAttribute("message", "Username/password non esistente !");
-
-            RequestDispatcher rd = req.getRequestDispatcher("/errore.html"); //login.jsp da fare
+            req.setAttribute("errorMessage", "Username/password non esistente !");
+            RequestDispatcher rd = req.getRequestDispatcher("/error.jsp");
             rd.forward(req, resp);
 
         } else if( user.id_ruolo == 1 ){

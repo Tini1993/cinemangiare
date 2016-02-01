@@ -234,7 +234,6 @@ public class DBManager implements Serializable {
                     spettacolo.setId_film(results.getInt("id_film"));
                     spettacolo.setData_ora(results.getTimestamp("data_ora"));
                     spettacolo.setId_sala(results.getInt("id_sala"));
-                    
                     listSpettacolo.add(spettacolo);
                 }
                 
@@ -246,6 +245,8 @@ public class DBManager implements Serializable {
             // Chiusura del PreparedStatement
             stm.close();
         }
+ 
+
         return listSpettacolo;
     }
 
@@ -273,9 +274,10 @@ public class DBManager implements Serializable {
             stmOccupati = con.prepareStatement(sqlQueryPostiOccupati);
             stmTotali.setInt(1, id_sala);
             stmOccupati.setInt(1, id_spettacolo);
-
+            
             ResultSet rs = stmTotali.executeQuery();
             ResultSet rsOccupati = stmOccupati.executeQuery();
+            
             try {
                 while (rs.next()) {
                     int riga = rs.getInt("riga");
@@ -296,10 +298,10 @@ public class DBManager implements Serializable {
             }
         } finally {
 
-            stmTotali.close();
             stmOccupati.close();
+            stmTotali.close();
+            
         }
-
         return hall;
     }
 

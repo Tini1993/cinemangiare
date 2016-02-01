@@ -56,6 +56,7 @@ public class FilmServlet extends HttpServlet {
 
             Film film = manager.getFilm(titolo);
             List <Spettacolo> spettacolo = manager.getSpettacolo(film.id_film);
+            //Spettacolo spettacolo = manager.getSpettacolo(film.id_film);
             
             // guardo se la query ha dato dei risultati
             if (film == null) {
@@ -72,6 +73,7 @@ public class FilmServlet extends HttpServlet {
             }
 
         } catch (Exception ex) {
+            request.setAttribute("errorEx", ex);
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);

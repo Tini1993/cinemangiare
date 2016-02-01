@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import Bean.Spettacolo;
 import db.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import db.Hall;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Questa servlet serve per comporre la visualizzazione dei posti di una sala
@@ -44,15 +46,18 @@ public class PostiServlet extends HttpServlet {
         this.manager = (DBManager) super.getServletContext().getAttribute("dbmanager");
     }
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-        
-        HttpSession session = request.getSession(true);
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            HttpSession session = request.getSession(true);
         
         int id_spettacolo = Integer.parseInt(request.getParameter("idShow"));
         int id_sala = Integer.parseInt(request.getParameter("idHall"));
         
-        Hall hall = manager.getSeatMatrix(id_spettacolo, id_sala);
+        Hall hall = new Hall();
+        hall = manager.getSeatMatrix(id_spettacolo, id_sala);      
+        List<Spettacolo> spettacolo = manager.getSpettacolo(id_spettacolo);
         
         if(hall==null) {
             // Metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
@@ -63,16 +68,10 @@ public class PostiServlet extends HttpServlet {
         else {
             System.out.println(hall.getMapString());
             session.setAttribute("SeatString", hall.getMapString());
+            session.setAttribute("CurrentShow", spettacolo);
             RequestDispatcher rd = request.getRequestDispatcher("/posti.jsp");
             rd.forward(request, response);
         }
-    }
-    
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            processRequest(request, response);
         } catch (Exception ex) {
             request.setAttribute("errorEx", ex);
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
@@ -85,7 +84,7 @@ public class PostiServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
+            //processRequest(request, response);
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");

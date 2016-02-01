@@ -23,6 +23,7 @@ class Seat {
      * @param booked Se é gia prenotata
      */
     public Seat(boolean exists, boolean booked) {
+        
         this.exists = exists;
         this.booked = booked;
     }

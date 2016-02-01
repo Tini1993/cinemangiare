@@ -23,8 +23,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
     </head>
-    
-        
+            
         <%@ include file="navbar.jsp" %>
 
         <p> TTOLO: <c:out value="${FilmSel.titolo}"/> </p>

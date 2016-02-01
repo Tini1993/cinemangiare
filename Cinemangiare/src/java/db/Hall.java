@@ -32,8 +32,8 @@ public class Hall {
      * @param exists
      */
     public void addSeat(int row, int column, boolean exists) {
-        Seat seat = new Seat(exists, false);
-        addSeat(row, column, new Seat(exists, false));
+        Seat seat = new Seat(exists, false);        
+        addSeat(row, column, seat);
     }
     /**
      * Aggiunge una sedia alla sala.
