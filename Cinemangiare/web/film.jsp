@@ -37,7 +37,7 @@
         <c:forEach items="${ShowSel}" var="show">   
             <tr>                        
                 <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}">ORA: ${show.data_ora}</a></td>
-                <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}"> SALA: ${show.id_sala}</a></td>
+                <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}">SALA: ${show.id_sala}</a></td>
             </tr>
         </c:forEach>
         </table>
