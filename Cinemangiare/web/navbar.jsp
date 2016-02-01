@@ -11,15 +11,15 @@
             <ul class="nav navbar-nav">
                 <%--<li><a href="index.html">Home <span class="sr-only">(current)</span></a></li>--%>
                 <li><a href="lista.jsp">I Film </a></li>
-                <li><a href="prices.html">Prezzi </a></li>
-                <li><a href="contact.html">Dove Siamo </a></li>
+                <li><a href="prices.jsp">Prezzi </a></li>
+                <li><a href="contact.jsp">Dove Siamo </a></li>
             </ul>
 
             <c:if test="${empty user}"> 
                 <%-- FORM DI LOGIN IN CASO L'UTENTE SIA SLOGGATO --%>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="register.html">Registrati</a></li>
+                    <li><a href="register.jsp">Registrati</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>Login</b> <span class="caret"></span></a>
                         <ul id="login-dp" class="dropdown-menu">
