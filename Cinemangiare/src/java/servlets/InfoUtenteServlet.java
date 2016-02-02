@@ -5,12 +5,16 @@
  */
 package servlets;
 
+import Bean.Prenotazione;
 import Bean.Utente;
 import db.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,23 +22,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  *
- * @author Gabry147
+ * @author Mattia
  */
 public class InfoUtenteServlet extends HttpServlet {
 
     private DBManager manager;
-    
-    
+
     @Override
     public void init() throws ServletException {
         // Inizializza il DBManager dagli attributi di Application
-        this.manager = (DBManager)super.getServletContext().getAttribute("dbmanager");
-        
+        this.manager = (DBManager) super.getServletContext().getAttribute("dbmanager");
+
     }
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,47 +47,22 @@ public class InfoUtenteServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
         Utente user = (Utente) session.getAttribute("user");
         if (user == null) {
-
-                // Metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
-                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-                rd.forward(request, response);    
+            request.setAttribute("errorMessage", "Utente non esistente !");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
-        //List<Ticket> p = null;
-        //List<TicketInfo> prenotazioni = new ArrayList();
-        
-        /*try {
-            p =  manager.getUserTickets(user.getUserID());
-            for(Ticket t : p) {
-                TicketInfo info = new TicketInfo();
-                info.setIdTicket(t.getIdTicket());
-                Show s = manager.getShow(t.getIdShow());
-                Movie m = manager.getMovie(s.getIdMovie());
-                info.setFilm(m.getTitle());
-                Seat seat = manager.getSeat(t.getIdSeat());
-                int row = seat.getRow()+1;
-                int col = seat.getCol()+1;
-                info.setPosto("Fila: " + row + " Posto: " + col);
-                int price = 0;
-                switch(t.getIdPrice()) {
-                    case 1: price=10; break;
-                    case 2: price=8; break;
-                }
-                info.setPrice(price);
-                info.setData(s.getDateTime());
-                info.setSala(s.getIdHall());
-                prenotazioni.add(info);
-            }
-        } catch(Exception e) {
-            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-            rd.forward(request, response); 
-        }*/
-        //request.setAttribute("prenotazioni", prenotazioni);
+
+        List<Prenotazione> prenotazioni = new ArrayList();
+
+        prenotazioni = manager.getListPrenotazione(user.email);
+
+        request.setAttribute("prenotazioni", prenotazioni);
         RequestDispatcher rd = request.getRequestDispatcher("/utente.jsp");
-        rd.forward(request, response); 
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -100,7 +77,11 @@ public class InfoUtenteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(InfoUtenteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -114,17 +95,10 @@ public class InfoUtenteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(InfoUtenteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
