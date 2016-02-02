@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import Bean.Posto;
 import Bean.Spettacolo;
 import db.DBManager;
 import java.io.IOException;
@@ -54,22 +55,30 @@ public class PostiServlet extends HttpServlet {
         
         int id_spettacolo = Integer.parseInt(request.getParameter("idShow"));
         int id_sala = Integer.parseInt(request.getParameter("idHall"));
-       
-        Hall hall = manager.getSeatMatrix(id_spettacolo, id_sala);      
-        List<Spettacolo> spettacolo = manager.getSpettacolo(id_spettacolo);
         
-        if(hall==null) {
-            // Metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
+        List<Posto> posto = manager.getListPosti(id_spettacolo, id_sala);      
+        //Hall hall = manager.getSeatMatrix(id_spettacolo, id_sala);      
+        //List<Spettacolo> spettacolo = manager.getSpettacolo(id_spettacolo);
+        
+        if(posto == null) {
+            
             request.setAttribute("errorMessage", "Errore durante il caricamento dei posti disponibili!");
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
-        else {
+        /*else {
             System.out.println(hall.getMapString());
             session.setAttribute("SeatString", hall.getMapString());
-            session.setAttribute("CurrentShow", spettacolo);
+            //session.setAttribute("CurrentShow", spettacolo);
             RequestDispatcher rd = request.getRequestDispatcher("/posti.jsp");
             rd.forward(request, response);
+        }*/
+        else{
+            session.setAttribute("ListPosti", posto);
+            //session.setAttribute("SalaSel", id_sala);
+            RequestDispatcher rd = request.getRequestDispatcher("/posti.jsp");
+            rd.forward(request, response);
+            
         }
         } catch (Exception ex) {
             request.setAttribute("errorEx", ex);
