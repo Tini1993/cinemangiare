@@ -2,6 +2,7 @@ package db;
 
 import Bean.Film;
 import Bean.Posto;
+import Bean.Prenotazione;
 import Bean.Spettacolo;
 import Bean.Utente;
 import java.io.File;
@@ -137,7 +138,43 @@ public class DBManager implements Serializable {
         }
     }
     
-    
+    public List<Prenotazione> getListPrenotazione (String email) throws SQLException {
+        List<Prenotazione> listPrenotazione = new ArrayList();
+        
+        PreparedStatement stm = null;
+        //PreparedStatement statement = con.prepareStatement("SELECT titolo FROM film");
+
+        try {
+
+            //ResultSet results = statement.executeQuery();
+            String sqlInsert = "SELECT * FROM prenotazione WHERE email = ?";
+            
+            stm = con.prepareStatement(sqlInsert);
+            stm.setString(1, email);
+            ResultSet results = stm.executeQuery();
+
+            try {
+
+                while (results.next()) {
+                    Prenotazione prenotazione = new Prenotazione();
+                    prenotazione.setId_spettacolo(results.getInt("id_spettacolo"));
+                    prenotazione.setId_prezzo(results.getInt("id_prezzo"));
+                    prenotazione.setId_posto(results.getInt("id_posto"));
+                    prenotazione.setData_ora_prenotazione(results.getTimestamp("data_ora_prenotazione"));
+                    listPrenotazione.add(prenotazione);
+                }
+
+            } finally {
+                // Chiusura del ResultSet, da fare SEMPRE in un blocco finally
+                results.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
+            stm.close();
+        }
+
+        return listPrenotazione;
+    }
 
     public List<Film> getListFilm() throws SQLException {
 
