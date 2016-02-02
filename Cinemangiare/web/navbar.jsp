@@ -68,7 +68,7 @@
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a href="LoadUserInfoServlet"><button type="button" class="btn btn-success" >Visualizza profilo</button></a>
+                                        <a href="InfoUtenteServlet"><button type="button" class="btn btn-success" >Visualizza profilo</button></a>
                                         <button type="button" data-toggle="modal" class="btn btn-info" onclick="location.href = 'LogoutServlet'">Logout</button>
                                     </div>
                                 </div>

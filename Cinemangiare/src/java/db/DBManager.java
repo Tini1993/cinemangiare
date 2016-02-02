@@ -136,6 +136,8 @@ public class DBManager implements Serializable {
             statement.close();
         }
     }
+    
+    
 
     public List<Film> getListFilm() throws SQLException {
 
