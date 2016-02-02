@@ -25,12 +25,25 @@
     </head>
             
         <%@ include file="navbar.jsp" %>
+        
 
-        <p> TTOLO: <c:out value="${FilmSel.titolo}"/> </p>
-        <p> DURATA: <c:out value="${FilmSel.durata}"/> </p>
-        <p> TRAMA: <c:out value="${FilmSel.trama}"/> </p>
-        <p><img src="${FilmSel.url_locandina}"/> </p>
-        <p><iframe width="420" height="315" src="${FilmSel.url_trailer}"></iframe></p>
+<div class="row">
+      <div class="col-xs-6 col-md-4"><img  class="img-responsive center-block" src="${FilmSel.url_locandina}"/> </div>
+
+  <div class="col-xs-12 col-md-8"><p> TITOLO: <c:out value="${FilmSel.titolo}"/> </p>
+      <p> DURATA: <c:out value="${FilmSel.durata}"/> </p>
+        <p> TRAMA: <c:out value="${FilmSel.trama}"/> </div>
+</div>
+
+       <div class="row"> 
+           <div class="col-xs-6 col-md-4"></div>
+           <div class="col-xs-12 col-md-6">
+               
+               <div class="embed-responsive embed-responsive-16by9"> <iframe class=embed-responsive-item src="${FilmSel.url_trailer}" allowfullscreen></iframe> </div>
+               
+           </div>
+        </div>
+        
         
         <table class="table table-striped">
         <c:forEach items="${ShowSel}" var="show">   
