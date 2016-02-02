@@ -15,6 +15,7 @@ public class Utente {
     public String password;
     public double credito;
     public int id_ruolo;
+    public int paga;
     
     public Utente(){
         
@@ -51,5 +52,14 @@ public class Utente {
     public void setId_ruolo(int id_ruolo) {
         this.id_ruolo = id_ruolo;
     }
+    
+    public int getPAGA() {
+        return paga;
+    }
+
+    public void setPaga(int paga) {
+        this.paga = paga;
+    }
+    
     
 }

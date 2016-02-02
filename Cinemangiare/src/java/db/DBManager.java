@@ -583,22 +583,76 @@ public class DBManager implements Serializable {
           
       }
       
-      public void getIncassi() throws SQLException{
-           //QUERY
+      public List<Film> getIncassi() throws SQLException{
+         
+        //QUERY
+       List<Film> listFilm = new ArrayList();
+        
         PreparedStatement stm = null;
-        String slqQuery = "SELECT ID_FILM, SUM(PREZZO) FROM PROGRAMMAZION NATURAL JOIN PREZZO NATURAL JOIN SPETTACOLO GROUP BY ID_FILM";
-        stm = con.prepareStatement(slqQuery);
-        stm.close();
+
+        try {
+
+            String slqQuery = "SELECT id_film, titolo, incassi SUM(prezzo) FROM prenotazioni NATURAL JOIN prezzo NATURAL JOIN spettacolo GROUP BY id_film";
+            stm = con.prepareStatement(slqQuery);
+
+            ResultSet results = stm.executeQuery();
+            
+            try {
+                while (results.next()) {
+                    Film film = new Film();
+                    film.setId(results.getInt("id_film"));
+                    film.setTitolo(results.getString("titolo"));
+                    film.setIncassi(results.getInt("incassi"));
+                    
+                    listFilm.add(film);
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                results.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        return listFilm;
           
           
       }
       
-      public void getTopClient() throws SQLException{
-           //QUERY
+      public List<Utente> getTopClient() throws SQLException{
+
+      
+      //QUERY
+       List<Utente> listUtente = new ArrayList();
+        
         PreparedStatement stm = null;
-        String slqQuery = "SELECT ID_UTENTE, SUM(PREZZO) FROM UTENTE NATURAL JOIN SPETTACOLO NATURAL JOIN PREZZO GROUP BY ID_UTENTE";
-        stm = con.prepareStatement(slqQuery);
-        stm.close();
+
+        try {
+
+            String slqQuery = "SELECT email, paga AS SUM(prezzo) FROM utente NATURAL JOIN spettacolo NATURAL JOIN prezzo GROUP BY email ORDER BY paga";
+            stm = con.prepareStatement(slqQuery);
+
+            ResultSet results = stm.executeQuery();
+            
+            try {
+                while (results.next()) {
+                    Utente utente = new Utente();
+                    utente.setEmail(results.getString("email"));
+                    utente.setPaga(results.getInt("paga"));
+                    
+                    listUtente.add(utente);
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                results.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        return listUtente;
       }
      
     
