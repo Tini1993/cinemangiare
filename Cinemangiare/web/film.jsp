@@ -25,14 +25,23 @@
     </head>
             
         <%@ include file="navbar.jsp" %>
-        
-
+ <div class="container">        
+<div class="col-xs-12" style="height:50px;"></div>
+ 
 <div class="row">
       <div class="col-xs-6 col-md-4"><img  class="img-responsive center-block" src="${FilmSel.url_locandina}"/> </div>
 
-  <div class="col-xs-12 col-md-8"><p> TITOLO: <c:out value="${FilmSel.titolo}"/> </p>
-      <p> DURATA: <c:out value="${FilmSel.durata}"/> </p>
-        <p> TRAMA: <c:out value="${FilmSel.trama}"/> </div>
+  <div class="col-xs-12 col-md-8">
+
+         
+      <p><h2 class="text-uppercase">${FilmSel.titolo}   <span class="label label-default">New</span></h2> </p>
+
+      <p> DURATA: ${FilmSel.durata}min </p>
+
+      <p><h4>${FilmSel.trama}</h4> </p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">prenota</a></p>
+
+  </div>
 </div>
 
        <div class="row"> 
@@ -44,7 +53,8 @@
            </div>
         </div>
         
-        
+
+
         <table class="table table-striped">
         <c:forEach items="${ShowSel}" var="show">   
             <tr>                        

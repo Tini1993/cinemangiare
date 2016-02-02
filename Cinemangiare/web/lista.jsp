@@ -44,13 +44,15 @@
  
                         <c:set var="count" value="${count + 1}" scope="page"/>
                         <div class="col-md-3 portfolio-item">
+                            <div class="thumbnail">
                         <a href="FilmServlet?titolo=${film.titolo}">
                     <img class="img-responsive" src="${film.url_locandina}" alt="${film.titolo}">
                 </a>
                 <h3>
-                    <a href="FilmServlet?titolo=${film.titolo}">${film.titolo}</a>
+                    <a class="text-uppercase center-block" href="FilmServlet?titolo=${film.titolo}">${film.titolo}</a>
                 </h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+ <!--               <p class="center-block"><a href="#" class="btn btn-primary" role="button">Prenota</a> <a href="FilmServlet?titolo=${film.titolo}" class="btn btn-default" role="button">Info</a></p>-->
+                </div>
                 </div>
                         <c:choose>
                               <c:when test="${count== '4'}">
@@ -58,16 +60,11 @@
                                  <c:set var="count" value="${count = '0'}" scope="page"/>
                                 </c:when>                           
                         </c:choose>
- 
-                            <%-- link del tipo http://localhost:8080/Cinemangiare/FilmServlet?titolo=XXYYZZ , è un GET brutale ma giusto --%>
-                          <!--  <a href="FilmServlet?titolo=${film.titolo}">${film.titolo}
-                            <img src="${film.url_locandina}"/>
-                            -->
                         
                         
                     </c:forEach>
 
- <c:choose>
+                        <c:choose>
                               <c:when test="${count < '4'}">
                                  </div>
                                  <c:set var="count" value="${count = '0'}" scope="page"/>
