@@ -1,6 +1,7 @@
 package db;
 
 import Bean.Film;
+import Bean.Posto;
 import Bean.Spettacolo;
 import Bean.Utente;
 import java.io.File;
@@ -248,6 +249,43 @@ public class DBManager implements Serializable {
  
 
         return listSpettacolo;
+    }
+    
+    public List<Posto> getListPosti(int id_spettacolo, int id_sala) throws SQLException {
+        List<Posto> listPosti = new ArrayList();
+        
+        PreparedStatement stm = null;
+
+        try {
+
+            String sqlInsert = "SELECT * FROM posto NATURAL JOIN sala WHERE id_sala=? ORDER BY riga, colonna ASC";
+            stm = con.prepareStatement(sqlInsert);
+
+            stm.setInt(1, id_sala);
+
+            ResultSet results = stm.executeQuery();
+            
+            try {
+                while (results.next()) {
+                    Posto posto = new Posto();
+                    posto.setId(results.getInt("id_posto"));
+                    posto.setId_sala(results.getInt("id_sala"));
+                    posto.setRiga(results.getInt("riga"));
+                    posto.setColonna(results.getInt("colonna"));
+                    posto.setEsiste(results.getBoolean("esiste"));
+                    listPosti.add(posto);
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                results.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+ 
+        return listPosti;
     }
 
     /**

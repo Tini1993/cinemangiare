@@ -9,11 +9,13 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.*"%>
 <%@page import="Bean.Film"%>
+<%@page import="Bean.Posto"%>
 
 <!DOCTYPE html>
 <html>
 
     <head>
+        <link rel="stylesheet" href="css/jquery.seat-charts.css">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,191 +29,152 @@
     <body>
         <%@ include file="navbar.jsp" %>
 
-        <div class="container modContainer" id="allContent">
-
-            <div class="row">
-                <div class="col-sm-8 ">
-                    <div id="steps">
-                        <div class="step" data-desc="Data e ora">1</div>
-                        <div class="step active" data-desc="Posizine posti">2</div>
-                        <div class="step " data-desc="Sconti">3</div>
-                        <div class="step" data-desc="Info pagameno">4</div>
-                    </div>
-                    <h1>SELEZIONA I POSTI CHE TI INTERESSANO</h1>
-                    <div class="row">
-                        <div class="col-sm-8" id="seat-map">
-
-                            <div class="front-indicator">Schermo</div>
-                            <br>                              
-                        </div>                             
-                    </div>
-                    <br>
-                    <div id="legend"></div>
-                </div>
-
-
-                <div class="col-sm-4">
-                    <h1>Riepilogo prenotazione</h1>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">${Movie.title}</h3>
-                        </div>
-                        <div class="panel-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <span class="badge" id="selData">${CurrentShow.dayFormatted}</span>
-                                    Data
-                                </li>
-                                <li class="list-group-item">
-                                    <span class="badge" id="selOra">${CurrentShow.timeFormatted}</span>
-                                    Ora
-                                </li>
-                                <li class="list-group-item">
-                                    <span class="badge" id="selSala">${CurrentShow.idHall}</span>
-                                    Sala
-                                </li>
-                            </ul>
-                            <ol class="list-group booking-details" id="selected-seats">
-                                <h3> Posti selezionati <span id="counter">0</span>):</h3>
-
-
-                            </ol>
-                        </div>
-                        <div class="panel-footer">
-                            Totale: <span id="euro"> <b>€ <span id="total">0</span></b> </span>
-                        </div>
-                    </div>
-                    <a href="#" class="btn btn-success" id="createJSON">Procedi</a>
-                </div>
-            </div>
+        <h1>SELEZIONA I POSTI CHE TI INTERESSANO</h1>
+        <div class="row">
+            <div class="col-sm-8" id="seat-map">
+                <div class="front-indicator">Schermo</div>
+                <br>                              
+            </div>                             
         </div>
+        <br>
+        <div id="legend"></div>
 
-        <script src="js/jquery.seat-charts.js"></script>
-        <script>
-            <c:if test="${SeatString != null}">
-            var posti = ${SeatString};
-            </c:if>
-            <c:if test="${SeatString == null}">
-            var posti = ['_'];
-            </c:if>
-        </script>
-        <script>
-            var firstSeatLabel = 1;
-            var $cart = $('#selected-seats');
-            var sc;
-            $(document).ready(function () {
+        <h1>Riepilogo prenotazione</h1>
+        <%--<p> ${ShowSel.xx}</p>--%>
+
+        <ol class="list-group booking-details" id="selected-seats">
+            <h3> Posti selezionati <span id="counter">0</span>):</h3>
+
+            Totale: <span id="euro"> <b>€ <span id="total">0</span></b> </span>
+
+            <a href="#" class="btn btn-success" id="createJSON">Procedi</a>
+        </ol>
+            <script src="js/jquery.seat-charts.js"></script>
+            <script>
+                <c:if test="${ListPosti != null}">
+                var posti = ${ListPosti};
+                </c:if>
+                <c:if test="${ListPosti == null}">
+                var posti = ['_'];
+                </c:if>
+            </script>
+            <script>
+                var firstSeatLabel = 1;
+                var $cart = $('#selected-seats');
+                var sc;
+                $(document).ready(function () {
 
 
-                var $counter = $('#counter'),
-                        $total = $('#total');
-                sc = $('#seat-map').seatCharts({
-                    map: posti,
-                    seats: {
-                        s: {
-                            price: 10,
-                            classes: 'economy-class',
-                            category: 'Standard'
-                        }
+                    var $counter = $('#counter'),
+                            $total = $('#total');
+                    sc = $('#seat-map').seatCharts({
+                        map: posti,
+                        seats: {
+                            s: {
+                                price: 10,
+                                classes: 'economy-class',
+                                category: 'Standard'
+                            }
 
-                    },
-                    naming: {
-                        top: false,
-                        getLabel: function (character, row, column) {
-                            return firstSeatLabel++;
                         },
-                    },
-                    legend: {
-                        node: $('#legend'),
-                        items: [
-                            ['s', 'available', 'Standard'],
-                            ['u', 'unavailable', 'Non disponibile']
-                        ]
-                    },
-                    click: function () {
-                        if (this.status() == 'available') {
-                            //let's create a new <li> which we'll add to the cart items
-                            $('<li class="list-group-item"><span class="badge"> # ' + this.settings.label + ': <b>€' + this.data().price + '</b> <a href="#" class="cancel-cart-item">[cancella]</a></span> Posto ' + this.data().category + '</li>')
-                                    .attr('id', 'cart-item-' + this.settings.id)
-                                    .data('seatId', this.settings.id)
-                                    .appendTo($cart);
+                        naming: {
+                            top: false,
+                            getLabel: function (character, row, column) {
+                                return firstSeatLabel++;
+                            },
+                        },
+                        legend: {
+                            node: $('#legend'),
+                            items: [
+                                ['s', 'available', 'Standard'],
+                                ['u', 'unavailable', 'Non disponibile']
+                            ]
+                        },
+                        click: function () {
+                            if (this.status() == 'available') {
+                                //let's create a new <li> which we'll add to the cart items
+                                $('<li class="list-group-item"><span class="badge"> # ' + this.settings.label + ': <b>€' + this.data().price + '</b> <a href="#" class="cancel-cart-item">[cancella]</a></span> Posto ' + this.data().category + '</li>')
+                                        .attr('id', 'cart-item-' + this.settings.id)
+                                        .data('seatId', this.settings.id)
+                                        .appendTo($cart);
 
-                            /*
-                             * Lets update the counter and total
-                             *
-                             * .find function will not find the current seat, because it will change its stauts only after return
-                             * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
-                             */
-                            $counter.text(sc.find('selected').length + 1);
-                            $total.text(recalculateTotal(sc) + this.data().price);
+                                /*
+                                 * Lets update the counter and total
+                                 *
+                                 * .find function will not find the current seat, because it will change its stauts only after return
+                                 * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
+                                 */
+                                $counter.text(sc.find('selected').length + 1);
+                                $total.text(recalculateTotal(sc) + this.data().price);
 
-                            return 'selected';
-                        } else if (this.status() == 'selected') {
-                            //update the counter
-                            $counter.text(sc.find('selected').length - 1);
-                            //and total
-                            $total.text(recalculateTotal(sc) - this.data().price);
+                                return 'selected';
+                            } else if (this.status() == 'selected') {
+                                //update the counter
+                                $counter.text(sc.find('selected').length - 1);
+                                //and total
+                                $total.text(recalculateTotal(sc) - this.data().price);
 
-                            //remove the item from our cart
-                            $('#cart-item-' + this.settings.id).remove();
+                                //remove the item from our cart
+                                $('#cart-item-' + this.settings.id).remove();
 
-                            //seat has been vacated
-                            return 'available';
-                        } else if (this.status() == 'unavailable') {
-                            //seat has been already booked
-                            return 'unavailable';
-                        } else {
-                            return this.style();
+                                //seat has been vacated
+                                return 'available';
+                            } else if (this.status() == 'unavailable') {
+                                //seat has been already booked
+                                return 'unavailable';
+                            } else {
+                                return this.style();
+                            }
                         }
-                    }
+                    });
+
+                    //this will handle "[cancel]" link clicks
+                    $('#selected-seats').on('click', '.cancel-cart-item', function () {
+                        //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
+                        sc.get($(this).parents('li:first').data('seatId')).click();
+                    });
+
+                    //let's pretend some seats have already been booked
+                    //Make all available 'u' seats unavailable
+                    sc.find('u.available').status('unavailable');
+
                 });
 
-                //this will handle "[cancel]" link clicks
-                $('#selected-seats').on('click', '.cancel-cart-item', function () {
-                    //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
-                    sc.get($(this).parents('li:first').data('seatId')).click();
-                });
+                function recalculateTotal(sc) {
+                    var total = 0;
 
-                //let's pretend some seats have already been booked
-                //Make all available 'u' seats unavailable
-                sc.find('u.available').status('unavailable');
+                    //basically find every selected seat and sum its price
+                    sc.find('selected').each(function () {
+                        total += this.data().price;
+                    });
 
-            });
-
-            function recalculateTotal(sc) {
-                var total = 0;
-
-                //basically find every selected seat and sum its price
-                sc.find('selected').each(function () {
-                    total += this.data().price;
-                });
-
-                return total;
-            }
+                    return total;
+                }
 
 
-        </script>
-        <script>
-            var selSeat = [];
-            var postiSel = "";
-            var showId = "${CurrentShow.idShow}";
-            var hallId = "${CurrentShow.idHall}";
-            $("#createJSON").on('click', function () {
-                //console.log($("#seat-map").find('div.selected').text());
-                $("div.selected").each(function () {
+            </script>
+            <script>
+                var selSeat = [];
+                var postiSel = "";
+                var showId = "${CurrentShow.idShow}";
+                var hallId = "${CurrentShow.idHall}";
+                $("#createJSON").on('click', function () {
+                    //console.log($("#seat-map").find('div.selected').text());
+                    $("div.selected").each(function () {
 
-                    selSeat.push($(this).attr('id'));
-                });
-                postiString = selSeat.join(",");
-                console.log(postiString);
-                post('DisponibilitàPostiServlet', {postiString: postiString, showId: showId, hallId: hallId});
-            }
-            );
-        </script>
+                        selSeat.push($(this).attr('id'));
+                    });
+                    postiString = selSeat.join(",");
+                    console.log(postiString);
+                    post('DisponibilitàPostiServlet', {postiString: postiString, showId: showId, hallId: hallId});
+                }
+                );
+            </script>
 
-    </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
