@@ -54,9 +54,8 @@ public class PostiServlet extends HttpServlet {
         
         int id_spettacolo = Integer.parseInt(request.getParameter("idShow"));
         int id_sala = Integer.parseInt(request.getParameter("idHall"));
-        
-        Hall hall = new Hall();
-        hall = manager.getSeatMatrix(id_spettacolo, id_sala);      
+       
+        Hall hall = manager.getSeatMatrix(id_spettacolo, id_sala);      
         List<Spettacolo> spettacolo = manager.getSpettacolo(id_spettacolo);
         
         if(hall==null) {
