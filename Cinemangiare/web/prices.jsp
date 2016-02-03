@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="it">
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@page import="java.util.*"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <head>
   <meta charset="utf-8">
@@ -56,7 +58,7 @@
             <h3 class="panel-title">Disabili</h3>
           </div>
           <div class="panel-body">
-            Affetti da disabilità
+            Affetti da disabilità 
             <span class="badge">5£</span>
           </div>
         </div>
