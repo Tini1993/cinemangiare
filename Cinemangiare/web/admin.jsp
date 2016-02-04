@@ -25,8 +25,7 @@
         <table class="table table-striped">
         <c:forEach items="${ShowSel}" var="show">   
             <tr>                        
-                <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}">SPETTACOLO: ${show.id_spettacolo}</a></td>
-                <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}"> SALA: ${show.id_sala}</a></td>
+                <td>SPETTACOLO: ${show.id_spettacolo} SALA: ${show.id_sala} INCASSI: ${show.prezzo} </td>
             </tr>
         </c:forEach>
         </table>

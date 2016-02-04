@@ -58,6 +58,7 @@ public class AdminServlet extends HttpServlet {
                 
             } else {
                 session.setAttribute("ShowSel", spettacolo);
+                System.out.println("weeeee" + spettacolo.get(0).getPrezzo());
                 RequestDispatcher rd = request.getRequestDispatcher("/admin.jsp");
                 rd.forward(request, response);
             }
@@ -82,6 +83,7 @@ public class AdminServlet extends HttpServlet {
 
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
+            request.setAttribute("errorEx", ex);
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }

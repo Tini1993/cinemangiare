@@ -663,8 +663,8 @@ public class DBManager implements Serializable {
                     Spettacolo spettacolo = new Spettacolo();
                     spettacolo.setId_spettacolo(results.getInt("id_spettacolo"));
                     spettacolo.setId_film(results.getInt("id_film"));
-                    spettacolo.set_prezzo(results.getInt("prezzo"));
-                    spettacolo.set_posti(results.getInt("posti"));
+                    spettacolo.setPrezzo(results.getInt("prezzo"));
+                    spettacolo.setPosti(results.getInt("posti"));
                     spettacolo.setId_sala(results.getInt("id_sala"));
                     
                     listSpettacolo.add(spettacolo);

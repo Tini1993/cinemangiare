@@ -55,20 +55,34 @@ public class Spettacolo {
     public void setId_sala(int id_sala) {
         this.id_sala = id_sala;
     }
-    
-     public int get_prezzo(){
+
+    /**
+     * @return the prezzo
+     */
+    public int getPrezzo() {
         return prezzo;
     }
-     
-     public void set_prezzo(int prezzo){
-         this.prezzo=prezzo;
-     }
-     
-     public int get_posti(){
+
+    /**
+     * @param prezzo the prezzo to set
+     */
+    public void setPrezzo(int prezzo) {
+        this.prezzo = prezzo;
+    }
+
+    /**
+     * @return the posti
+     */
+    public int getPosti() {
         return posti;
     }
+
+    /**
+     * @param posti the posti to set
+     */
+    public void setPosti(int posti) {
+        this.posti = posti;
+    }
+    
      
-     public void set_posti(int posti){
-         this.posti=posti;
-     }
 }
