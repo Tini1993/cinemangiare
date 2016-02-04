@@ -3,6 +3,7 @@ package db;
 import Bean.Film;
 import Bean.Posto;
 import Bean.Prenotazione;
+import Bean.Price;
 import Bean.Spettacolo;
 import Bean.Utente;
 import java.io.File;
@@ -753,6 +754,41 @@ public class DBManager implements Serializable {
         return listUtente;
       }
      
+      public List<Price> getPrice() throws SQLException{
+
+      
+      //QUERY
+       List<Price> listPrice = new ArrayList();
+        
+        PreparedStatement stm = null;
+
+        try {
+
+            String slqQuery = "SELECT id_prezzo, tipo, prezzo FROM prezzo";
+            stm = con.prepareStatement(slqQuery);
+
+            ResultSet results = stm.executeQuery();
+            
+            try {
+                while (results.next()) {
+                    Price price = new Price();
+                    price.setId(results.getInt("id_prezzo"));
+                    price.setTipo(results.getString("tipo"));
+                    price.setPrezzo(results.getInt("prezzo"));
+                    
+                    listPrice.add(price);
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                results.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        return listPrice;
+      }
     
 
 }

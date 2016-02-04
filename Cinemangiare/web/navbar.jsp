@@ -10,8 +10,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <%--<li><a href="index.html">Home <span class="sr-only">(current)</span></a></li>--%>
-                <li><a href="lista.jsp">I Film </a></li>
-                <li><a href="prices.jsp">Prezzi </a></li>
+                <li><a href="ListaFilmServlet">I Film </a></li>
+                <li><a href="PriceServlet">Prezzi </a></li>
                 <li><a href="contact.jsp">Dove Siamo </a></li>
             </ul>
 
