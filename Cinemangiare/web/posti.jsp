@@ -62,7 +62,7 @@
             </script>
             <script>
                 
-               var posti=['sss_sss','sss_uus'];
+               //var posti=['sss_sss','sss_uus'];
                 var firstSeatLabel = 1;
                 var $cart = $('#selected-seats');
                 var sc;
@@ -101,6 +101,8 @@
                                         .attr('id', 'cart-item-' + this.settings.id)
                                         .data('seatId', this.settings.id)
                                         .appendTo($cart);
+                                
+                                
 
                                 /*
                                  * Lets update the counter and total

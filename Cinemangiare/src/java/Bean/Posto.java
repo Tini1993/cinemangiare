@@ -16,6 +16,7 @@ public class Posto {
     public int riga;
     public int colonna;
     public boolean esiste;
+    public boolean prenotato;
     
     public Posto(){
         
@@ -60,5 +61,15 @@ public class Posto {
     public void setEsiste(boolean esiste) {
         this.esiste = esiste;
     }
+
+    public boolean isPrenotato() {
+        return prenotato;
+    }
+
+    public void setPrenotato(boolean prenotato) {
+        this.prenotato = prenotato;
+    }
+    
+    
     
 }

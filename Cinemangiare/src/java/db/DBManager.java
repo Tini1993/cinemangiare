@@ -292,36 +292,57 @@ public class DBManager implements Serializable {
     
     public List<Posto> getListPosti(int id_spettacolo, int id_sala) throws SQLException {
         List<Posto> listPosti = new ArrayList();
-        
-        PreparedStatement stm = null;
+      
+        PreparedStatement stmTotali = null;
+        PreparedStatement stmOccupati = null;
 
         try {
 
-            String sqlInsert = "SELECT * FROM posto NATURAL JOIN sala WHERE id_sala=? ORDER BY riga, colonna ASC";
-            stm = con.prepareStatement(sqlInsert);
+            String sqlQueryPostiTotali = "SELECT * FROM posto NATURAL JOIN sala WHERE id_sala=? AND id_posto NOT IN (SELECT id_posto FROM posto NATURAL JOIN sala NATURAL JOIN prenotazione WHERE id_sala=? ORDER BY riga, colonna ASC) ORDER BY riga, colonna ASC";
+            String sqlQueryPostiOccupati = "SELECT * FROM posto NATURAL JOIN sala NATURAL JOIN prenotazione WHERE id_sala=? ORDER BY riga, colonna ASC";
+            stmTotali = con.prepareStatement(sqlQueryPostiTotali);
+            stmOccupati = con.prepareStatement(sqlQueryPostiOccupati);
 
-            stm.setInt(1, id_sala);
+            stmTotali.setInt(1, id_sala);
+            stmTotali.setInt(2, id_sala);
+            stmOccupati.setInt(1, id_sala);
 
-            ResultSet results = stm.executeQuery();
+
+            ResultSet resultsTotali = stmTotali.executeQuery();
+            ResultSet resultsOccupati = stmOccupati.executeQuery();
             
             try {
-                while (results.next()) {
+                while (resultsTotali.next()) {
                     Posto posto = new Posto();
-                    posto.setId(results.getInt("id_posto"));
-                    posto.setId_sala(results.getInt("id_sala"));
-                    posto.setRiga(results.getInt("riga"));
-                    posto.setColonna(results.getInt("colonna"));
-                    posto.setEsiste(results.getBoolean("esiste"));
+                    posto.setId(resultsTotali.getInt("id_posto"));
+                    posto.setId_sala(resultsTotali.getInt("id_sala"));
+                    posto.setRiga(resultsTotali.getInt("riga"));
+                    posto.setColonna(resultsTotali.getInt("colonna"));
+                    posto.setEsiste(resultsTotali.getBoolean("esiste"));
+                    posto.setPrenotato(false);
+                    listPosti.add(posto);
+                }
+                
+                while (resultsOccupati.next()) {
+                    Posto posto = new Posto();
+                    posto.setId(resultsOccupati.getInt("id_posto"));
+                    posto.setId_sala(resultsOccupati.getInt("id_sala"));
+                    posto.setRiga(resultsOccupati.getInt("riga"));
+                    posto.setColonna(resultsOccupati.getInt("colonna"));
+                    posto.setEsiste(resultsOccupati.getBoolean("esiste"));
+                    posto.setPrenotato(true);
                     listPosti.add(posto);
                 }
                 
             } finally {
                 // Chiusura del ResultSet
-                results.close();
+                resultsTotali.close();
+                resultsOccupati.close();
             }
         } finally {
             // Chiusura del PreparedStatement
-            stm.close();
+            stmTotali.close();
+            stmOccupati.close();
         }
  
         return listPosti;
