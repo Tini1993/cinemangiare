@@ -121,11 +121,12 @@ public class DBManager implements Serializable {
         // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! ***
 
         // l'id_utente bisogna mettere che si autoinvremente
-        PreparedStatement statement = con.prepareStatement("INSERT INTO utente(email, password) VALUES (?, ?)");
+        PreparedStatement statement = con.prepareStatement("INSERT INTO utente(email, password, id_ruolo) VALUES (?, ?, ?)");
 
         try {
             statement.setString(1, userEmail); // il primo "?" nella query è la mail dell'user
             statement.setString(2, password); // il secondo "?" è la psw dell'user
+            statement.setInt(3,2); // setto utente come utente
 
             int i = statement.executeUpdate();
 

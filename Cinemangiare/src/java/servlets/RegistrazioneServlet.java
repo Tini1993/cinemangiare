@@ -41,6 +41,6 @@ public class RegistrazioneServlet extends HttpServlet {
         }
         
         // mando un redirect a un'altra servlet
-        resp.sendRedirect(req.getContextPath() + "/index.html");
+        resp.sendRedirect(req.getContextPath() + "/index.jsp");
     }
 }
