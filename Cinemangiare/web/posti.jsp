@@ -49,6 +49,8 @@
 
             <a href="#" class="btn btn-success" id="createJSON">Procedi</a>
         </ol>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
             <script src="js/jquery.seat-charts.js"></script>
             <script>
                 <c:if test="${ListPosti != null}">
@@ -59,6 +61,8 @@
                 </c:if>
             </script>
             <script>
+                
+               var posti=['sss_sss','sss_uus'];
                 var firstSeatLabel = 1;
                 var $cart = $('#selected-seats');
                 var sc;
@@ -172,8 +176,7 @@
             </script>
 
         </div>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
 </body>

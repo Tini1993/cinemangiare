@@ -27,6 +27,6 @@ public class LogoutServlet extends HttpServlet {
             sessione.invalidate();
         }
 
-        resp.sendRedirect(req.getContextPath() + "/lista.jsp");
+        resp.sendRedirect(req.getContextPath() + "/ListaFilmServlet");
     }
 }
