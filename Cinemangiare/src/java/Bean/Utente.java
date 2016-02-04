@@ -54,11 +54,18 @@ public class Utente {
     }
     
     public int getPAGA() {
-        return paga;
+        return getPaga();
     }
 
     public void setPaga(int paga) {
         this.paga = paga;
+    }
+
+    /**
+     * @return the paga
+     */
+    public int getPaga() {
+        return paga;
     }
     
     

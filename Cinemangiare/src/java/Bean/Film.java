@@ -18,7 +18,7 @@ public class Film {
     public String url_trailer;
     public String trama;
     public String uri_locandina;
-    private int incassi;
+    public int incassi;
     
     public Film() {
     }

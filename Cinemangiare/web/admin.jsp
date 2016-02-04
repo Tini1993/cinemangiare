@@ -24,8 +24,21 @@
         
         <table class="table table-striped">
         <c:forEach items="${ShowSel}" var="show">   
-            <tr>                        
-                <td>SPETTACOLO: ${show.id_spettacolo} SALA: ${show.id_sala} INCASSI: ${show.prezzo} </td>
+            <tr>    
+                <td> INCASSO PER SPETTAOLO </td> 
+                <td>SPETTACOLO: ${show.id_spettacolo} SALA: ${show.id_sala} POSTI PRENOTATI: ${show.posti} DATA: ${show.data_ora} INCASSI: ${show.prezzo} € </td>
+            </tr>
+        </c:forEach>
+            <c:forEach items="${Incassi}" var="incassi">   
+            <tr>
+                <td> INCASSO PER FILM </td>
+                <td>TITOLO: ${incassi.titolo} INCASSI: ${incassi.incassi} €</td>
+            </tr>
+        </c:forEach>
+        <c:forEach items="${Utente}" var="utente">   
+            <tr>
+                <td> INCASSO PER UTENTE </td>
+                <td>UTENTE: ${utente.email} INCASSI: ${utente.paga} € </td>
             </tr>
         </c:forEach>
         </table>

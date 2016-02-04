@@ -653,7 +653,7 @@ public class DBManager implements Serializable {
 
         try {
 
-            String slqQuery = "SELECT COUNT (id_posto) AS posti, id_film, id_sala, id_spettacolo, SUM (prezzo) AS prezzo FROM prenotazione NATURAL JOIN prezzo NATURAL JOIN spettacolo GROUP BY id_spettacolo, id_film, id_sala";
+            String slqQuery = "SELECT COUNT (id_posto) AS posti, id_film, id_sala, id_spettacolo, SUM (prezzo) AS prezzo, titolo, data_ora FROM prenotazione NATURAL JOIN prezzo NATURAL JOIN spettacolo NATURAL JOIN film GROUP BY id_spettacolo, id_film, id_sala, titolo, data_ora";
             stm = con.prepareStatement(slqQuery);
 
             ResultSet results = stm.executeQuery();
@@ -666,6 +666,8 @@ public class DBManager implements Serializable {
                     spettacolo.setPrezzo(results.getInt("prezzo"));
                     spettacolo.setPosti(results.getInt("posti"));
                     spettacolo.setId_sala(results.getInt("id_sala"));
+                    spettacolo.setTitolo(results.getString("titolo"));
+                    spettacolo.setData_ora(results.getTimestamp("data_ora"));
                     
                     listSpettacolo.add(spettacolo);
                 }
@@ -729,7 +731,7 @@ public class DBManager implements Serializable {
 
         try {
 
-            String slqQuery = "SELECT email, SUM(prezzo) AS paga FROM utente NATURAL JOIN spettacolo NATURAL JOIN prezzo GROUP BY email ORDER BY paga";
+            String slqQuery = "SELECT email, SUM(prezzo) AS paga FROM utente NATURAL JOIN prenotazione NATURAL JOIN prezzo GROUP BY email ORDER BY paga";
             stm = con.prepareStatement(slqQuery);
 
             ResultSet results = stm.executeQuery();

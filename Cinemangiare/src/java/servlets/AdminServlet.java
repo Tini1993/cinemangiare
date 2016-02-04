@@ -8,6 +8,7 @@ package servlets;
 import Bean.Film;
 import Bean.Prenotazione;
 import Bean.Spettacolo;
+import Bean.Utente;
 import db.DBManager;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -48,6 +49,8 @@ public class AdminServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
             
             List <Spettacolo> spettacolo = manager.getVendorSeat();
+            List <Film> incassi = manager.getIncassi();
+            List<Utente> utente = manager.getTopClient();
             
             // guardo se la query ha dato dei risultati
             if (spettacolo == null) {
@@ -58,6 +61,8 @@ public class AdminServlet extends HttpServlet {
                 
             } else {
                 session.setAttribute("ShowSel", spettacolo);
+                session.setAttribute("Incassi", incassi);
+                session.setAttribute("Utente",utente);
                 System.out.println("weeeee" + spettacolo.get(0).getPrezzo());
                 RequestDispatcher rd = request.getRequestDispatcher("/admin.jsp");
                 rd.forward(request, response);

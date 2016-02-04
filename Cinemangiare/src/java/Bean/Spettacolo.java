@@ -22,6 +22,7 @@ public class Spettacolo {
     public int id_sala;
     public int prezzo;
     public int posti;
+    public String titolo;
 
     public int getId_spettacolo() {
         return id_spettacolo;
@@ -82,6 +83,20 @@ public class Spettacolo {
      */
     public void setPosti(int posti) {
         this.posti = posti;
+    }
+
+    /**
+     * @return the titolo
+     */
+    public String getTitolo() {
+        return titolo;
+    }
+
+    /**
+     * @param titolo the titolo to set
+     */
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
     }
     
      
