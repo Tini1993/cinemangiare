@@ -26,7 +26,7 @@
         <c:forEach items="${ShowSel}" var="show">   
             <tr>    
                 <td> INCASSO PER SPETTAOLO </td> 
-                <td>SPETTACOLO: ${show.id_spettacolo} SALA: ${show.id_sala} POSTI PRENOTATI: ${show.posti} DATA: ${show.data_ora} INCASSI: ${show.prezzo} € </td>
+                <td>SPETTACOLO: ${show.id_spettacolo} SALA: ${show.id_sala} FILM: ${show.titolo} POSTI PRENOTATI: ${show.posti} DATA: ${show.data_ora} INCASSI: ${show.prezzo} € </td>
             </tr>
         </c:forEach>
             <c:forEach items="${Incassi}" var="incassi">   
