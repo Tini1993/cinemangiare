@@ -45,26 +45,7 @@ public class AdminServlet extends HttpServlet {
      */
      protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
        
-        
-    }
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-           try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            request.setAttribute("errorMessage", "Errore durante login admin!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
-            rd.forward(request, response);
-        }
-    }
-    
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      int i=0;
-        try {
-
-            HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(true);
             
             List <Spettacolo> spettacolo = manager.getVendorSeat();
             
@@ -80,6 +61,24 @@ public class AdminServlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/admin.jsp");
                 rd.forward(request, response);
             }
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+           try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            request.setAttribute("errorMessage", "Errore durante login admin!");
+            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            rd.forward(request, response);
+        }
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      
+        try {
+            processRequest(request,response);
 
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
