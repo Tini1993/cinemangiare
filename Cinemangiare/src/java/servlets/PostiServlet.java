@@ -101,7 +101,8 @@ public class PostiServlet extends HttpServlet {
                 rd.forward(request, response);
             } else {
                 session.setAttribute("ListPosti", postiStringa);
-                //session.setAttribute("SalaSel", id_sala);
+                session.setAttribute("idShow", id_spettacolo);
+                session.setAttribute("idHall", id_sala);
                 RequestDispatcher rd = request.getRequestDispatcher("/posti.jsp");
                 rd.forward(request, response);
             }

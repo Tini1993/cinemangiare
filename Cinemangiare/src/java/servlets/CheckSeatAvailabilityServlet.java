@@ -1,38 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package servlets;
 
 import Bean.Prenotazione;
-import db.DBManager;
-import db.Hall;
+import db.DBManager;import db.Hall;
+;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 /**
- * Servlet che serve per verificare se il posto scelto è effettivamente disponibile
- * @author Mattia
+ * Servlet che si occupa di controllare se effettivamente i posti scelti nella
+ * griglia della sala sono disponibili
+ * Gli ID dei posti che l'utente sta tentando di prenotare sono disponibili
+ * come valori interi separati da una virgola l'uno dall'altro
+ * @author Simone
  */
-public class DisponibilitàPostiServlet extends HttpServlet {
+public class CheckSeatAvailabilityServlet extends HttpServlet {
 
     private DBManager manager;
     ArrayList<String> posti = null;
     ArrayList<Integer> result = null;
     boolean availability = false;
-    
-    
-    
+       
     @Override
     public void init() throws ServletException {
         // Inizializza il DBManager dagli attributi di Application
@@ -42,14 +42,13 @@ public class DisponibilitàPostiServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         
-        
-        String seatsToVerify = request.getParameter("postiString");
-        String idSpettacolo = request.getParameter("showId");
-        int hallID;
-        
+        // Stringa da splittare
+        String seatsToVerify = request.getParameter("posti");
+        String idSpettacolo = request.getParameter("idShow");
+        int hallID = -1;
         try{
-            hallID = Integer.parseInt(request.getParameter("hallId"));
-           
+            hallID = Integer.parseInt(request.getParameter("idHall"));
+            // Splitto la stringa in base a degli splitter noti a priori e parso
             this.parseRequestedSeats(seatsToVerify, hallID);
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!");
@@ -57,7 +56,7 @@ public class DisponibilitàPostiServlet extends HttpServlet {
             rd.forward(request, response);
         }
         
-        // Si guarda attraverso il DBManager se i posti sono liberi
+        // Chiamo la funzione nel DBManager che controlla se i posti sono occupati oppure disponibili
         if(!posti.isEmpty() && posti!=null) {
             availability = this.manager.getSeatAvailability(result, idSpettacolo);
         }
@@ -76,10 +75,9 @@ public class DisponibilitàPostiServlet extends HttpServlet {
         List<Prenotazione> biglietti = new ArrayList();
         for(int i=0; i<result.size(); i++) {
             Prenotazione t = new Prenotazione();
-            t.setId_posto(result.get(i));
-            t.setId_spettacolo(Integer.parseInt(idSpettacolo));
-            biglietti.add(t);
-            
+            t.setId_posto(result.get(i));       // t.setIdSeat(result.get(i));
+            t.setId_spettacolo(Integer.parseInt(idSpettacolo));     // t.setIdShow(Integer.parseInt(idSpettacolo));
+            biglietti.add(t);            
         }
         HttpSession session = request.getSession(true);
         session.setAttribute("biglietti", biglietti);
@@ -95,13 +93,7 @@ public class DisponibilitàPostiServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
-            rd.forward(request, response);
-        }
+        // NON FA NULLA
     }
     
     
@@ -119,29 +111,32 @@ public class DisponibilitàPostiServlet extends HttpServlet {
     
 
     /**
-     * Processo la lista dei posti
-     * @param seats 
-     * @return ArrayList<Integer> dei posti che si vogliono prenotare
+     * Metodo per processare la stringa dei posti che viene mandata in input con una POST
+     * @param seats La stringa su cui eseguire lo splitting dei valori
+     * @return Un ArrayList<Integer> contenete i posti che l'utente sta cercando di prenotare
      */
     private ArrayList<Integer> parseRequestedSeats(String seats, int hallID) throws SQLException {
         
         posti = new ArrayList<>();
         result = new ArrayList<>();
         
-        String delimis = ",";
+        String delimis = " ";
         String[] tokens = seats.split(delimis);
         
         for(int i=0;i<tokens.length;i++) {
             posti.add(tokens[i]);
         }
-      
+        // 2_3
         for(int i=0;i<posti.size();i++) {
             int riga = Hall.getRowCoordinate(posti.get(i));
             int colonna = Hall.getColumnCoordinate(posti.get(i));
             
             result.add( manager.getTrueSeatID(riga,colonna,hallID) );
         }
-       
+        
+        /*Debug*/System.out.println("STRING LENGTH: " + tokens.length);
+        /*Debug*/System.out.println(result.toString());
+        
         return result;
     }
 }
