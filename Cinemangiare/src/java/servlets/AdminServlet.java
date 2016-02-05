@@ -9,6 +9,7 @@ import Bean.Film;
 import Bean.Prenotazione;
 import Bean.Spettacolo;
 import Bean.Utente;
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import db.DBManager;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -53,29 +54,26 @@ public class AdminServlet extends HttpServlet {
             List<Utente> utente = manager.getTopClient();
             
             // guardo se la query ha dato dei risultati
-            if (spettacolo == null) {
-                
-                request.setAttribute("errorMessage", "spettacoli non trovati !");
-                RequestDispatcher rd = request.getRequestDispatcher("/error.jsp"); 
-                rd.forward(request, response);
-                
-            } else {
                 session.setAttribute("ShowSel", spettacolo);
                 session.setAttribute("Incassi", incassi);
                 session.setAttribute("Utente",utente);
-                System.out.println("weeeee" + spettacolo.get(0).getPrezzo());
+                //System.out.println("weeeee" + spettacolo.get(0).getPrezzo());
                 RequestDispatcher rd = request.getRequestDispatcher("/admin.jsp");
                 rd.forward(request, response);
-            }
+            
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
            try {
+               if(request.getParameter("x")!=null){
+                   manager.setShow(Integer.parseInt(request.getParameter("x")));
+               }
             processRequest(request, response);
         } catch (Exception ex) {
-            request.setAttribute("errorMessage", "Errore durante login admin!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            request.setAttribute("errorMessage", "Errore durante lo script!");
+            request.setAttribute("errorEx", ex);
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
     }

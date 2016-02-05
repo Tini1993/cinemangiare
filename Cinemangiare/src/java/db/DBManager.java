@@ -607,32 +607,63 @@ public class DBManager implements Serializable {
         //data odierna
         Calendar now = Calendar.getInstance();
         long time= now.getTimeInMillis();
-        Date new_date=new Date(time + (long)(random()*x*ONE_MINUTE_IN_MILLIS));
         
         //QUERY
-        PreparedStatement stm = null;
-        String slqQuery = "DELETE * FROM SPETTACOLO";
-        stm = con.prepareStatement(slqQuery);
-        ResultSet rs = stm.executeQuery();
+        PreparedStatement s = null;
+        String sqlQ = "DELETE FROM prenotazione";
+         try{
+            s = con.prepareStatement(sqlQ);
+            int j = s.executeUpdate();
+
+                    if (j > 0) {
+                        System.out.println("success!!!");
+                    }
+        } finally{
+              s.close();
+        }
         
+        PreparedStatement stm = null;
+        String slqQuery = "DELETE FROM SPETTACOLO";
+        
+        try{
+            stm = con.prepareStatement(slqQuery);
+            int j = stm.executeUpdate();
+
+                    if (j > 0) {
+                        System.out.println("success!!!");
+                    }
+        } finally{
+              stm.close();
+        }
         //QUERY update spettacolo
         int id=1;
         int sala=1;
         for(int k=1; k<11; k++){
+            //dta primo spettacolo
+            Date new_date=new Date(time + (long)(random()*x*ONE_MINUTE_IN_MILLIS));
+            long new_time=new_date.getTime();
+            Timestamp t=new Timestamp(new_time);
+            
             for(int j=0; j<20; j++){
                 PreparedStatement statement = con.prepareStatement("INSERT INTO spettacolo(id_spettacolo,id_film,data_ora,id_sala) VALUES (?, ?, ?, ?)");
 
                 try {
                     statement.setInt(1,id );
                     statement.setInt(2,k);
-                    statement.setDate(3, (java.sql.Date) new_date);
+                    statement.setTimestamp(3, t);
                     statement.setInt(4,sala);
                     int i = statement.executeUpdate();
 
                     if (i > 0) {
                         System.out.println("success!!!");
                     }
+                    
+                    Date tmp=new Date(new_time + (long)(x*ONE_MINUTE_IN_MILLIS));
+                    new_time=tmp.getTime();
+                    t=new Timestamp(new_time);
                     id++;
+                    
+                    
 
                 } finally {
                 // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
@@ -645,7 +676,7 @@ public class DBManager implements Serializable {
             }
         }
         
-        stm.close();
+      
         
      }
      

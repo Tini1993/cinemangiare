@@ -23,24 +23,43 @@
         <%@ include file="navbar.jsp" %>
         
         <table class="table table-striped">
-        <c:forEach items="${ShowSel}" var="show">   
-            <tr>    
-                <td> INCASSO PER SPETTAOLO </td> 
-                <td>SPETTACOLO: ${show.id_spettacolo} SALA: ${show.id_sala} FILM: ${show.titolo} POSTI PRENOTATI: ${show.posti} DATA: ${show.data_ora} INCASSI: ${show.prezzo} € </td>
-            </tr>
-        </c:forEach>
+            
+        
+            
+        <c:if test="${ShowSel.size()>0}">
+            <c:forEach items="${ShowSel}" var="show">   
+                <tr>    
+                    <td> INCASSO PER SPETTAOLO </td> 
+                    <td>SPETTACOLO: ${show.id_spettacolo} SALA: ${show.id_sala} FILM: ${show.titolo} POSTI PRENOTATI: ${show.posti} DATA: ${show.data_ora} INCASSI: ${show.prezzo} € </td>
+                </tr>
+            </c:forEach>
+        </c:if>
+            <c:if test="${Incassi.size()>0}">
             <c:forEach items="${Incassi}" var="incassi">   
+                <tr>
+                    <td> INCASSO PER FILM </td>
+                    <td>TITOLO: ${incassi.titolo} INCASSI: ${incassi.incassi} €</td>
+                </tr>
+            </c:forEach>
+         </c:if>
+            <c:if test="${Utente.size()>0}">
+            <c:forEach items="${Utente}" var="utente">   
+                <tr>
+                    <td> INCASSO PER UTENTE </td>
+                    <td>UTENTE: ${utente.email} INCASSI: ${utente.paga} € </td>
+                </tr>
+            </c:forEach>
+         </c:if>
             <tr>
-                <td> INCASSO PER FILM </td>
-                <td>TITOLO: ${incassi.titolo} INCASSI: ${incassi.incassi} €</td>
+                <td>
+                    <form action="${pageContext.request.contextPath}/AdminServlet" method="post">
+                        <div class="input-append">
+                             <input type="number" name="x">
+                             <button type="submit" class="btn">Avvia script</button>
+                         </div>
+                    </form>
+                </td>
             </tr>
-        </c:forEach>
-        <c:forEach items="${Utente}" var="utente">   
-            <tr>
-                <td> INCASSO PER UTENTE </td>
-                <td>UTENTE: ${utente.email} INCASSI: ${utente.paga} € </td>
-            </tr>
-        </c:forEach>
         </table>
         
     </div>
