@@ -20,6 +20,7 @@ public class Prenotazione {
     public int id_prezzo;
     public int id_posto;
     public Timestamp data_ora_prenotazione;
+    public String titolo;
 
     public int getId_film() {
         return id_film;
@@ -59,6 +60,14 @@ public class Prenotazione {
 
     public void setData_ora_prenotazione(Timestamp data_ora_prenotazione) {
         this.data_ora_prenotazione = data_ora_prenotazione;
+    }
+
+    public String getTitolo() {
+        return titolo;
+    }
+
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
     }
     
 }

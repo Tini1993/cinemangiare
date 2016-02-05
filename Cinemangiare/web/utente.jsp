@@ -36,12 +36,13 @@
                     </c:if>
 
                     <c:if test="${! empty prenotazioni}">
+                        <p> Credito residuo: <c:out value="${user.credito}"/> </p>
                         <table class="table table-striped">
                             <tr> 
-                                <td> Credito residuo: <c:out value="${user.credito}"/> </td>
                                 <c:forEach items="${prenotazioni}" var="info">
-                                    <td> Data/Ora: ${info.data_ora_operazione} </td>
-                                    <%--TODO: Titoli film scelti --%>
+                                <tr>
+                                    <td> Data/Ora: ${info.data_ora_prenotazione} Titolo: ${info.titolo}</td>    
+                                </tr>
                                 </c:forEach>
                             </tr>
                         </table>

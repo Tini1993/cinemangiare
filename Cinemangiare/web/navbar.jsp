@@ -60,7 +60,7 @@
             </c:if>
 
             <%-- questo lo fa se invece c'è un utente connesso --%>
-            <c:if test="${! empty user}"> 
+            <c:if test="${(! empty user) and (user.id_ruolo == 2)}"> 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>${user.email}</b> <span class="caret"></span></a>
@@ -69,6 +69,24 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <a href="InfoUtenteServlet"><button type="button" class="btn btn-success" >Visualizza profilo</button></a>
+                                        <button type="button" data-toggle="modal" class="btn btn-info" onclick="location.href = 'LogoutServlet'">Logout</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>  
+            </c:if>
+                        
+            <c:if test="${user.id_ruolo == 1}" > 
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>${user.email}</b> <span class="caret"></span></a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a href="AdminServlet"><button type="button" class="btn btn-success" >Admin</button></a>
                                         <button type="button" data-toggle="modal" class="btn btn-info" onclick="location.href = 'LogoutServlet'">Logout</button>
                                     </div>
                                 </div>

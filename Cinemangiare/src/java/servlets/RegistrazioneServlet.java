@@ -4,6 +4,8 @@ import db.DBManager;
 import Bean.Utente;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,10 +39,45 @@ public class RegistrazioneServlet extends HttpServlet {
             manager.register(username, password);
 
         } catch (SQLException ex) {
-            throw new ServletException(ex);
+            req.setAttribute("errorEx", ex);
+            req.setAttribute("errorMessage", "Email già usata!");
+            RequestDispatcher rd = req.getRequestDispatcher("/error.jsp");
+            rd.forward(req, resp);
         }
         
-        // mando un redirect a un'altra servlet
-        resp.sendRedirect(req.getContextPath() + "/index.jsp");
+        Utente user = new Utente() ;
+        try {
+            user = manager.authenticate(username, password);
+        } catch (SQLException ex) {
+            req.setAttribute("errorEx", ex);
+            req.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
+            RequestDispatcher rd = req.getRequestDispatcher("/error.jsp");
+            rd.forward(req, resp);
+        }
+        
+        if( user.id_ruolo == 1 ){
+            //se è admim parte admin servlet
+            // imposto l'utente connesso come attributo di sessione
+            // per adesso e' solo un oggetto String con il nome dell'utente, ma posso metterci anche un oggetto User
+            // con, ad esempio, il timestamp di login
+
+            HttpSession session = req.getSession(true);
+            session.setAttribute("user", user);
+
+            // mando un redirect a un'altra servlet
+            resp.sendRedirect(req.getContextPath() + "/AdminServlet");
+      
+        }else{
+
+            // imposto l'utente connesso come attributo di sessione
+            // per adesso e' solo un oggetto String con il nome dell'utente, ma posso metterci anche un oggetto User
+            // con, ad esempio, il timestamp di login
+
+            HttpSession session = req.getSession(true);
+            session.setAttribute("user", user);
+
+            // mando un redirect a un'altra servlet
+            resp.sendRedirect(req.getContextPath() + "/ListaFilmServlet");
+        }
     }
 }
