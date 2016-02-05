@@ -43,7 +43,7 @@
         <%--<p> ${ShowSel.xx}</p>--%>
 
         <ol class="list-group booking-details" id="selected-seats">
-            <h3> Posti selezionati <span id="counter">0</span>):</h3>
+            <h3> Posti selezionati:  <span id="counter">0</span></h3>
 
             Totale: <span id="euro"> <b>€ <span id="total">0</span></b> </span>
 
@@ -162,8 +162,8 @@
             <script>
                 var selSeat = [];
                 var postiSel = "";
-                var showId = "${CurrentShow.idShow}";
-                var hallId = "${CurrentShow.idHall}";
+                var showId = "${show.id_spettacolo}"; //currentShow.idShow / .idHall
+                var hallId = "${show.id_sala}";
                 $("#createJSON").on('click', function () {
                     //console.log($("#seat-map").find('div.selected').text());
                     $("div.selected").each(function () {

@@ -301,14 +301,17 @@ public class DBManager implements Serializable {
 
         try {
 
-            String sqlQueryPostiTotali = "SELECT * FROM posto NATURAL JOIN sala WHERE id_sala=? AND id_posto NOT IN (SELECT id_posto FROM posto NATURAL JOIN sala NATURAL JOIN prenotazione WHERE id_sala=? ORDER BY riga, colonna ASC) ORDER BY riga, colonna ASC";
-            String sqlQueryPostiOccupati = "SELECT * FROM posto NATURAL JOIN sala NATURAL JOIN prenotazione WHERE id_sala=? ORDER BY riga, colonna ASC";
+            String sqlQueryPostiTotali = "SELECT * FROM posto NATURAL JOIN sala NATURAL JOIN spettacolo WHERE id_sala=? AND id_spettacolo=? AND id_posto NOT IN (SELECT id_posto FROM posto NATURAL JOIN sala NATURAL JOIN prenotazione WHERE id_sala=? AND id_spettacolo=? ORDER BY riga, colonna ASC) ORDER BY riga, colonna ASC";
+            String sqlQueryPostiOccupati = "SELECT * FROM posto NATURAL JOIN sala NATURAL JOIN prenotazione WHERE id_sala=? AND id_spettacolo=? ORDER BY riga, colonna ASC";
             stmTotali = con.prepareStatement(sqlQueryPostiTotali);
             stmOccupati = con.prepareStatement(sqlQueryPostiOccupati);
 
             stmTotali.setInt(1, id_sala);
-            stmTotali.setInt(2, id_sala);
+            stmTotali.setInt(2, id_spettacolo);
+            stmTotali.setInt(3, id_sala);       
+            stmTotali.setInt(4, id_spettacolo);
             stmOccupati.setInt(1, id_sala);
+            stmOccupati.setInt(2, id_spettacolo);
 
 
             ResultSet resultsTotali = stmTotali.executeQuery();
