@@ -72,7 +72,7 @@ public class PriceServlet extends HttpServlet {
             processRequest(request, response);
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore durante login admin!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
     }

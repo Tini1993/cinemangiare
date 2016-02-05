@@ -42,7 +42,7 @@
     </servlet>
     <servlet>
         <servlet-name>CheckSeatAvailabilityServlet</servlet-name>
-        <servlet-class>servlets.DisponibilitaPostiServlet</servlet-class>
+        <servlet-class>servlets.CheckSeatAvailabilityServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Prenotazione</servlet-name>

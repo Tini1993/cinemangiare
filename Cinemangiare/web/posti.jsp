@@ -168,7 +168,7 @@
         </script>
         <script>
             var idHall = "${idHall}";
-            var idShow = "${idShow}";
+            var idShow = "${idShow}";            
             
             $("#createJSON").on('click', function () {
 
@@ -180,7 +180,7 @@
                 $("#idHall_").val(idHall);
                 $("#idShow_").val(idShow);
                 
-                $("form_").submit();
+                form_.submit();
             }
             );
         </script>

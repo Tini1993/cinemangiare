@@ -51,8 +51,9 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
             // Splitto la stringa in base a degli splitter noti a priori e parso
             this.parseRequestedSeats(seatsToVerify, hallID);
         } catch (Exception ex) {
-            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!1");
+            request.setAttribute("errorEx", ex);
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
         
@@ -61,14 +62,14 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
             availability = this.manager.getSeatAvailability(result, idSpettacolo);
         }
         else {
-            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!2");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
         
         if(!availability) {
-            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!3");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
         
@@ -102,8 +103,8 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!");
-            RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!4");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
     }
