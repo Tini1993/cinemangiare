@@ -2,6 +2,7 @@
 package servlets;
 
 import Bean.Prenotazione;
+import Bean.Price;
 import db.DBManager;import db.Hall;
 ;
 import java.io.IOException;
@@ -29,8 +30,7 @@ import javax.servlet.http.HttpSession;
 public class CheckSeatAvailabilityServlet extends HttpServlet {
 
     private DBManager manager;
-    ArrayList<String> posti = null;
-    ArrayList<Integer> result = null;
+    ArrayList<Integer> posti = null;
     boolean availability = false;
        
     @Override
@@ -43,13 +43,15 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         
         // Stringa da splittare
-        String seatsToVerify = request.getParameter("posti");
-        String idSpettacolo = request.getParameter("idShow");
-        int hallID = -1;
+        String stringaPosti = request.getParameter("posti");
+        int idShow = Integer.parseInt(request.getParameter("idShow"));
+        int idHall = 0;
+        
         try{
-            hallID = Integer.parseInt(request.getParameter("idHall"));
+            idHall = Integer.parseInt(request.getParameter("idHall"));
+            
             // Splitto la stringa in base a degli splitter noti a priori e parso
-            this.parseRequestedSeats(seatsToVerify, hallID);
+            this.parseRequestedSeats(stringaPosti, idHall);
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!1");
             request.setAttribute("errorEx", ex);
@@ -59,7 +61,7 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
         
         // Chiamo la funzione nel DBManager che controlla se i posti sono occupati oppure disponibili
         if(!posti.isEmpty() && posti!=null) {
-            availability = this.manager.getSeatAvailability(result, idSpettacolo);
+            availability = this.manager.getSeatAvailability(posti, idShow);
         }
         else {
             request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!2");
@@ -74,21 +76,21 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
         }
         
         List<Prenotazione> biglietti = new ArrayList();
-        for(int i=0; i<result.size(); i++) {
-            Prenotazione t = new Prenotazione();
-            t.setId_posto(result.get(i));       // t.setIdSeat(result.get(i));
-            t.setId_spettacolo(Integer.parseInt(idSpettacolo));     // t.setIdShow(Integer.parseInt(idSpettacolo));
-            biglietti.add(t);            
+        for(int i=0; i<posti.size(); i++) {
+            Prenotazione p = new Prenotazione();
+            p.setId_posto(posti.get(i));       // t.setIdSeat(result.get(i));
+            p.setId_spettacolo(idShow);     // t.setIdShow(Integer.parseInt(idSpettacolo));
+            biglietti.add(p);            
         }
+        List<Price> price = new ArrayList();
+        price = manager.getPrice();
         HttpSession session = request.getSession(true);
+        request.setAttribute("prezzi", price);
         session.setAttribute("biglietti", biglietti);
-        request.setAttribute("numBiglietti", result.size());
-        request.setAttribute("prezzoBigliettoIntero", 10);
-        request.setAttribute("percentualeDiSconto", 20);
+        request.setAttribute("numBiglietti", posti.size());
         RequestDispatcher rd = request.getRequestDispatcher("/sconti.jsp");
         rd.forward(request, response);
-       
-        
+               
     }
     
     
@@ -104,6 +106,7 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
             processRequest(request, response);
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!4");
+            request.setAttribute("errorEx", ex);
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
@@ -113,31 +116,25 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
 
     /**
      * Metodo per processare la stringa dei posti che viene mandata in input con una POST
-     * @param seats La stringa su cui eseguire lo splitting dei valori
+     * @param stringaPosti La stringa su cui eseguire lo splitting dei valori
      * @return Un ArrayList<Integer> contenete i posti che l'utente sta cercando di prenotare
      */
-    private ArrayList<Integer> parseRequestedSeats(String seats, int hallID) throws SQLException {
+    private ArrayList<Integer> parseRequestedSeats(String stringaPosti, int idHall) throws SQLException {
         
         posti = new ArrayList<>();
-        result = new ArrayList<>();
         
-        String delimis = " ";
-        String[] tokens = seats.split(delimis);
-        
+        String delim = " ";
+        String[] tokens = stringaPosti.split(delim);       
+        int t = 0;
+               
         for(int i=0;i<tokens.length;i++) {
-            posti.add(tokens[i]);
-        }
-        // 2_3
-        for(int i=0;i<posti.size();i++) {
-            int riga = Hall.getRowCoordinate(posti.get(i));
-            int colonna = Hall.getColumnCoordinate(posti.get(i));
-            
-            result.add( manager.getTrueSeatID(riga,colonna,hallID) );
+            t = Integer.parseInt(tokens[i]);
+            posti.add(t);
         }
         
         /*Debug*/System.out.println("STRING LENGTH: " + tokens.length);
-        /*Debug*/System.out.println(result.toString());
+        /*Debug*/System.out.println(posti.toString());
         
-        return result;
+        return posti;
     }
 }

@@ -446,7 +446,7 @@ public class DBManager implements Serializable {
         return hallID;
     }
 
-    public boolean getSeatAvailability(ArrayList<Integer> posti, String idSpettacolo) throws SQLException {
+    public boolean getSeatAvailability(ArrayList<Integer> posti, int idSpettacolo) throws SQLException {
 
         String sqlQueryPostiOccupati = "SELECT * FROM spettacolo NATURAL JOIN posto NATURAL JOIN prenotazione WHERE id_spettacolo=?";
         PreparedStatement stm = null;
@@ -454,7 +454,7 @@ public class DBManager implements Serializable {
         try {
             stm = con.prepareStatement(sqlQueryPostiOccupati);
 
-            stm.setString(1, idSpettacolo);
+            stm.setInt(1, idSpettacolo);
             ResultSet rs = stm.executeQuery();
 
             try {
@@ -812,7 +812,7 @@ public class DBManager implements Serializable {
                     Price price = new Price();
                     price.setId(results.getInt("id_prezzo"));
                     price.setTipo(results.getString("tipo"));
-                    price.setPrezzo(results.getInt("prezzo"));
+                    price.setPrezzo(results.getFloat("prezzo"));
                     
                     listPrice.add(price);
                 }
