@@ -33,19 +33,41 @@
     Scegli il tipo di biglietto per ogni biglietto: <br>
 
     <form id="form" action="PrenotazioneServlet" method="post">
+        <input id="stringaPosti_" type="hidden" name="stringaPosti" value=""/>
+        <input id="email_" type="hidden" name="email" value=""/>
+        <input id="idShow_" type="hidden" name="idShow" value=""/>
         <c:set var="count" value="0" scope="page" />
 
         <c:forEach items="${biglietti}" var="biglietti">
-            <c:set var="count" value="${count + 1}" scope="page"/>        
-            <br> Biglietto n.${count}: <br>
+            <c:set var="count" value="${count + 1}" scope="page"/> 
 
-            <c:forEach items="${prezzi}" var="prezzi">               
-                <input type="radio" name=${count} value="${prezzi.tipo}" required> ${prezzi.tipo}          
+            <br> Biglietto posto ${biglietti.id_posto}: <br>
+
+            <c:forEach items="${prezzi}" var="prezzi">             
+                <input type="radio" name="${count}" value="${prezzi.tipo}"  required> ${prezzi.tipo}  
             </c:forEach> 
 
         </c:forEach>
-        <p><input type="submit" value="Procedi"/></p>
+        <p><input type="button" value="Procedi" onclick="foo()"/></p>
     </form>
+
+    <script>
+        function foo() {
+            var idShow = "${idShow}";
+            var email = "${user.email}";
+            var stringaPosti = "${stringaPosti}"
+
+            console.log(idShow);
+            console.log(email);
+            console.log(stringaPosti);
+
+            $("#idShow_").val(idShow);
+            $("#email_").val(email);
+            $("#stringaPosti_").val(stringaPosti);
+
+            form.submit();
+        }
+    </script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

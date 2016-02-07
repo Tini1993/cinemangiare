@@ -60,6 +60,10 @@
         <servlet-name>InfoUtenteServlet</servlet-name>
         <servlet-class>servlets.InfoUtenteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PrenotazioneServlet</servlet-name>
+        <servlet-class>servlets.PrenotazioneServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -107,6 +111,10 @@
     <servlet-mapping>
         <servlet-name>InfoUtenteServlet</servlet-name>
         <url-pattern>/InfoUtenteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrenotazioneServlet</servlet-name>
+        <url-pattern>/PrenotazioneServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

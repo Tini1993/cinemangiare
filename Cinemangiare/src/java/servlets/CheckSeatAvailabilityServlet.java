@@ -51,7 +51,7 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
             idHall = Integer.parseInt(request.getParameter("idHall"));
             
             // Splitto la stringa in base a degli splitter noti a priori e parso
-            this.parseRequestedSeats(stringaPosti, idHall);
+            this.parseRequestedSeats(stringaPosti);
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti!1");
             request.setAttribute("errorEx", ex);
@@ -78,13 +78,15 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
         List<Prenotazione> biglietti = new ArrayList();
         for(int i=0; i<posti.size(); i++) {
             Prenotazione p = new Prenotazione();
-            p.setId_posto(posti.get(i));       // t.setIdSeat(result.get(i));
-            p.setId_spettacolo(idShow);     // t.setIdShow(Integer.parseInt(idSpettacolo));
+            p.setId_posto(posti.get(i));       
+            p.setId_spettacolo(idShow);    
             biglietti.add(p);            
         }
         List<Price> price = new ArrayList();
         price = manager.getPrice();
         HttpSession session = request.getSession(true);
+        session.setAttribute("stringaPosti", stringaPosti);
+        session.setAttribute("idShow", idShow);
         request.setAttribute("prezzi", price);
         session.setAttribute("biglietti", biglietti);
         request.setAttribute("numBiglietti", posti.size());
@@ -119,7 +121,7 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
      * @param stringaPosti La stringa su cui eseguire lo splitting dei valori
      * @return Un ArrayList<Integer> contenete i posti che l'utente sta cercando di prenotare
      */
-    private ArrayList<Integer> parseRequestedSeats(String stringaPosti, int idHall) throws SQLException {
+    private ArrayList<Integer> parseRequestedSeats(String stringaPosti) throws SQLException {
         
         posti = new ArrayList<>();
         
