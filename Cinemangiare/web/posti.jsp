@@ -29,33 +29,59 @@
     <body>
         <%@ include file="navbar.jsp" %>
 
-        <h1>SELEZIONA I POSTI CHE TI INTERESSANO</h1>
-        <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-2"></div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="page-header">
+                        <h1>Seleziona i posti</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-2"></div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="front-indicator col-md-offset-3 ">Schermo</div>
+                    <div id="seat-map">
+                        
+                                                  
+                    </div> 
 
-            <div class="col-sm-8" id="seat-map">
-                <div class="front-indicator">Schermo</div>
-                <br>                              
-            </div>                             
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div id="legend"></div>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-xs-12 col-md-2"></div>
+
+                <div class="col-xs-12 col-md-8">
+                    <div class="page-header">
+  <h2>Riepilogo <small>posti selezionati:  <span id="counter">0</span></small></h2>
+</div>
+                    <%--<p> ${ShowSel.xx}</p>--%>
+
+                    <ol class="list-group booking-details" id="selected-seats">
+                        <div class="row">
+                        <a href="#" class="btn btn-success" id="createJSON">Procedi
+                        Totale: <span id="euro"> <b>€ <span id="total">0</span></b> </span>
+                        </a>
+                            </div>
+                            <div class="row">
+                                 <div class="col-xs-12" style="height:10px;"></div>
+                        <form id="form_" action="CheckSeatAvailabilityServlet" method="post">
+                            <input id="posti_" type="hidden" name="posti" value=""/>
+                            <input id="idHall_" type="hidden" name="idHall" value=""/>
+                            <input id="idShow_" type="hidden" name="idShow" value=""/>
+
+                        </form>
+                            </div>
+                    </ol>
+                </div>
+            </div>
         </div>
-        <br>
-        <div id="legend"></div>
-
-        <h1>Riepilogo prenotazione</h1>
-        <%--<p> ${ShowSel.xx}</p>--%>
-
-        <ol class="list-group booking-details" id="selected-seats">
-            <h3> Posti selezionati:  <span id="counter">0</span></h3>
-
-            Totale: <span id="euro"> <b>€ <span id="total">0</span></b> </span>
-
-            <a href="#" class="btn btn-success" id="createJSON">Procedi</a>
-            <form id="form_" action="CheckSeatAvailabilityServlet" method="post">
-                <input id="posti_" type="hidden" name="posti" value=""/>
-                <input id="idHall_" type="hidden" name="idHall" value=""/>
-                <input id="idShow_" type="hidden" name="idShow" value=""/>
-
-            </form>
-        </ol>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="js/jquery.seat-charts.js"></script>
@@ -98,14 +124,15 @@
                         node: $('#legend'),
                         items: [
                             ['s', 'available', 'Standard'],
-                            ['u', 'unavailable', 'Non disponibile']
+                            ['u', 'unavailable', 'Non disponibile'],
+                            ['a', 'selected', 'Selezionato']
                         ]
                     },
                     click: function () {
                         if (this.status() == 'available') {
                             //let's create a new <li> which we'll add to the cart items
                             DC += this.settings.label + ' ';
-                            $('<li class="list-group-item"><span class="badge"> # ' + this.settings.label + ': <b>€' + this.data().price + '</b> <a href="#" class="cancel-cart-item">[cancella]</a></span> Posto ' + this.data().category + '</li>')
+                            $('<li class="list-group-item"><span class="badge"> <b>' + this.data().price +'€ </b> <a href="#" class="cancel-cart-item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> </span> Posto ' + this.data().category +'  N°' + this.settings.label + '</li>')
                                     .attr('id', 'cart-item-' + this.settings.id)
                                     .data('seatId', this.settings.id)
                                     .appendTo($cart);
@@ -164,12 +191,12 @@
 
                 return total;
             }
-            
+
         </script>
         <script>
             var idHall = "${idHall}";
-            var idShow = "${idShow}";            
-            
+            var idShow = "${idShow}";
+
             $("#createJSON").on('click', function () {
 
                 console.log(DC);
@@ -179,15 +206,15 @@
                 $("#posti_").val(DC);
                 $("#idHall_").val(idHall);
                 $("#idShow_").val(idShow);
-                
+
                 form_.submit();
             }
             );
         </script>
-
     </div>
+</div>
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
