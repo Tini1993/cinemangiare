@@ -901,5 +901,100 @@ public class DBManager implements Serializable {
         
      }
     
+      public int getId_prezzo(String tipoSconto) throws SQLException {
+        
+        int id_prezzo;
+        PreparedStatement stm = null;
+        
+        try {
+            
+            // SELECT SQL
+            String sqlQuery = "SELECT id_prezzo FROM prezzo WHERE tipo=?";
+            stm = con.prepareStatement(sqlQuery);
+            
+            // Compilazione dei valori mancanti della query
+            stm.setString(1, tipoSconto);
+            
+            ResultSet rs = stm.executeQuery();
+            
+            try {
+                if(rs.next()) {
+                    
+                    id_prezzo = rs.getInt("id_prezzo");
+                    return id_prezzo;
+                    
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                rs.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        
+        return 0;
+      }
+      
+      public int getLastId_prenotazione() throws SQLException {
+        
+        int last_id_prenotazione;
+        PreparedStatement stm = null;
+        
+        try {
+            
+            // SELECT SQL
+            String sqlQuery = "SELECT COUNT(id_prenotazione) AS last_id_prenotazione FROM prenotazione";
+            stm = con.prepareStatement(sqlQuery);
+            
+            ResultSet rs = stm.executeQuery();
+            
+            try {
+                if(rs.next()) {
+                    
+                    last_id_prenotazione = rs.getInt("last_id_prenotazione");
+                    return last_id_prenotazione;
+                    
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                rs.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        
+        return 0;
+      }
+      
+      
+       public void setPrenotazione(int id_prenotazione, int id_spettacolo, int id_prezzo, int id_posto, String email) throws SQLException {
 
+        PreparedStatement statement = con.prepareStatement("INSERT INTO prenotazione(id_prenotazione, id_spettacolo, id_prezzo, id_posto, data_ora_operazione, email) VALUES (?, ?, ?, ?, ?, ?)");
+
+        java.util.Date date= new java.util.Date();
+        Timestamp data_ora_operazione = new Timestamp(date.getTime());
+        
+        try {
+            statement.setInt(1, id_prenotazione);
+            statement.setInt(2, id_spettacolo);
+            statement.setInt(3, id_prezzo);
+            statement.setInt(4, id_posto);
+            statement.setTimestamp(5, data_ora_operazione);
+            statement.setString(6, email);
+
+            int i = statement.executeUpdate();
+
+            if (i > 0) {
+                System.out.println("success!!!");
+            }
+
+        } finally {
+            // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
+            statement.close();
+        }
+    }
 }
