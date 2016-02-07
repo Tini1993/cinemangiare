@@ -27,6 +27,7 @@ import java.lang.Exception;
 import static java.lang.Math.random;
 import java.util.Calendar;
 import java.util.Date;
+import javax.naming.spi.DirStateFactory.Result;
 
 /**
  * Classe che ingloba tutti i metodi necessari per interagire con il database
@@ -827,6 +828,78 @@ public class DBManager implements Serializable {
         }
         return listPrice;
       }
+      
+     public void deletePrenotazione(int id_s, String email, int id_p) throws SQLException{
+         
+         PreparedStatement stat=null;
+         String sql1="SELECT prezzo FROM prenotazione NATURAL JOIN utente NATURAL JOIN prezzo WHERE email=? AND id_spettacolo=? AND id_posto=?";
+         stat=con.prepareStatement(sql1);
+         int k=0;
+         
+         try{
+         
+            stat.setString(1, email);
+            stat.setInt(2,id_s);
+            stat.setInt(3,id_p);
+            
+            ResultSet r=stat.executeQuery();
+            try{
+               while(r.next()){
+                    k=r.getInt("prezzo");
+               }
+            }finally{
+                r.close();
+            }
+         }catch(Exception ex){
+             System.out.println("hello " + ex);
+         }finally{
+             
+             stat.close();
+         }
+         
+         k=(k*80/100);
+         
+         
+         PreparedStatement statement=null;
+         String sql="UPDATE utente SET credito=? WHERE email=?";
+         statement=con.prepareStatement(sql);
+         
+         try{
+             statement.setInt(1, k);
+             statement.setString(2,email);
+             int i=statement.executeUpdate();
+             
+             if (i > 0) {
+                        System.out.println("success!!!");
+                    }
+             
+             
+         }finally{
+             statement.close();
+         }
+         
+         
+        PreparedStatement stm = null;
+        String slqQuery = "DELETE FROM prenotazione WHERE id_spettacolo=? AND email=? AND id_posto=? ";
+        stm=con.prepareStatement(slqQuery);
+        
+        try{
+            stm.setInt(1, id_s);
+            stm.setString(2, email);
+            stm.setInt(3,id_p);
+            
+            int j = stm.executeUpdate();
+
+                    if (j > 0) {
+                        System.out.println("success!!!");
+                    }
+        } finally{
+              stm.close();
+        }
+        
+        
+        
+     }
     
 
 }
