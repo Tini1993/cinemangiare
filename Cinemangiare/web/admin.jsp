@@ -18,66 +18,6 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
     </head>
-<<<<<<< HEAD
-    
-        
-        <%@ include file="navbar.jsp" %>
-        
-        <table class="table table-striped">
-            
-        
-            
-        <c:if test="${ShowSel.size()>0}">
-            <c:forEach items="${ShowSel}" var="show">   
-                <tr>    
-                    <td> INCASSO PER SPETTAOLO </td> 
-                    <td>SPETTACOLO: ${show.id_spettacolo} SALA: ${show.id_sala} FILM: ${show.titolo} POSTI PRENOTATI: ${show.posti} DATA: ${show.data_ora} INCASSI: ${show.prezzo} € </td>
-                </tr>
-            </c:forEach>
-        </c:if>
-            <c:if test="${Incassi.size()>0}">
-            <c:forEach items="${Incassi}" var="incassi">   
-                <tr>
-                    <td> INCASSO PER FILM </td>
-                    <td>TITOLO: ${incassi.titolo} INCASSI: ${incassi.incassi} €</td>
-                </tr>
-            </c:forEach>
-         </c:if>
-            <c:if test="${Utente.size()>0}">
-            <c:forEach items="${Utente}" var="utente">   
-                <tr>
-                    <td> INCASSO PER UTENTE </td>
-                    <td>UTENTE: ${utente.email} INCASSI: ${utente.paga} € </td>
-                </tr>
-            </c:forEach>
-         </c:if>
-            <tr>
-                <td>
-                    <form action="${pageContext.request.contextPath}/AdminServlet" method="post">
-                        <div class="input-append">
-                             <input type="number" name="x">
-                             <button type="submit" class="btn">Avvia script</button>
-                         </div>
-                    </form>
-                </td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <form action="${pageContext.request.contextPath}/DeletePrenotazione" method="post">
-                        <div class="input-append">
-                            <p> NUMERO PRENOTAZIONE: </p> <input type="number" name="id_p">
-                            <p> EMAIL UTENTE: </p> <input type="text" name="email">
-                             <button type="submit" class="btn">Cancella prenotazione</button>
-                         </div>
-                    </form>
-                </td>
-            </tr>
-            
-        </table>
-        
-=======
-
 
     <%@ include file="navbar.jsp" %>
     <div class="container">
@@ -199,16 +139,12 @@
                             <form action="${pageContext.request.contextPath}/DeletePrenotazione" method="post">
                                 <div class="input-append">
                                     <div class="input-group input-group-sm">
-                                        <span class="input-group-addon" id="basic-addon1">Sala</span>
-                                        <input type="number" class="form-control" placeholder="Numero sala" aria-describedby="basic-addon1"name="id_s">
-                                    </div>
-                                    <div class="input-group input-group-sm">
                                         <span class="input-group-addon" id="basic-addon1">@</span>
                                         <input type="text" class="form-control" placeholder="Email utente" aria-describedby="basic-addon1"name="email">
                                     </div>
                                     <div class="input-group input-group-sm">
-                                        <span class="input-group-addon" id="basic-addon1">Posto</span>
-                                        <input type="number" class="form-control" placeholder="Numero posto" aria-describedby="basic-addon1"name="id_p">
+                                        <span class="input-group-addon" id="basic-addon1">Numero prenotazione</span>
+                                        <input type="number" class="form-control" placeholder="Numero prenotazione" aria-describedby="basic-addon1"name="id_p">
                                     </div>
                                     <button type="submit" class="btn">Cancella prenotazione</button>
                                 </div>
@@ -222,7 +158,7 @@
 
 
 
->>>>>>> origin/master
+
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
