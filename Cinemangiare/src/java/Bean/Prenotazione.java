@@ -23,7 +23,8 @@ public class Prenotazione {
     public Timestamp data_ora_prenotazione;
     public String titolo,email;
     public int sala;
-    private Timestamp data_ora_spettacolo;
+    public Timestamp data_ora_spettacolo;
+    public String email;
 
     public int getId_film() {
         return id_film;
@@ -123,6 +124,20 @@ public class Prenotazione {
      */
     public void setData_ora_spettacolo(Timestamp data_ora_spettacolo) {
         this.data_ora_spettacolo = data_ora_spettacolo;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
     
 }

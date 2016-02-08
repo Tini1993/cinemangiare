@@ -1043,7 +1043,7 @@ public class DBManager implements Serializable {
                     s.setId_spettacolo(rs.getInt("id_spettacolo"));
                     s.setId_prezzo(rs.getInt("id_prezzo"));
                     s.setId_posto(rs.getInt("id_posto"));
-                    s.setIdemail(rs.getString("email"));
+                    s.setEmail(rs.getString("email"));
                     s.setId_prenotazione(id);
                     
                     return s;
