@@ -732,13 +732,11 @@ public class DBManager implements Serializable {
                     Film film = new Film();
                     film.setId(results.getInt("id_film"));
                     film.setTitolo(results.getString("titolo"));
-<<<<<<< HEAD
                     film.setIncassi(results.getInt("incassi"));
 
-=======
+
                     film.setIncassi(results.getDouble("incassi"));
-                    
->>>>>>> origin/master
+                   
                     listFilm.add(film);
                 }
 
@@ -772,13 +770,9 @@ public class DBManager implements Serializable {
                 while (results.next()) {
                     Utente utente = new Utente();
                     utente.setEmail(results.getString("email"));
-<<<<<<< HEAD
                     utente.setPaga(results.getInt("paga"));
-
-=======
                     utente.setPaga(results.getDouble("paga"));
-                    
->>>>>>> origin/master
+
                     listUtente.add(utente);
                 }
 
@@ -812,13 +806,11 @@ public class DBManager implements Serializable {
                     Price price = new Price();
                     price.setId(results.getInt("id_prezzo"));
                     price.setTipo(results.getString("tipo"));
-<<<<<<< HEAD
                     price.setPrezzo(results.getFloat("prezzo"));
 
-=======
+
                     price.setPrezzo(results.getDouble("prezzo"));
-                    
->>>>>>> origin/master
+
                     listPrice.add(price);
                 }
 
@@ -831,78 +823,10 @@ public class DBManager implements Serializable {
             stm.close();
         }
         return listPrice;
-<<<<<<< HEAD
+
     }
 
-    public void deletePrenotazione(String email, int id_p) throws SQLException {
-
-        PreparedStatement stat = null;
-        String sql1 = "SELECT prezzo FROM prenotazione NATURAL JOIN utente NATURAL JOIN prezzo WHERE email=? AND id_prenotazione=?";
-        stat = con.prepareStatement(sql1);
-        int k = 0;
-
-        try {
-
-            stat.setString(1, email);
-            stat.setInt(2, id_p);
-
-            ResultSet r = stat.executeQuery();
-            try {
-                while (r.next()) {
-                    k = r.getInt("prezzo");
-                }
-            } finally {
-                r.close();
-            }
-        } catch (Exception ex) {
-            System.out.println("hello " + ex);
-        } finally {
-
-            stat.close();
-        }
-
-        k = (k * 80 / 100);
-
-        PreparedStatement st = null;
-        String sq = "SELECT credito FROM utente WHERE email=?";
-        st = con.prepareStatement(sq);
-
-        int credito = 0;
-
-        try {
-            st.setString(1, email);
-
-            ResultSet r = st.executeQuery();
-            try {
-                while (r.next()) {
-                    credito = r.getInt("credito");
-                }
-            } finally {
-                r.close();
-            }
-        } finally {
-            st.close();
-        }
-
-        PreparedStatement statement = null;
-        String sql = "UPDATE utente SET credito=? WHERE email=?";
-        statement = con.prepareStatement(sql);
-
-        try {
-            statement.setInt(1, credito + k);
-            statement.setString(2, email);
-            int i = statement.executeUpdate();
-
-            if (i > 0) {
-                System.out.println("success!!!");
-            }
-
-        } finally {
-            statement.close();
-        }
-
-=======
-      }
+ 
       
      public void deletePrenotazione(String email, int id_p) throws SQLException{
          
@@ -972,9 +896,7 @@ public class DBManager implements Serializable {
          }finally{
              statement.close();
          }
-         
-         
->>>>>>> origin/master
+
         PreparedStatement stm = null;
         String slqQuery = "DELETE FROM prenotazione WHERE id_prenotazione=? ";
         stm = con.prepareStatement(slqQuery);
@@ -1103,12 +1025,7 @@ public class DBManager implements Serializable {
 
         java.util.Date date = new java.util.Date();
         Timestamp data_ora_operazione = new Timestamp(date.getTime());
-<<<<<<< HEAD
 
-=======
-        
-        
->>>>>>> origin/master
         try {
             statement.setInt(1, id_prenotazione);
             statement.setInt(2, id_spettacolo);
