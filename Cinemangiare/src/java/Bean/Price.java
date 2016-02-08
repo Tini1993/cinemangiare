@@ -12,7 +12,7 @@ package Bean;
 public class Price {
     public int id_price;
     public String tipo;
-    public float prezzo;
+    public double prezzo;
     
     public Price() {
     }
@@ -33,11 +33,11 @@ public class Price {
         this.tipo = tipo;
     }
     
-    public float getPrezzo() {
+    public double getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(float prezzo) {
+    public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
 }

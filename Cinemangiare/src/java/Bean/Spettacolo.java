@@ -20,7 +20,7 @@ public class Spettacolo {
     public int id_film;
     public Timestamp data_ora;
     public int id_sala;
-    public int prezzo;
+    public double prezzo;
     public int posti;
     public String titolo;
 
@@ -60,14 +60,14 @@ public class Spettacolo {
     /**
      * @return the prezzo
      */
-    public int getPrezzo() {
+    public double getPrezzo() {
         return prezzo;
     }
 
     /**
      * @param prezzo the prezzo to set
      */
-    public void setPrezzo(int prezzo) {
+    public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
 

@@ -15,7 +15,7 @@ public class Utente {
     public String password;
     public double credito;
     public int id_ruolo;
-    public int paga;
+    public double paga;
     
     public Utente(){
         
@@ -53,18 +53,18 @@ public class Utente {
         this.id_ruolo = id_ruolo;
     }
     
-    public int getPAGA() {
+    public double getPAGA() {
         return getPaga();
     }
 
-    public void setPaga(int paga) {
+    public void setPaga(double paga) {
         this.paga = paga;
     }
 
     /**
      * @return the paga
      */
-    public int getPaga() {
+    public double getPaga() {
         return paga;
     }
     

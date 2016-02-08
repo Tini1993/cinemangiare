@@ -18,7 +18,7 @@ public class Film {
     public String url_trailer;
     public String trama;
     public String uri_locandina;
-    public int incassi;
+    public double incassi;
     
     public Film() {
     }
@@ -79,11 +79,11 @@ public class Film {
         this.uri_locandina = uri_locandina;
     }
     
-    public int getIncassi(){
+    public double getIncassi(){
         return incassi;
     }
     
-    public void setIncassi(int incassi){
+    public void setIncassi(double incassi){
         this.incassi=incassi;
     }
             

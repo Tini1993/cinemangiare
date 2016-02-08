@@ -21,9 +21,10 @@ public class Prenotazione {
     public int id_prezzo;
     public int id_posto;
     public Timestamp data_ora_prenotazione;
-    public String titolo;
+    public String titolo,email;
     public int sala;
-    private Timestamp data_ora_spettacolo;
+    public Timestamp data_ora_spettacolo;
+    
 
     public int getId_film() {
         return id_film;
@@ -32,7 +33,17 @@ public class Prenotazione {
     public void setId_film(int id_film) {
         this.id_film = id_film;
     }
+    
+    
+    public String getIdemail() {
+        return email;
+    }
 
+    public void setIdemail(String id) {
+        this.email = id;
+    }
+
+    
     public int getId_spettacolo() {
         return id_spettacolo;
     }
@@ -113,6 +124,20 @@ public class Prenotazione {
      */
     public void setData_ora_spettacolo(Timestamp data_ora_spettacolo) {
         this.data_ora_spettacolo = data_ora_spettacolo;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
     
 }

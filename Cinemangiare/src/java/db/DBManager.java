@@ -692,7 +692,7 @@ public class DBManager implements Serializable {
                     Spettacolo spettacolo = new Spettacolo();
                     spettacolo.setId_spettacolo(results.getInt("id_spettacolo"));
                     spettacolo.setId_film(results.getInt("id_film"));
-                    spettacolo.setPrezzo(results.getInt("prezzo"));
+                    spettacolo.setPrezzo(results.getDouble("prezzo"));
                     spettacolo.setPosti(results.getInt("posti"));
                     spettacolo.setId_sala(results.getInt("id_sala"));
                     spettacolo.setTitolo(results.getString("titolo"));
@@ -732,8 +732,13 @@ public class DBManager implements Serializable {
                     Film film = new Film();
                     film.setId(results.getInt("id_film"));
                     film.setTitolo(results.getString("titolo"));
+<<<<<<< HEAD
                     film.setIncassi(results.getInt("incassi"));
 
+=======
+                    film.setIncassi(results.getDouble("incassi"));
+                    
+>>>>>>> origin/master
                     listFilm.add(film);
                 }
 
@@ -767,8 +772,13 @@ public class DBManager implements Serializable {
                 while (results.next()) {
                     Utente utente = new Utente();
                     utente.setEmail(results.getString("email"));
+<<<<<<< HEAD
                     utente.setPaga(results.getInt("paga"));
 
+=======
+                    utente.setPaga(results.getDouble("paga"));
+                    
+>>>>>>> origin/master
                     listUtente.add(utente);
                 }
 
@@ -802,8 +812,13 @@ public class DBManager implements Serializable {
                     Price price = new Price();
                     price.setId(results.getInt("id_prezzo"));
                     price.setTipo(results.getString("tipo"));
+<<<<<<< HEAD
                     price.setPrezzo(results.getFloat("prezzo"));
 
+=======
+                    price.setPrezzo(results.getDouble("prezzo"));
+                    
+>>>>>>> origin/master
                     listPrice.add(price);
                 }
 
@@ -816,6 +831,7 @@ public class DBManager implements Serializable {
             stm.close();
         }
         return listPrice;
+<<<<<<< HEAD
     }
 
     public void deletePrenotazione(String email, int id_p) throws SQLException {
@@ -885,6 +901,80 @@ public class DBManager implements Serializable {
             statement.close();
         }
 
+=======
+      }
+      
+     public void deletePrenotazione(String email, int id_p) throws SQLException{
+         
+         PreparedStatement stat=null;
+         String sql1="SELECT prezzo FROM prenotazione NATURAL JOIN utente NATURAL JOIN prezzo WHERE email=? AND id_prenotazione=?";
+         stat=con.prepareStatement(sql1);
+         double k=0;
+         
+         try{
+         
+            stat.setString(1, email);
+            stat.setInt(2,id_p);
+            
+            ResultSet r=stat.executeQuery();
+            try{
+               while(r.next()){
+                    k=r.getDouble("prezzo");
+               }
+            }finally{
+                r.close();
+            }
+         }catch(Exception ex){
+             System.out.println("hello " + ex);
+         }finally{
+             
+             stat.close();
+         }
+         
+         k=(k*80.0/100.0);
+         
+         PreparedStatement st=null;
+         String sq="SELECT credito FROM utente WHERE email=?";
+         st=con.prepareStatement(sq);
+         
+         double credito=0;
+         
+         try{
+             st.setString(1,email);
+             
+             ResultSet r=st.executeQuery();
+            try{
+               while(r.next()){
+                    credito=r.getDouble("credito");
+               }
+            }finally{
+                r.close();
+            }
+         }finally{
+             st.close();
+         }
+         
+         
+         PreparedStatement statement=null;
+         String sql="UPDATE utente SET credito=? WHERE email=?";
+         statement=con.prepareStatement(sql);
+         
+         try{
+             statement.setDouble(1, credito+k);
+             statement.setString(2,email);
+             int i=statement.executeUpdate();
+             
+             if (i > 0) {
+                        System.out.println("success!!!");
+                    }
+             
+             
+         }finally{
+             statement.close();
+         }
+         
+         
+>>>>>>> origin/master
         PreparedStatement stm = null;
         String slqQuery = "DELETE FROM prenotazione WHERE id_prenotazione=? ";
         stm = con.prepareStatement(slqQuery);
@@ -1013,7 +1103,12 @@ public class DBManager implements Serializable {
 
         java.util.Date date = new java.util.Date();
         Timestamp data_ora_operazione = new Timestamp(date.getTime());
+<<<<<<< HEAD
 
+=======
+        
+        
+>>>>>>> origin/master
         try {
             statement.setInt(1, id_prenotazione);
             statement.setInt(2, id_spettacolo);
@@ -1110,4 +1205,45 @@ public class DBManager implements Serializable {
             st.close();
         }
     }
+
+    public Prenotazione getPrenotazione(int id) throws SQLException {
+        
+        
+        PreparedStatement stm = null;
+        
+        try {
+            
+            
+            String sqlInsert = "SELECT * FROM prenotazione  WHERE id_prenotazione?";
+            stm = con.prepareStatement(sqlInsert);
+            
+            stm.setInt(1, id);
+            
+            ResultSet rs = stm.executeQuery();
+            
+            try {
+                if(rs.next()) {
+                    
+                    Prenotazione s = new Prenotazione();
+                    s.setData_ora_prenotazione(rs.getTimestamp("data_ora"));
+                    s.setId_spettacolo(rs.getInt("id_spettacolo"));
+                    s.setId_prezzo(rs.getInt("id_prezzo"));
+                    s.setId_posto(rs.getInt("id_posto"));
+                    s.setEmail(rs.getString("email"));
+                    s.setId_prenotazione(id);
+                    
+                    return s;
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                rs.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        return null;
+    }
+    
 }
