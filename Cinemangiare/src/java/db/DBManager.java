@@ -703,7 +703,7 @@ public class DBManager implements Serializable {
                     Spettacolo spettacolo = new Spettacolo();
                     spettacolo.setId_spettacolo(results.getInt("id_spettacolo"));
                     spettacolo.setId_film(results.getInt("id_film"));
-                    spettacolo.setPrezzo(results.getInt("prezzo"));
+                    spettacolo.setPrezzo(results.getDouble("prezzo"));
                     spettacolo.setPosti(results.getInt("posti"));
                     spettacolo.setId_sala(results.getInt("id_sala"));
                     spettacolo.setTitolo(results.getString("titolo"));
@@ -743,7 +743,7 @@ public class DBManager implements Serializable {
                     Film film = new Film();
                     film.setId(results.getInt("id_film"));
                     film.setTitolo(results.getString("titolo"));
-                    film.setIncassi(results.getInt("incassi"));
+                    film.setIncassi(results.getDouble("incassi"));
                     
                     listFilm.add(film);
                 }
@@ -780,7 +780,7 @@ public class DBManager implements Serializable {
                 while (results.next()) {
                     Utente utente = new Utente();
                     utente.setEmail(results.getString("email"));
-                    utente.setPaga(results.getInt("paga"));
+                    utente.setPaga(results.getDouble("paga"));
                     
                     listUtente.add(utente);
                 }
@@ -816,7 +816,7 @@ public class DBManager implements Serializable {
                     Price price = new Price();
                     price.setId(results.getInt("id_prezzo"));
                     price.setTipo(results.getString("tipo"));
-                    price.setPrezzo(results.getFloat("prezzo"));
+                    price.setPrezzo(results.getDouble("prezzo"));
                     
                     listPrice.add(price);
                 }
@@ -837,7 +837,7 @@ public class DBManager implements Serializable {
          PreparedStatement stat=null;
          String sql1="SELECT prezzo FROM prenotazione NATURAL JOIN utente NATURAL JOIN prezzo WHERE email=? AND id_prenotazione=?";
          stat=con.prepareStatement(sql1);
-         int k=0;
+         double k=0;
          
          try{
          
@@ -847,7 +847,7 @@ public class DBManager implements Serializable {
             ResultSet r=stat.executeQuery();
             try{
                while(r.next()){
-                    k=r.getInt("prezzo");
+                    k=r.getDouble("prezzo");
                }
             }finally{
                 r.close();
@@ -859,13 +859,13 @@ public class DBManager implements Serializable {
              stat.close();
          }
          
-         k=(k*80/100);
+         k=(k*80.0/100.0);
          
          PreparedStatement st=null;
          String sq="SELECT credito FROM utente WHERE email=?";
          st=con.prepareStatement(sq);
          
-         int credito=0;
+         double credito=0;
          
          try{
              st.setString(1,email);
@@ -873,7 +873,7 @@ public class DBManager implements Serializable {
              ResultSet r=st.executeQuery();
             try{
                while(r.next()){
-                    credito=r.getInt("credito");
+                    credito=r.getDouble("credito");
                }
             }finally{
                 r.close();
@@ -888,7 +888,7 @@ public class DBManager implements Serializable {
          statement=con.prepareStatement(sql);
          
          try{
-             statement.setInt(1, credito+k);
+             statement.setDouble(1, credito+k);
              statement.setString(2,email);
              int i=statement.executeUpdate();
              
