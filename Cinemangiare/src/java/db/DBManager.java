@@ -826,7 +826,6 @@ public class DBManager implements Serializable {
 
     }
 
- 
       
      public void deletePrenotazione(String email, int id_p) throws SQLException{
          

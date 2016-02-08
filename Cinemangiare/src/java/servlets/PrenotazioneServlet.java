@@ -125,12 +125,12 @@ public class PrenotazioneServlet extends HttpServlet {
 
         for (int i = 0; i < tokens.length; i++) {
             t = Integer.parseInt(tokens[i]);
-            posti.add(t);
+            if (!posti.contains(t))
+                posti.add(t);
         }
 
-        /*Debug*/        System.out.println("STRING LENGTH: " + tokens.length);
-        /*Debug*/
-        System.out.println(posti.toString());
+        /*Debug*/System.out.println("STRING LENGTH: " + tokens.length);
+        /*Debug*/System.out.println(posti.toString());
 
         return posti;
     }

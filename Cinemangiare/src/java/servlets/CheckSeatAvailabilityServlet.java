@@ -132,7 +132,8 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
                
         for(int i=0;i<tokens.length;i++) {
             t = Integer.parseInt(tokens[i]);
-            posti.add(t);
+            if (!posti.contains(t))
+                posti.add(t);
         }
         
         /*Debug*/System.out.println("STRING LENGTH: " + tokens.length);
