@@ -66,7 +66,7 @@
                                             <td>${info.sala}</td>
                                             <td>${info.id_posto}</td>
                                             <td>${info.id_prezzo}</td>
-                                            <td>${info.data_ora_spettacolo}</td>
+                                            <td>${info.data_ora_spettacolo.setNanos(0)}</td>
 
                                         </tr>
                                     </c:forEach>
