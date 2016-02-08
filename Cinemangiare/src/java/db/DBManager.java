@@ -1019,4 +1019,45 @@ public class DBManager implements Serializable {
             statement.close();
         }
     }
+
+    public Prenotazione getPrenotazione(int id) throws SQLException {
+        
+        
+        PreparedStatement stm = null;
+        
+        try {
+            
+            
+            String sqlInsert = "SELECT * FROM prenotazione  WHERE id_prenotazione?";
+            stm = con.prepareStatement(sqlInsert);
+            
+            stm.setInt(1, id);
+            
+            ResultSet rs = stm.executeQuery();
+            
+            try {
+                if(rs.next()) {
+                    
+                    Prenotazione s = new Prenotazione();
+                    s.setData_ora_prenotazione(rs.getTimestamp("data_ora"));
+                    s.setId_spettacolo(rs.getInt("id_spettacolo"));
+                    s.setId_prezzo(rs.getInt("id_prezzo"));
+                    s.setId_posto(rs.getInt("id_posto"));
+                    s.setIdemail(rs.getString("email"));
+                    s.setId_prenotazione(id);
+                    
+                    return s;
+                }
+                
+            } finally {
+                // Chiusura del ResultSet
+                rs.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        return null;
+    }
+    
 }
