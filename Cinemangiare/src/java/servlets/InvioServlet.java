@@ -72,7 +72,8 @@ public class InvioServlet extends HttpServlet {
         int posto = preno.getId_posto();
         int spettacolo = preno.id_spettacolo;
         Date data =preno.getData_ora_prenotazione();
-        String email=preno.getIdemail();
+        String email;
+        email = preno.getEmail();
         
         
         
