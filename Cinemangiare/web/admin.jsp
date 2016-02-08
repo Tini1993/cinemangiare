@@ -43,8 +43,8 @@
                                         <th>Spettacolo</th>
                                         <th>Sala</th>
                                         <th>Film</th>
-                                        <th>P.prenot</th>
-                                        <th>Data</th>
+                                        <th>Numero di prenotazioni</th>
+                                        <th>Data Spettacolo</th>
                                         <th>Incassi</th>
                                     </tr>
                                 </thead>
