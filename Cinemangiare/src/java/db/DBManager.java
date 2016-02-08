@@ -1000,6 +1000,7 @@ public class DBManager implements Serializable {
         java.util.Date date= new java.util.Date();
         Timestamp data_ora_operazione = new Timestamp(date.getTime());
         
+        
         try {
             statement.setInt(1, id_prenotazione);
             statement.setInt(2, id_spettacolo);
