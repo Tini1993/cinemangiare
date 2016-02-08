@@ -65,9 +65,8 @@
                 <td>
                     <form action="${pageContext.request.contextPath}/DeletePrenotazione" method="post">
                         <div class="input-append">
-                            <p> SALA: </p> <input type="number" name="id_s">
+                            <p> NUMERO PRENOTAZIONE: </p> <input type="number" name="id_p">
                             <p> EMAIL UTENTE: </p> <input type="text" name="email">
-                            <p> NUMERO DI POSTO: </p> <input type="number" name="id_p">
                              <button type="submit" class="btn">Cancella prenotazione</button>
                          </div>
                     </form>

@@ -829,18 +829,17 @@ public class DBManager implements Serializable {
         return listPrice;
       }
       
-     public void deletePrenotazione(int id_s, String email, int id_p) throws SQLException{
+     public void deletePrenotazione(String email, int id_p) throws SQLException{
          
          PreparedStatement stat=null;
-         String sql1="SELECT prezzo FROM prenotazione NATURAL JOIN utente NATURAL JOIN prezzo WHERE email=? AND id_spettacolo=? AND id_posto=?";
+         String sql1="SELECT prezzo FROM prenotazione NATURAL JOIN utente NATURAL JOIN prezzo WHERE email=? AND id_prenotazione=?";
          stat=con.prepareStatement(sql1);
          int k=0;
          
          try{
          
             stat.setString(1, email);
-            stat.setInt(2,id_s);
-            stat.setInt(3,id_p);
+            stat.setInt(2,id_p);
             
             ResultSet r=stat.executeQuery();
             try{
@@ -859,13 +858,34 @@ public class DBManager implements Serializable {
          
          k=(k*80/100);
          
+         PreparedStatement st=null;
+         String sq="SELECT credito FROM utente WHERE email=?";
+         st=con.prepareStatement(sq);
+         
+         int credito=0;
+         
+         try{
+             st.setString(1,email);
+             
+             ResultSet r=st.executeQuery();
+            try{
+               while(r.next()){
+                    credito=r.getInt("credito");
+               }
+            }finally{
+                r.close();
+            }
+         }finally{
+             st.close();
+         }
+         
          
          PreparedStatement statement=null;
          String sql="UPDATE utente SET credito=? WHERE email=?";
          statement=con.prepareStatement(sql);
          
          try{
-             statement.setInt(1, k);
+             statement.setInt(1, credito+k);
              statement.setString(2,email);
              int i=statement.executeUpdate();
              
@@ -880,13 +900,12 @@ public class DBManager implements Serializable {
          
          
         PreparedStatement stm = null;
-        String slqQuery = "DELETE FROM prenotazione WHERE id_spettacolo=? AND email=? AND id_posto=? ";
+        String slqQuery = "DELETE FROM prenotazione WHERE id_prenotazione=? ";
         stm=con.prepareStatement(slqQuery);
         
         try{
-            stm.setInt(1, id_s);
-            stm.setString(2, email);
-            stm.setInt(3,id_p);
+            stm.setInt(1, id_p);
+            
             
             int j = stm.executeUpdate();
 

@@ -88,8 +88,8 @@ public class DeletePrenotazione extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          try {
-             if(request.getParameter("email")!=null && request.getParameter("id_s")!=null && request.getParameter("id_p")!=null){
-                   manager.deletePrenotazione(Integer.parseInt(request.getParameter("id_s")),request.getParameter("email"),Integer.parseInt(request.getParameter("id_p")));
+             if(request.getParameter("email")!=null &&  request.getParameter("id_p")!=null){
+                   manager.deletePrenotazione(request.getParameter("email"),Integer.parseInt(request.getParameter("id_p")));
                }
                
             processRequest(request, response);
