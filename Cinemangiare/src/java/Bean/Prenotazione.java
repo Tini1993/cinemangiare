@@ -24,7 +24,7 @@ public class Prenotazione {
     public String titolo,email;
     public int sala;
     public Timestamp data_ora_spettacolo;
-    public String email;
+    
 
     public int getId_film() {
         return id_film;
