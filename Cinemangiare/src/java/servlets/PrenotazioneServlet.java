@@ -70,8 +70,8 @@ public class PrenotazioneServlet extends HttpServlet {
 
         for (int i = 0; i < posti.size(); i++) {
 
-            if (manager.checkPrenotazione(id_spettacolo, (id_sala*50)+posti.get(i))) {
-                manager.setPrenotazione(manager.getLastId_prenotazione() + 1, id_spettacolo, id_prezzo[i], (id_sala*50)+posti.get(i), email);
+            if (manager.checkPrenotazione(id_spettacolo, ((id_sala-1)*50)+posti.get(i))) {
+                manager.setPrenotazione(manager.getLastId_prenotazione() + 1, id_spettacolo, id_prezzo[i], ((id_sala-1)*50)+posti.get(i), email);
             } else {
                 request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti! Posto già prenotato!");
                 RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
