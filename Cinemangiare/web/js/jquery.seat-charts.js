@@ -40,9 +40,9 @@
 				},
 				click   : function() {
 
-					if (this.status() == 'available') {
+					if (this.status() === 'available') {
 						return 'selected';
-					} else if (this.status() == 'selected') {
+					} else if (this.status() === 'selected') {
 						return 'available';
 					} else {
 						return this.style();
@@ -51,7 +51,7 @@
 				},
 				focus  : function() {
 
-					if (this.status() == 'available') {
+					if (this.status() === 'available') {
 						return 'focused';
 					} else  {
 						return this.style();
@@ -90,7 +90,7 @@
 						.addClass(['seatCharts-seat', 'seatCharts-cell', 'available'].concat(
 							//let's merge custom user defined classes with standard JSC ones
 							fn.settings.classes, 
-							typeof seatChartsSettings.seats[fn.settings.character] == "undefined" ? 
+							typeof seatChartsSettings.seats[fn.settings.character] === "undefined" ? 
 								[] : seatChartsSettings.seats[fn.settings.character].classes
 							).join(' '));
 					
@@ -116,19 +116,19 @@
 					 */
 					fn.style = function() {
 
-						return arguments.length == 1 ?
+						return arguments.length === 1 ?
 							(function(newStyle) {
 								var oldStyle = fn.settings.style;
 
 								//if nothing changes, do nothing
-								if (newStyle == oldStyle) {
+								if (newStyle === oldStyle) {
 									return oldStyle;
 								}
 								
 								//focused is a special style which is not associated with status
-								fn.settings.status = newStyle != 'focused' ? newStyle : fn.settings.status;
+								fn.settings.status = newStyle !== 'focused' ? newStyle : fn.settings.status;
 								fn.settings.$node
-									.attr('aria-checked', newStyle == 'selected');
+									.attr('aria-checked', newStyle === 'selected');
 
 								//if user wants to animate status changes, let him do this
 								seatChartsSettings.animate ?

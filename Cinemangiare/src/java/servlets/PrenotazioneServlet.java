@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import db.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -24,18 +25,31 @@ import javax.servlet.http.HttpSession;
 public class PrenotazioneServlet extends HttpServlet {
     
     ArrayList<Integer> posti = null;
+    private DBManager manager;
+    
+    @Override
+    public void init() throws ServletException {
+        // Inizializza il DBManager dagli attributi di Application
+        this.manager = (DBManager)super.getServletContext().getAttribute("dbmanager");
+        
+    }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         
         HttpSession session = request.getSession(true);
 
+        int[] id_prezzo = new int[50];
         String[] tipoSconto = new String[50];
-        for (int i = 1; i < 50; i++) {
+        for (int i = 0; i < 50; i++) {
             tipoSconto[i] = (request.getParameter("" + i + ""));
-            if(tipoSconto[i] != null)
-                System.out.println(tipoSconto[i]);
+            if(tipoSconto[i] != null){               
+                id_prezzo[i] = manager.getId_prezzo(tipoSconto[i]);
+                System.out.println(id_prezzo[i] + "" + tipoSconto[i]);
+            }
         }
+        
+        
         
         int id_spettacolo = Integer.parseInt(request.getParameter("idShow"));
         System.out.println(id_spettacolo);
@@ -44,9 +58,12 @@ public class PrenotazioneServlet extends HttpServlet {
         System.out.println(email);
         
         String stringaPosti = request.getParameter("stringaPosti");
+        
         this.parseRequestedSeats(stringaPosti);
+        
         for(int i=0; i<posti.size(); i++){
             System.out.println(posti.get(i));
+            manager.setPrenotazione(manager.getLastId_prenotazione()+1, id_spettacolo, id_prezzo[i], posti.get(i), email);
         }
     }
 

@@ -36,32 +36,37 @@
 
                 <p><h2 class="text-uppercase">${FilmSel.titolo}   <span class="label label-default">New</span></h2> </p>
 
-                <p> DURATA: ${FilmSel.durata}min </p>
+                <p> Durata: ${FilmSel.durata}min </p>
 
                 <p><h4>${FilmSel.trama}</h4> </p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Prenota</a></p>
+                <div class="row"> 
+                    <div class="col-xs-12 col-md-8">
+
+                        <div class="embed-responsive embed-responsive-16by9"> <iframe class=embed-responsive-item src="${FilmSel.url_trailer}" allowfullscreen></iframe> </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-10">
+                        <div class="page-header">
+                            <h1>Prenota i biglietti</h1>
+                        </div>
+
+                        <div class="list-group">
+                            <c:forEach items="${ShowSel}" var="show">
+                                <a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}" type="button" class="list-group-item">
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                    ${show.data_ora} 
+                                    <span class="badge">Sala${show.id_sala} </span>
+                                </a>
+                            </c:forEach>
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
         </div>
 
-        <div class="row"> 
-            <div class="col-xs-6 col-md-4"></div>
-            <div class="col-xs-12 col-md-6">
-
-                <div class="embed-responsive embed-responsive-16by9"> <iframe class=embed-responsive-item src="${FilmSel.url_trailer}" allowfullscreen></iframe> </div>
-
-            </div>
-        </div>
-
-        <table class="table table-striped">
-            <c:forEach items="${ShowSel}" var="show">   
-                <tr>
-                    <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}">ORA: ${show.data_ora}</a></td>
-                    <td><a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}">SALA: ${show.id_sala}</a></td>
-                </tr>
-            </c:forEach>
-        </table>
-                
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

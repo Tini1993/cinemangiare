@@ -43,7 +43,7 @@ div.seatCharts-row:after {
 }
 
 div.seatCharts-seat.selected {
-	/* background-color: aqua; */
+	 background-color: aqua; 
 }
 
 div.seatCharts-seat.focused {

@@ -28,24 +28,39 @@
         <div class="container" id="allContent">
             <div class="row">
                 <div class="col-sm-offset-3 col-sm-6">
+                    <div class="page-header">
+                        <h1>Riepilogo acquisti</h1>
+                    </div>
                     
-                    <h1>Riepilogo acquisti</h1>
                     <c:if test="${empty prenotazioni}">
-                        <p> Non hai ancora fatto nessun acquisto :( </p>  
-                        <p>Credito residuo: <c:out value="${user.credito}"/></p>
-                    </c:if>
+                        <div class="alert alert-warning" role="alert"> Nessuna Prenotazione Effettuata</div>
+                        
 
+                    </c:if>
+<div class="alert alert-info" role="alert">Credito residuo: <c:out value="${user.credito}"/></div>
                     <c:if test="${! empty prenotazioni}">
-                        <p> Credito residuo: <c:out value="${user.credito}"/> </p>
-                        <table class="table table-striped">
-                            <tr> 
-                                <c:forEach items="${prenotazioni}" var="info">
-                                <tr>
-                                    <td> Data/Ora: ${info.data_ora_prenotazione} Titolo: ${info.titolo}</td>    
-                                </tr>
-                                </c:forEach>
-                            </tr>
-                        </table>
+                        <h2>Prenotazioni</h2>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Data/Ora</th>
+                                        <th>Titolo</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${prenotazioni}" var="info">  
+                                        <tr>
+                                            <td>${info.data_ora_prenotazione}</td>
+                                            <td>${info.titolo}</td>
+
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            </div>
+                   
                     </c:if>
 
                 </div>
