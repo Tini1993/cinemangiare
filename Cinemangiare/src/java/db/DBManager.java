@@ -150,7 +150,7 @@ public class DBManager implements Serializable {
         try {
 
             //ResultSet results = statement.executeQuery();
-            String sqlInsert = "SELECT * FROM prenotazione NATURAL JOIN spettacolo NATURAL JOIN film WHERE email = ?";
+            String sqlInsert = "SELECT * FROM prenotazione NATURAL JOIN spettacolo NATURAL JOIN film NATURAL JOIN prezzo WHERE email = ?";
             
             stm = con.prepareStatement(sqlInsert);
             stm.setString(1, email);
@@ -160,11 +160,14 @@ public class DBManager implements Serializable {
 
                 while (results.next()) {
                     Prenotazione prenotazione = new Prenotazione();
+                    prenotazione.setId_prenotazione(results.getInt("id_prenotazione"));
                     prenotazione.setId_spettacolo(results.getInt("id_spettacolo"));
-                    prenotazione.setId_prezzo(results.getInt("id_prezzo"));
+                    prenotazione.setId_prezzo(results.getInt("prezzo"));
                     prenotazione.setId_posto(results.getInt("id_posto"));
                     prenotazione.setData_ora_prenotazione(results.getTimestamp("data_ora_operazione"));
                     prenotazione.setTitolo(results.getString("titolo"));
+                    prenotazione.setData_ora_spettacolo(results.getTimestamp("data_ora"));
+                    prenotazione.setSala(results.getInt("id_sala"));
                     listPrenotazione.add(prenotazione);
                 }
 

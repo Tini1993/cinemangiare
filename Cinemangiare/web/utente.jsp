@@ -44,8 +44,15 @@
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Data/Ora</th>
-                                        <th>Titolo</th>
+                                        <th>Data/Ora prenotazione</th>
+                                        <th>Titolo Film</th>
+                                        <th>Numero prenotazione</th>
+                                        <th>Numero spettacolo</th>
+                                        <th> Sala </th>
+                                        <th> Posto </th>
+                                        <th> Prezzo pagato </th>
+                                        <th> Data/ora spettacolo </th>
+                                        
 
                                     </tr>
                                 </thead>
@@ -54,6 +61,12 @@
                                         <tr>
                                             <td>${info.data_ora_prenotazione}</td>
                                             <td>${info.titolo}</td>
+                                            <td>${info.id_prenotazione}</td>
+                                            <td>${info.id_spettacolo}</td>
+                                            <td>${info.sala}</td>
+                                            <td>${info.id_posto}</td>
+                                            <td>${info.id_prezzo}</td>
+                                            <td>${info.data_ora_spettacolo}</td>
 
                                         </tr>
                                     </c:forEach>

@@ -62,7 +62,10 @@ public class InfoUtenteServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(InfoUtenteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
+            request.setAttribute("errorEx", ex);
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
     }
 
@@ -72,7 +75,10 @@ public class InfoUtenteServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(InfoUtenteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMessage", "Errore SQL: errore durante il caricamento dei dati");
+            request.setAttribute("errorEx", ex);
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
     }
 }

@@ -15,12 +15,15 @@ import java.sql.Timestamp;
 
 public class Prenotazione {
 
+    public int id_prenotazione;
     public int id_film;
     public int id_spettacolo;
     public int id_prezzo;
     public int id_posto;
     public Timestamp data_ora_prenotazione;
     public String titolo;
+    public int sala;
+    private Timestamp data_ora_spettacolo;
 
     public int getId_film() {
         return id_film;
@@ -68,6 +71,48 @@ public class Prenotazione {
 
     public void setTitolo(String titolo) {
         this.titolo = titolo;
+    }
+
+    /**
+     * @return the id_prenotazione
+     */
+    public int getId_prenotazione() {
+        return id_prenotazione;
+    }
+
+    /**
+     * @param id_prenotazione the id_prenotazione to set
+     */
+    public void setId_prenotazione(int id_prenotazione) {
+        this.id_prenotazione = id_prenotazione;
+    }
+
+    /**
+     * @return the sala
+     */
+    public int getSala() {
+        return sala;
+    }
+
+    /**
+     * @param sala the sala to set
+     */
+    public void setSala(int sala) {
+        this.sala = sala;
+    }
+
+    /**
+     * @return the data_ora_spettacolo
+     */
+    public Timestamp getData_ora_spettacolo() {
+        return data_ora_spettacolo;
+    }
+
+    /**
+     * @param data_ora_spettacolo the data_ora_spettacolo to set
+     */
+    public void setData_ora_spettacolo(Timestamp data_ora_spettacolo) {
+        this.data_ora_spettacolo = data_ora_spettacolo;
     }
     
 }
