@@ -37,7 +37,7 @@
                         
 
                     </c:if>
-<div class="alert alert-info" role="alert">Credito residuo: <c:out value="${user.credito}"/></div>
+<div class="alert alert-info" role="alert">Credito residuo: <c:out value="${credito}"/></div>
                     <c:if test="${! empty prenotazioni}">
                         <h2>Prenotazioni</h2>
                         <div class="table-responsive">

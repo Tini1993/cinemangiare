@@ -85,6 +85,7 @@ public class CheckSeatAvailabilityServlet extends HttpServlet {
         List<Price> price = new ArrayList();
         price = manager.getPrice();
         HttpSession session = request.getSession(true);
+        session.setAttribute("idHall", idHall);
         session.setAttribute("stringaPosti", stringaPosti);
         session.setAttribute("idShow", idShow);
         request.setAttribute("prezzi", price);

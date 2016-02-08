@@ -37,6 +37,7 @@
         <input id="stringaPosti_" type="hidden" name="stringaPosti" value=""/>
         <input id="email_" type="hidden" name="email" value=""/>
         <input id="idShow_" type="hidden" name="idShow" value=""/>
+        <input id="idHall_" type="hidden" name="idHall" value=""/>
 
         <%-- Inizzializzo un contatore (stile ciclo for) --%>
         <c:set var="count" value="0" scope="page" />
@@ -75,14 +76,17 @@
     <script> <%-- Funzione che serve per rinominare le variabili scritte sopra, indispensabile per passare effettivamente i valori alla servlet successiva --%>
             function foo() {
             var idShow = "${idShow}";
+            var idHall = "${idHall}";
             var email = "${user.email}";
             var stringaPosti = "${stringaPosti}"
 
                     console.log(idShow); //debug
+                    console.log(idHall); //debug
                     console.log(email); //debug
                     console.log(stringaPosti); //debug
 
                     $("#idShow_").val(idShow);
+                    $("#idHall_").val(idHall);
                     $("#email_").val(email);
                     $("#stringaPosti_").val(stringaPosti);
 

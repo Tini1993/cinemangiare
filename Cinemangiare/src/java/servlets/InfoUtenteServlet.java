@@ -48,10 +48,12 @@ public class InfoUtenteServlet extends HttpServlet {
         }
 
         List<Prenotazione> prenotazioni = new ArrayList();
-
+        
+        double credito = manager.checkCredito(user.email);
         prenotazioni = manager.getListPrenotazione(user.email);
 
         request.setAttribute("prenotazioni", prenotazioni);
+        request.setAttribute("credito", credito);
         RequestDispatcher rd = request.getRequestDispatcher("/utente.jsp");
         rd.forward(request, response);
     }
