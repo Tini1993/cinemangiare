@@ -162,7 +162,7 @@ public class DBManager implements Serializable {
                     Prenotazione prenotazione = new Prenotazione();
                     prenotazione.setId_prenotazione(results.getInt("id_prenotazione"));
                     prenotazione.setId_spettacolo(results.getInt("id_spettacolo"));
-                    prenotazione.setId_prezzo(results.getInt("prezzo"));
+                    prenotazione.setId_prezzo(results.getDouble("prezzo"));
                     prenotazione.setId_posto(results.getInt("id_posto"));
                     prenotazione.setData_ora_prenotazione(results.getTimestamp("data_ora_operazione"));
                     prenotazione.setTitolo(results.getString("titolo"));
