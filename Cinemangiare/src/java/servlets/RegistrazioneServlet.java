@@ -36,6 +36,7 @@ public class RegistrazioneServlet extends HttpServlet {
 
         try {
 
+            
             manager.register(username, password);
 
         } catch (SQLException ex) {
