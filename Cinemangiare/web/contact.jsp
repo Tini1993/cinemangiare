@@ -8,8 +8,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
     
 <html lang="it">
-    
-    
 
     <head>
         <meta charset="utf-8">
@@ -28,8 +26,10 @@
         </style>
 
     </head>
-     <%@ include file="navbar.jsp" %>
+
     <body>
+        <%@ include file="navbar.jsp" %>
+
         
 
         <div class="container">

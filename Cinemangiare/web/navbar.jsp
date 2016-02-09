@@ -5,12 +5,19 @@
             <a class="navbar-brand">
                 <img alt="Brand" src="img/icona.png">
             </a>
+             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        
+            </button>
+            <a class="navbar-brand" href="ListaFilmServlet">Cinema Limoni</a>
         </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="myNavbar">
+           
             <ul class="nav navbar-nav">
                 <%--<li><a href="index.html">Home <span class="sr-only">(current)</span></a></li>--%>
-                <li><a href="ListaFilmServlet">I Film </a></li>
                 <li><a href="PriceServlet">Prezzi </a></li>
                 <li><a href="contact.jsp">Dove Siamo </a></li>
             </ul>
