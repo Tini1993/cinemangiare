@@ -135,7 +135,7 @@
                         var Ngruppi = "${count}";
                         if ($("input[type=radio]:checked").length < Ngruppi)
 {
-    alert ("Please select atleast one radio button in each group");
+    alert ("Seleziona almeno una tipologia per biglietto");
     return false;
 }
 else{                        var idShow = "${idShow}";
