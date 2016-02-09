@@ -18,7 +18,7 @@ public class Prenotazione {
     public int id_prenotazione;
     public int id_film;
     public int id_spettacolo;
-    public int id_prezzo;
+    public double id_prezzo;
     public int id_posto;
     public Timestamp data_ora_prenotazione;
     public String titolo,email;
@@ -52,11 +52,11 @@ public class Prenotazione {
         this.id_spettacolo = id_spettacolo;
     }
 
-    public int getId_prezzo() {
+    public double getId_prezzo() {
         return id_prezzo;
     }
 
-    public void setId_prezzo(int id_prezzo) {
+    public void setId_prezzo(double id_prezzo) {
         this.id_prezzo = id_prezzo;
     }
 

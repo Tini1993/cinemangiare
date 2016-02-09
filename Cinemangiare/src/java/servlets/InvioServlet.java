@@ -68,7 +68,7 @@ public class InvioServlet extends HttpServlet {
         }
         
         int id=preno.getId_prenotazione();
-        int prezzo_pagato = preno.getId_prezzo();
+        double prezzo_pagato = preno.getId_prezzo();
         int posto = preno.getId_posto();
         int spettacolo = preno.id_spettacolo;
         Date data =preno.getData_ora_prenotazione();

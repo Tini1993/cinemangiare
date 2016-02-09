@@ -163,7 +163,7 @@ public class DBManager implements Serializable {
                     Prenotazione prenotazione = new Prenotazione();
                     prenotazione.setId_prenotazione(results.getInt("id_prenotazione"));
                     prenotazione.setId_spettacolo(results.getInt("id_spettacolo"));
-                    prenotazione.setId_prezzo(results.getInt("prezzo"));
+                    prenotazione.setId_prezzo(results.getDouble("prezzo"));
                     prenotazione.setId_posto(results.getInt("id_posto"));
                     prenotazione.setData_ora_prenotazione(results.getTimestamp("data_ora_operazione"));
                     prenotazione.setTitolo(results.getString("titolo"));
@@ -727,7 +727,7 @@ public class DBManager implements Serializable {
 
         try {
 
-            String slqQuery = "SELECT id_film, titolo, SUM(prezzo) AS incassi FROM prenotazione NATURAL JOIN prezzo NATURAL JOIN spettacolo NATURAL JOIN film GROUP BY id_film, titolo";
+            String slqQuery = "SELECT id_film, titolo, SUM(prezzo) AS incassi FROM prenotazione NATURAL JOIN prezzo NATURAL JOIN spettacolo NATURAL JOIN film GROUP BY id_film, titolo ORDER BY incassi DESC";
             stm = con.prepareStatement(slqQuery);
 
             ResultSet results = stm.executeQuery();
@@ -765,7 +765,7 @@ public class DBManager implements Serializable {
 
         try {
 
-            String slqQuery = "SELECT email, SUM(prezzo) AS paga FROM utente NATURAL JOIN prenotazione NATURAL JOIN prezzo GROUP BY email ORDER BY paga";
+            String slqQuery = "SELECT email, SUM(prezzo) AS paga FROM utente NATURAL JOIN prenotazione NATURAL JOIN prezzo GROUP BY email ORDER BY paga DESC";
             stm = con.prepareStatement(slqQuery);
 
             ResultSet results = stm.executeQuery();
@@ -774,7 +774,6 @@ public class DBManager implements Serializable {
                 while (results.next()) {
                     Utente utente = new Utente();
                     utente.setEmail(results.getString("email"));
-                    utente.setPaga(results.getInt("paga"));
                     utente.setPaga(results.getDouble("paga"));
 
                     listUtente.add(utente);
@@ -993,7 +992,7 @@ public class DBManager implements Serializable {
         try {
 
             // SELECT SQL
-            String sqlQuery = "SELECT COUNT(id_prenotazione) AS last_id_prenotazione FROM prenotazione";
+            String sqlQuery = "SELECT MAX(id_prenotazione) AS last_id_prenotazione FROM prenotazione";
             stm = con.prepareStatement(sqlQuery);
 
             ResultSet rs = stm.executeQuery();
@@ -1025,7 +1024,12 @@ public class DBManager implements Serializable {
         java.util.Date date = new java.util.Date();
         Timestamp data_ora_operazione = new Timestamp(date.getTime());
 
+<<<<<<< HEAD
             try {
+=======
+        
+            try{
+>>>>>>> origin/master
                 statement.setInt(1, id_prenotazione);
                 statement.setInt(2, id_spettacolo);
                 statement.setInt(3, id_prezzo);
@@ -1038,11 +1042,20 @@ public class DBManager implements Serializable {
                 if (i > 0) {
                     System.out.println("success!!!");
                 }
+<<<<<<< HEAD
 
             } finally {
                 // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
                 statement.close();
             }
+=======
+            }catch(SQLException ex){
+                System.out.println("HELLOOO:" + ex);
+                
+            }finally {
+            // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
+            statement.close();
+>>>>>>> origin/master
         }
 
     
@@ -1091,7 +1104,7 @@ public class DBManager implements Serializable {
             ResultSet r = st.executeQuery();
             try {
                 if (r.next()) {
-                    credito = r.getInt("credito");
+                    credito = r.getDouble("credito");
                     return credito;
                 }
             } finally {

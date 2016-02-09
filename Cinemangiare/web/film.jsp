@@ -5,6 +5,7 @@
 --%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%--se inculudo sta roba da errore--%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.*"%>
 <%@page import="Bean.Film"%>
@@ -54,8 +55,8 @@
                         <div class="list-group">
                             <c:forEach items="${ShowSel}" var="show">
                                 <a href="PostiServlet?idShow=${show.id_spettacolo}&idHall=${show.id_sala}" type="button" class="list-group-item">
-                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                    ${show.data_ora} 
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span> 
+                                    <fmt:formatDate value="${show.data_ora}" pattern="MM/dd/yyyy HH:mm"/>
                                     <span class="badge">Sala${show.id_sala} </span>
                                 </a>
                             </c:forEach>
