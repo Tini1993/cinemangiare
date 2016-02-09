@@ -1024,12 +1024,11 @@ public class DBManager implements Serializable {
         java.util.Date date = new java.util.Date();
         Timestamp data_ora_operazione = new Timestamp(date.getTime());
 
-<<<<<<< HEAD
             try {
-=======
+
         
             try{
->>>>>>> origin/master
+
                 statement.setInt(1, id_prenotazione);
                 statement.setInt(2, id_spettacolo);
                 statement.setInt(3, id_prezzo);
@@ -1042,21 +1041,22 @@ public class DBManager implements Serializable {
                 if (i > 0) {
                     System.out.println("success!!!");
                 }
-<<<<<<< HEAD
+
 
             } finally {
                 // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
                 statement.close();
             }
-=======
+
             }catch(SQLException ex){
                 System.out.println("HELLOOO:" + ex);
                 
             }finally {
             // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
             statement.close();
->>>>>>> origin/master
+
         }
+    }
 
     
 
