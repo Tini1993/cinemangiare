@@ -10,7 +10,10 @@
 <%@page import="Bean.Film"%>
 <%@page import="Bean.Spettacolo"%>
 <%@page import="Bean.Price"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+    <%@page import="java.util.*"%>
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <html>
     <head>
         <meta charset="utf-8">

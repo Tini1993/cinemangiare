@@ -1,8 +1,15 @@
 <!DOCTYPE html>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%--se inculudo sta roba da errore--%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.util.*"%>
+<%@page import="Bean.Film"%>
+<%@page import="Bean.Spettacolo"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+    
 <html lang="it">
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <%@page import="java.util.*"%>
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    
+    
 
     <head>
         <meta charset="utf-8">
@@ -21,9 +28,9 @@
         </style>
 
     </head>
-
+     <%@ include file="navbar.jsp" %>
     <body>
-        <%@ include file="navbar.jsp" %>
+        
 
         <div class="container">
             <div class="col-xs-12" style="height:50px;"></div>
