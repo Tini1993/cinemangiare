@@ -761,7 +761,7 @@ public class DBManager implements Serializable {
 
         try {
 
-            String slqQuery = "SELECT email, SUM(prezzo) AS paga FROM utente NATURAL JOIN prenotazione NATURAL JOIN prezzo GROUP BY email ORDER BY paga";
+            String slqQuery = "SELECT email, SUM(prezzo) AS paga FROM utente NATURAL JOIN prenotazione NATURAL JOIN prezzo GROUP BY email ORDER BY paga DESC";
             stm = con.prepareStatement(slqQuery);
 
             ResultSet results = stm.executeQuery();
@@ -770,7 +770,6 @@ public class DBManager implements Serializable {
                 while (results.next()) {
                     Utente utente = new Utente();
                     utente.setEmail(results.getString("email"));
-                    utente.setPaga(results.getInt("paga"));
                     utente.setPaga(results.getDouble("paga"));
 
                     listUtente.add(utente);
@@ -993,7 +992,7 @@ public class DBManager implements Serializable {
         try {
 
             // SELECT SQL
-            String sqlQuery = "SELECT COUNT(id_prenotazione) AS last_id_prenotazione FROM prenotazione";
+            String sqlQuery = "SELECT MAX(id_prenotazione) AS last_id_prenotazione FROM prenotazione";
             stm = con.prepareStatement(sqlQuery);
 
             ResultSet rs = stm.executeQuery();
@@ -1025,21 +1024,24 @@ public class DBManager implements Serializable {
         java.util.Date date = new java.util.Date();
         Timestamp data_ora_operazione = new Timestamp(date.getTime());
 
-        try {
-            statement.setInt(1, id_prenotazione);
-            statement.setInt(2, id_spettacolo);
-            statement.setInt(3, id_prezzo);
-            statement.setInt(4, id_posto);
-            statement.setTimestamp(5, data_ora_operazione);
-            statement.setString(6, email);
+        
+            try{
+                statement.setInt(1, id_prenotazione);
+                statement.setInt(2, id_spettacolo);
+                statement.setInt(3, id_prezzo);
+                statement.setInt(4, id_posto);
+                statement.setTimestamp(5, data_ora_operazione);
+                statement.setString(6, email);
 
-            int i = statement.executeUpdate();
+                int i = statement.executeUpdate();
 
-            if (i > 0) {
-                System.out.println("success!!!");
-            }
-
-        } finally {
+                if (i > 0) {
+                    System.out.println("success!!!");
+                }
+            }catch(SQLException ex){
+                System.out.println("HELLOOO:" + ex);
+                
+            }finally {
             // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
             statement.close();
         }
