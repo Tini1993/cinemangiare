@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -56,7 +57,6 @@ public class FilmServlet extends HttpServlet {
 
             Film film = manager.getFilm(titolo);
             List <Spettacolo> spettacolo = manager.getSpettacolo(film.id_film);
-            //Spettacolo spettacolo = manager.getSpettacolo(film.id_film);
             
             // guardo se la query ha dato dei risultati
             if (film == null) {

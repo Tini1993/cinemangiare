@@ -28,6 +28,7 @@ import static java.lang.Math.random;
 import java.util.Calendar;
 import java.util.Date;
 import javax.naming.spi.DirStateFactory.Result;
+import javax.servlet.RequestDispatcher;
 
 /**
  * Classe che ingloba tutti i metodi necessari per interagire con il database
@@ -263,14 +264,18 @@ public class DBManager implements Serializable {
 
         List<Spettacolo> listSpettacolo = new ArrayList();
 
+        java.util.Date date = new java.util.Date();
+        Timestamp data_ora_corrente = new Timestamp(date.getTime());
+
         PreparedStatement stm = null;
 
         try {
 
-            String sqlInsert = "SELECT * FROM spettacolo WHERE id_film=?";
+            String sqlInsert = "SELECT * FROM spettacolo WHERE id_film=? AND data_ora > ?";
             stm = con.prepareStatement(sqlInsert);
 
             stm.setInt(1, id_film);
+            stm.setTimestamp(2, data_ora_corrente);
 
             ResultSet results = stm.executeQuery();
 
@@ -734,9 +739,8 @@ public class DBManager implements Serializable {
                     film.setTitolo(results.getString("titolo"));
                     film.setIncassi(results.getInt("incassi"));
 
-
                     film.setIncassi(results.getDouble("incassi"));
-                   
+
                     listFilm.add(film);
                 }
 
@@ -808,7 +812,6 @@ public class DBManager implements Serializable {
                     price.setTipo(results.getString("tipo"));
                     price.setPrezzo(results.getFloat("prezzo"));
 
-
                     price.setPrezzo(results.getDouble("prezzo"));
 
                     listPrice.add(price);
@@ -826,75 +829,72 @@ public class DBManager implements Serializable {
 
     }
 
-      
-     public void deletePrenotazione(String email, int id_p) throws SQLException{
-         
-         PreparedStatement stat=null;
-         String sql1="SELECT prezzo FROM prenotazione NATURAL JOIN utente NATURAL JOIN prezzo WHERE email=? AND id_prenotazione=?";
-         stat=con.prepareStatement(sql1);
-         double k=0;
-         
-         try{
-         
+    public void deletePrenotazione(String email, int id_p) throws SQLException {
+
+        PreparedStatement stat = null;
+        String sql1 = "SELECT prezzo FROM prenotazione NATURAL JOIN utente NATURAL JOIN prezzo WHERE email=? AND id_prenotazione=?";
+        stat = con.prepareStatement(sql1);
+        double k = 0;
+
+        try {
+
             stat.setString(1, email);
-            stat.setInt(2,id_p);
-            
-            ResultSet r=stat.executeQuery();
-            try{
-               while(r.next()){
-                    k=r.getDouble("prezzo");
-               }
-            }finally{
+            stat.setInt(2, id_p);
+
+            ResultSet r = stat.executeQuery();
+            try {
+                while (r.next()) {
+                    k = r.getDouble("prezzo");
+                }
+            } finally {
                 r.close();
             }
-         }catch(Exception ex){
-             System.out.println("hello " + ex);
-         }finally{
-             
-             stat.close();
-         }
-         
-         k=(k*80.0/100.0);
-         
-         PreparedStatement st=null;
-         String sq="SELECT credito FROM utente WHERE email=?";
-         st=con.prepareStatement(sq);
-         
-         double credito=0;
-         
-         try{
-             st.setString(1,email);
-             
-             ResultSet r=st.executeQuery();
-            try{
-               while(r.next()){
-                    credito=r.getDouble("credito");
-               }
-            }finally{
+        } catch (Exception ex) {
+            System.out.println("hello " + ex);
+        } finally {
+
+            stat.close();
+        }
+
+        k = (k * 80.0 / 100.0);
+
+        PreparedStatement st = null;
+        String sq = "SELECT credito FROM utente WHERE email=?";
+        st = con.prepareStatement(sq);
+
+        double credito = 0;
+
+        try {
+            st.setString(1, email);
+
+            ResultSet r = st.executeQuery();
+            try {
+                while (r.next()) {
+                    credito = r.getDouble("credito");
+                }
+            } finally {
                 r.close();
             }
-         }finally{
-             st.close();
-         }
-         
-         
-         PreparedStatement statement=null;
-         String sql="UPDATE utente SET credito=? WHERE email=?";
-         statement=con.prepareStatement(sql);
-         
-         try{
-             statement.setDouble(1, credito+k);
-             statement.setString(2,email);
-             int i=statement.executeUpdate();
-             
-             if (i > 0) {
-                        System.out.println("success!!!");
-                    }
-             
-             
-         }finally{
-             statement.close();
-         }
+        } finally {
+            st.close();
+        }
+
+        PreparedStatement statement = null;
+        String sql = "UPDATE utente SET credito=? WHERE email=?";
+        statement = con.prepareStatement(sql);
+
+        try {
+            statement.setDouble(1, credito + k);
+            statement.setString(2, email);
+            int i = statement.executeUpdate();
+
+            if (i > 0) {
+                System.out.println("success!!!");
+            }
+
+        } finally {
+            statement.close();
+        }
 
         PreparedStatement stm = null;
         String slqQuery = "DELETE FROM prenotazione WHERE id_prenotazione=? ";
@@ -1025,26 +1025,27 @@ public class DBManager implements Serializable {
         java.util.Date date = new java.util.Date();
         Timestamp data_ora_operazione = new Timestamp(date.getTime());
 
-        try {
-            statement.setInt(1, id_prenotazione);
-            statement.setInt(2, id_spettacolo);
-            statement.setInt(3, id_prezzo);
-            statement.setInt(4, id_posto);
-            statement.setTimestamp(5, data_ora_operazione);
-            statement.setString(6, email);
+            try {
+                statement.setInt(1, id_prenotazione);
+                statement.setInt(2, id_spettacolo);
+                statement.setInt(3, id_prezzo);
+                statement.setInt(4, id_posto);
+                statement.setTimestamp(5, data_ora_operazione);
+                statement.setString(6, email);
 
-            int i = statement.executeUpdate();
+                int i = statement.executeUpdate();
 
-            if (i > 0) {
-                System.out.println("success!!!");
+                if (i > 0) {
+                    System.out.println("success!!!");
+                }
+
+            } finally {
+                // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
+                statement.close();
             }
-
-        } finally {
-            // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
-            statement.close();
         }
 
-    }
+    
 
     public boolean checkPrenotazione(int id_spettacolo, int id_posto) throws SQLException {
 
@@ -1073,6 +1074,8 @@ public class DBManager implements Serializable {
         }
         return true;
     }
+    
+    
 
     public double checkCredito(String email) throws SQLException {
 
@@ -1116,30 +1119,28 @@ public class DBManager implements Serializable {
             if (i > 0) {
                 System.out.println("success!!!");
             }
-            
+
         } finally {
             st.close();
         }
     }
 
     public Prenotazione getPrenotazione(int id) throws SQLException {
-        
-        
+
         PreparedStatement stm = null;
-        
+
         try {
-            
-            
+
             String sqlInsert = "SELECT * FROM prenotazione  WHERE id_prenotazione?";
             stm = con.prepareStatement(sqlInsert);
-            
+
             stm.setInt(1, id);
-            
+
             ResultSet rs = stm.executeQuery();
-            
+
             try {
-                if(rs.next()) {
-                    
+                if (rs.next()) {
+
                     Prenotazione s = new Prenotazione();
                     s.setData_ora_prenotazione(rs.getTimestamp("data_ora"));
                     s.setId_spettacolo(rs.getInt("id_spettacolo"));
@@ -1147,10 +1148,10 @@ public class DBManager implements Serializable {
                     s.setId_posto(rs.getInt("id_posto"));
                     s.setEmail(rs.getString("email"));
                     s.setId_prenotazione(id);
-                    
+
                     return s;
                 }
-                
+
             } finally {
                 // Chiusura del ResultSet
                 rs.close();
@@ -1161,5 +1162,35 @@ public class DBManager implements Serializable {
         }
         return null;
     }
-    
+
+    public Timestamp getData_ora(int id_spettacolo) throws SQLException {
+
+        PreparedStatement stm = null;
+
+        try {
+
+            String sqlInsert = "SELECT data_ora FROM spettacolo WHERE id_spettacolo=?";
+            stm = con.prepareStatement(sqlInsert);
+
+            stm.setInt(1, id_spettacolo);
+
+            ResultSet results = stm.executeQuery();
+
+            try {
+                if (results.next()) {
+                    Timestamp data_ora = results.getTimestamp("data_ora");
+                    return data_ora;
+                }
+
+            } finally {
+                // Chiusura del ResultSet
+                results.close();
+            }
+        } finally {
+            // Chiusura del PreparedStatement
+            stm.close();
+        }
+        return null;
+    }
+
 }

@@ -9,6 +9,7 @@ import db.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,9 +48,7 @@ public class PrenotazioneServlet extends HttpServlet {
         int id_spettacolo = Integer.parseInt(request.getParameter("idShow"));
         int id_sala = Integer.parseInt(request.getParameter("idHall"));
         String email = request.getParameter("email");
-        String stringaPosti = request.getParameter("stringaPosti");
-        
-        System.out.println(id_sala);
+        String stringaPosti = request.getParameter("stringaPosti");        
         
         double credito = manager.checkCredito(email);
         
@@ -67,13 +66,16 @@ public class PrenotazioneServlet extends HttpServlet {
         }
 
         this.parseRequestedSeats(stringaPosti); 
+        
+        java.util.Date date = new java.util.Date();
+        Timestamp data_ora_operazione = new Timestamp(date.getTime());
 
         for (int i = 0; i < posti.size(); i++) {
 
-            if (manager.checkPrenotazione(id_spettacolo, ((id_sala-1)*50)+posti.get(i))) {
+            if (manager.checkPrenotazione(id_spettacolo, ((id_sala-1)*50)+posti.get(i)) && manager.getData_ora(id_spettacolo).after(data_ora_operazione)) {
                 manager.setPrenotazione(manager.getLastId_prenotazione() + 1, id_spettacolo, id_prezzo[i], ((id_sala-1)*50)+posti.get(i), email);
             } else {
-                request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti! Posto già prenotato!");
+                request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti! Posto già prenotato o spettacolo già iniziato!");
                 RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
                 rd.forward(request, response);
             }
@@ -89,7 +91,7 @@ public class PrenotazioneServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti! Posto già prenotato!");
+            request.setAttribute("errorMessage", "Errore durante la prenotazione dei posti! Posto già prenotato o spettacolo già iniziato!");
                 RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
                 rd.forward(request, response);
         }
