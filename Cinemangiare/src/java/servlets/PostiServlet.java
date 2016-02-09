@@ -56,9 +56,6 @@ public class PostiServlet extends HttpServlet {
             int id_sala = Integer.parseInt(request.getParameter("idHall"));
 
             List<Posto> posto = manager.getListPosti(id_spettacolo, id_sala);
-            /*for (int i = 0; i < posto.size(); i++) {
-                System.out.println(posto.get(i).getId() + " " + posto.get(i).isPrenotato());
-            }*/
 
         // Bubble sort per sortare i posti per id
             for (int i = 0; i < posto.size(); i++) {
@@ -76,9 +73,10 @@ public class PostiServlet extends HttpServlet {
             int x=0;
             for (int j = 1; j <= 5; j++) {
                 for (int i = 1; i <= 10; i++) {
-                    if (posto.get(x).prenotato) {
+                    if (posto.get(x).prenotato || !posto.get(x).esiste) {
                         postiStringa += "u";
-                    } else {
+                    }
+                    else {
                         postiStringa += "s";
                     }
                     x++;
@@ -88,12 +86,6 @@ public class PostiServlet extends HttpServlet {
             }
             postiStringa += "']";
             
-            System.out.println(postiStringa);
-
-            //['lloolllool','oooolllool']
-            /*for (int i = 0; i < posto.size(); i++) {
-                System.out.println("POST SORT " + posto.get(i).getId() + " " + posto.get(i).isPrenotato());
-            }*/
             if (posto == null) {
 
                 request.setAttribute("errorMessage", "Errore durante il caricamento dei posti disponibili!");

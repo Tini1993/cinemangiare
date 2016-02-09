@@ -304,34 +304,34 @@ public class DBManager implements Serializable {
     public List<Posto> getListPosti(int id_spettacolo, int id_sala) throws SQLException {
         List<Posto> listPosti = new ArrayList();
 
-        PreparedStatement stmTotali = null;
+        PreparedStatement stmLiberi = null;
         PreparedStatement stmOccupati = null;
 
         try {
 
-            String sqlQueryPostiTotali = "SELECT * FROM posto NATURAL JOIN sala NATURAL JOIN spettacolo WHERE id_sala=? AND id_spettacolo=? AND id_posto NOT IN (SELECT id_posto FROM posto NATURAL JOIN sala NATURAL JOIN prenotazione WHERE id_sala=? AND id_spettacolo=? ORDER BY riga, colonna ASC) ORDER BY riga, colonna ASC";
+            String sqlQueryPostiLiberi = "SELECT * FROM posto NATURAL JOIN sala NATURAL JOIN spettacolo WHERE id_sala=? AND id_spettacolo=? AND id_posto NOT IN (SELECT id_posto FROM posto NATURAL JOIN sala NATURAL JOIN prenotazione WHERE id_sala=? AND id_spettacolo=? ORDER BY riga, colonna ASC) ORDER BY riga, colonna ASC";
             String sqlQueryPostiOccupati = "SELECT * FROM posto NATURAL JOIN sala NATURAL JOIN prenotazione WHERE id_sala=? AND id_spettacolo=? ORDER BY riga, colonna ASC";
-            stmTotali = con.prepareStatement(sqlQueryPostiTotali);
+            stmLiberi = con.prepareStatement(sqlQueryPostiLiberi);
             stmOccupati = con.prepareStatement(sqlQueryPostiOccupati);
 
-            stmTotali.setInt(1, id_sala);
-            stmTotali.setInt(2, id_spettacolo);
-            stmTotali.setInt(3, id_sala);
-            stmTotali.setInt(4, id_spettacolo);
+            stmLiberi.setInt(1, id_sala);
+            stmLiberi.setInt(2, id_spettacolo);
+            stmLiberi.setInt(3, id_sala);
+            stmLiberi.setInt(4, id_spettacolo);
             stmOccupati.setInt(1, id_sala);
             stmOccupati.setInt(2, id_spettacolo);
 
-            ResultSet resultsTotali = stmTotali.executeQuery();
+            ResultSet resultsLiberi = stmLiberi.executeQuery();
             ResultSet resultsOccupati = stmOccupati.executeQuery();
 
             try {
-                while (resultsTotali.next()) {
+                while (resultsLiberi.next()) {
                     Posto posto = new Posto();
-                    posto.setId(resultsTotali.getInt("id_posto"));
-                    posto.setId_sala(resultsTotali.getInt("id_sala"));
-                    posto.setRiga(resultsTotali.getInt("riga"));
-                    posto.setColonna(resultsTotali.getInt("colonna"));
-                    posto.setEsiste(resultsTotali.getBoolean("esiste"));
+                    posto.setId(resultsLiberi.getInt("id_posto"));
+                    posto.setId_sala(resultsLiberi.getInt("id_sala"));
+                    posto.setRiga(resultsLiberi.getInt("riga"));
+                    posto.setColonna(resultsLiberi.getInt("colonna"));
+                    posto.setEsiste(resultsLiberi.getBoolean("esiste"));
                     posto.setPrenotato(false);
                     listPosti.add(posto);
                 }
@@ -349,12 +349,12 @@ public class DBManager implements Serializable {
 
             } finally {
                 // Chiusura del ResultSet
-                resultsTotali.close();
+                resultsLiberi.close();
                 resultsOccupati.close();
             }
         } finally {
             // Chiusura del PreparedStatement
-            stmTotali.close();
+            stmLiberi.close();
             stmOccupati.close();
         }
 
