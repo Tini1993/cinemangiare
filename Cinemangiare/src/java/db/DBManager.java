@@ -1088,7 +1088,7 @@ public class DBManager implements Serializable {
             ResultSet r = st.executeQuery();
             try {
                 if (r.next()) {
-                    credito = r.getInt("credito");
+                    credito = r.getDouble("credito");
                     return credito;
                 }
             } finally {
