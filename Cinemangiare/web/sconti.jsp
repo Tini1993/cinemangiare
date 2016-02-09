@@ -132,7 +132,13 @@
 
     <script> <%-- Funzione che serve per rinominare le variabili scritte sopra, indispensabile per passare effettivamente i valori alla servlet successiva --%>
                     function foo() {
-                        var idShow = "${idShow}";
+                        var Ngruppi = "${count}";
+                        if ($("input[type=radio]:checked").length < Ngruppi)
+{
+    alert ("Please select atleast one radio button in each group");
+    return false;
+}
+else{                        var idShow = "${idShow}";
                         var idHall = "${idHall}";
                         var email = "${user.email}";
                         var stringaPosti = "${stringaPosti}"
@@ -148,7 +154,7 @@
                         $("#stringaPosti_").val(stringaPosti);
 
                         form.submit();
-                    }
+                    }}
     </script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
