@@ -141,7 +141,7 @@
 else{                        var idShow = "${idShow}";
                         var idHall = "${idHall}";
                         var email = "${user.email}";
-                        var stringaPosti = "${stringaPosti}"
+                        var stringaPosti = "${stringaPosti}";
 
                         console.log(idShow); //debug
                         console.log(idHall); //debug

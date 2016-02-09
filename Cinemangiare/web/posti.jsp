@@ -92,7 +92,7 @@
             </c:if>
         </script>
         <script>
-            var DC = '';
+            
             //var posti=['sss_sss','sss_uus'];
             var firstSeatLabel = 1;
             var $cart = $('#selected-seats');
@@ -129,7 +129,7 @@
                     click: function () {
                         if (this.status() == 'available') {
                             //let's create a new <li> which we'll add to the cart items
-                            DC += this.settings.label + ' ';
+                            
                             $('<li class="list-group-item"><span class="badge"> <b>' + this.data().price +'€ </b> <a href="#" class="cancel-cart-item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> </span> Posto ' + this.data().category +'  N°' + this.settings.label + '</li>')
                                     .attr('id', 'cart-item-' + this.settings.id)
                                     .data('seatId', this.settings.id)
@@ -155,6 +155,7 @@
 
                             //remove the item from our cart
                             $('#cart-item-' + this.settings.id).remove();
+                            
 
                             //seat has been vacated
                             return 'available';
@@ -194,12 +195,15 @@
         <script>
             var idHall = "${idHall}";
             var idShow = "${idShow}";
-
+            var DC = '';
             $("#createJSON").on('click', function () {
+                
+                $(".selected").each(function () {
+                    console.log($(this).text());
+                    DC += $(this).text() + ' ';
+                });
 
                 console.log(DC);
-                console.log(idHall);
-                console.log(idShow);
 
                 $("#posti_").val(DC);
                 $("#idHall_").val(idHall);
