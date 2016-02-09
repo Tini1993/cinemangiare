@@ -1205,5 +1205,27 @@ public class DBManager implements Serializable {
         }
         return null;
     }
+    
+    public void bloccaPosto(int id_sala, int id_posto) throws SQLException{
+        PreparedStatement stm = null;
+        
+        try{
+            String sqlInsert = "UPDATE posto SET esiste=false WHERE id_sala=? AND id_posto=?";
+            
+            stm.setInt(1, id_sala);
+            stm.setInt(2, id_posto);
+
+            int i = stm.executeUpdate();
+
+            if (i > 0) {
+                System.out.println("success!!!");
+            }
+            
+        }finally{
+            stm.close();
+        }
+        
+        
+    }
 
 }
