@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+F<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -51,11 +51,7 @@
                                                 <button type="submit" class="btn btn-primary btn-block">Login</button>
                                             </div>
 
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> tienimi loggato
-                                                </label>
-                                            </div>
+                                          
 
                                         </form>                      
                                     </div>                                
