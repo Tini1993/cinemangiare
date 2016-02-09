@@ -5,13 +5,19 @@
  */
 package servlets;
 
+import db.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -20,6 +26,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "bloccaServlet", urlPatterns = {"/bloccaServlet"})
 public class bloccaServlet extends HttpServlet {
 
+     private DBManager manager;
+     
+    @Override
+    public void init() throws ServletException {
+        // inizializza il DBManager dagli attributi di Application
+        this.manager = (DBManager)super.getServletContext().getAttribute("dbmanager");
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,19 +44,16 @@ public class bloccaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet bloccaServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet bloccaServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        HttpSession session = request.getSession(true);
+        
+        ServletContext context = this.getServletContext();
+        RequestDispatcher dispatcher = context.getRequestDispatcher("/AdminServlet");
+        
+        // change your request and response accordingly
+
+        dispatcher.forward(request, response);
+
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +68,11 @@ public class bloccaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(PrenotazioneServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -72,7 +86,20 @@ public class bloccaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         try {
+             if(request.getParameter("id_sala")!=null &&  request.getParameter("id_posto")!=null){
+                   int posto=Integer.parseInt(request.getParameter("id_posto"));
+                   posto=((Integer.parseInt(request.getParameter("id_sala"))-1)*50 + posto);
+                   manager.blocca_sbloccaPosto(Integer.parseInt(request.getParameter("id_sala")),posto);
+               }
+            int i=0;
+            processRequest(request, response);
+        } catch (Exception ex) {
+            request.setAttribute("errorMessage", "Errore impossibile!");
+            request.setAttribute("errorEx", ex);
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        }
     }
 
     /**

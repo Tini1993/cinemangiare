@@ -1206,23 +1206,66 @@ public class DBManager implements Serializable {
         return null;
     }
     
-    public void bloccaPosto(int id_sala, int id_posto) throws SQLException{
+    public void blocca_sbloccaPosto(int id_sala, int id_posto) throws SQLException{
         PreparedStatement stm = null;
+        PreparedStatement s = null;
+        PreparedStatement s2 = null;
         
         try{
-            String sqlInsert = "UPDATE posto SET esiste=false WHERE id_sala=? AND id_posto=?";
+            String sql="SELECT esiste FROM posto WHERE id_posto=? AND id_sala=?";
+            s = con.prepareStatement(sql);
+
+            s.setInt(1, id_posto);
+            s.setInt(2, id_sala);
+
+            ResultSet results = s.executeQuery();
+            Boolean check=true;
+            if (results.next()) {
+                    check=results.getBoolean("esiste");
+                }
+            if(check){
+                try{
+                String sqlInsert = "UPDATE posto SET esiste=false WHERE id_sala=? AND id_posto=?";
+                
+                stm = con.prepareStatement(sqlInsert);
+                stm.setInt(1, id_sala);
+                stm.setInt(2, id_posto);
+
+                int i = stm.executeUpdate();
+
+                if (i > 0) {
+                    System.out.println("success!!!");
+                }
+                }catch(Exception ex){
+                    System.out.println("HELL" + ex);
+                    
+                }
+                stm.close();
+            }else{
+                try{
+                    String sqlInsert = "UPDATE posto SET esiste=true WHERE id_sala=? AND id_posto=?";
             
-            stm.setInt(1, id_sala);
-            stm.setInt(2, id_posto);
+                    s2 = con.prepareStatement(sqlInsert);
+                    s2.setInt(1, id_sala);
+                    s2.setInt(2, id_posto);
 
-            int i = stm.executeUpdate();
+                    int i = s2.executeUpdate();
 
-            if (i > 0) {
-                System.out.println("success!!!");
+                    if (i > 0) {
+                        //System.out.println("success!!!");
+                    }
+                }catch(Exception ex){
+                    System.out.println("HELLllllllI" + ex);
+                    
+                }finally{
+                    s2.close();
+                }
             }
             
         }finally{
-            stm.close();
+            s.close();
+            
+            
         }
         
         

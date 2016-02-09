@@ -125,7 +125,7 @@
                                 <div class="col-xs-12 col-md-4">
                                     <div class="input-group input-group-sm">
 
-                                        <input type="number" class="form-control"  aria-describedby="basic-addon1"name="x">
+                                        <input type="number" class="form-control"  aria-describedby="basic-addon1"name="x" required>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-4">
@@ -144,11 +144,11 @@
                                 <div class="input-append">
                                     <div class="input-group input-group-sm">
                                         <span class="input-group-addon" id="basic-addon1">@</span>
-                                        <input type="text" class="form-control" placeholder="Email utente" aria-describedby="basic-addon1"name="email">
+                                        <input type="text" class="form-control" placeholder="Email utente" aria-describedby="basic-addon1"name="email" required>
                                     </div>
                                     <div class="input-group input-group-sm">
                                         <span class="input-group-addon" id="basic-addon1">Numero prenotazione</span>
-                                        <input type="number" class="form-control" placeholder="Numero prenotazione" aria-describedby="basic-addon1"name="id_p">
+                                        <input type="number" class="form-control" placeholder="Numero prenotazione" aria-describedby="basic-addon1"name="id_p" required>
                                     </div>
                                     <button type="submit" class="btn">Cancella prenotazione</button>
                                 </div>
@@ -165,11 +165,11 @@
                                 <div class="input-append">
                                     <div class="input-group input-group-sm">
                                         <span class="input-group-addon" id="basic-addon1">ID</span>
-                                        <input type="number" class="form-control" placeholder="ID sala" aria-describedby="basic-addon1"name="email" min="1" max="5">
+                                        <input type="number" class="form-control" placeholder="ID sala" aria-describedby="basic-addon1"name="id_sala" min="1" max="5" required>
                                     </div>
                                     <div class="input-group input-group-sm">
                                         <span class="input-group-addon" id="basic-addon1">Posto</span>
-                                        <input type="number" class="form-control" placeholder="Numero posto" aria-describedby="basic-addon1"name="id_p" min="1" max="50">
+                                        <input type="number" class="form-control" placeholder="Numero posto" aria-describedby="basic-addon1"name="id_posto" min="1" max="50" required>
                                     </div>
                                     <button type="submit" class="btn">Blocca/Sblocca Posto</button>
                                 </div>
