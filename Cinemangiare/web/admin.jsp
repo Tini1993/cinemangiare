@@ -30,6 +30,7 @@
                     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
                     <li><a data-toggle="tab" href="#menu1">Script</a></li>
                     <li><a data-toggle="tab" href="#menu2">Delete</a></li>
+                    <li><a data-toggle="tab" href="#menu3">Blocca</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -150,6 +151,27 @@
                                         <input type="number" class="form-control" placeholder="Numero prenotazione" aria-describedby="basic-addon1"name="id_p">
                                     </div>
                                     <button type="submit" class="btn">Cancella prenotazione</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                                <div id="menu3" class="tab-pane fade">
+                        <div class="col-xs-12 col-md-5">
+                            <div class="page-header">
+                                <h3>Blocca posto</h3>
+                            </div>
+
+                            <form action="${pageContext.request.contextPath}/bloccaServlet" method="post">
+                                <div class="input-append">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon" id="basic-addon1">ID</span>
+                                        <input type="number" class="form-control" placeholder="ID sala" aria-describedby="basic-addon1"name="email" min="1" max="5">
+                                    </div>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon" id="basic-addon1">Posto</span>
+                                        <input type="number" class="form-control" placeholder="Numero posto" aria-describedby="basic-addon1"name="id_p" min="1" max="50">
+                                    </div>
+                                    <button type="submit" class="btn">Blocca/Sblocca Posto</button>
                                 </div>
                             </form>
                         </div>
