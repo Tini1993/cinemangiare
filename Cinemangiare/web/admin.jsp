@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -55,7 +56,9 @@
                                             <td>${show.id_sala}</td>
                                             <td>${show.titolo}</td>
                                             <td>${show.posti}</td>
-                                            <td>${show.data_ora}</td>
+                                            <td>
+                                                <fmt:formatDate value="${show.data_ora}" pattern="MM/dd/yyyy HH:mm"/>
+                                            </td>
                                             <td>${show.prezzo}€</td>
                                         </tr>
                                     </c:forEach>

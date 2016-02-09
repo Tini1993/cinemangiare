@@ -2,6 +2,7 @@
     Author     : Mattia
 --%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%--se inculudo sta roba da errore--%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -59,14 +60,18 @@
                                 <tbody>
                                     <c:forEach items="${prenotazioni}" var="info">  
                                         <tr>
-                                            <td>${info.data_ora_prenotazione}</td>
+                                            <td>
+                                                <fmt:formatDate value="${info.data_ora_prenotazione}" pattern="MM/dd/yyyy HH:mm"/>
+                                            </td>
                                             <td>${info.titolo}</td>
                                             <td>${info.id_prenotazione}</td>
                                             <td>${info.id_spettacolo}</td>
                                             <td>${info.sala}</td>
                                             <td>${info.id_posto}</td>
                                             <td>${info.id_prezzo}</td>
-                                            <td>${info.data_ora_spettacolo}</td>
+                                            <td>
+                                                <fmt:formatDate value="${info.data_ora_spettacolo}" pattern="MM/dd/yyyy HH:mm"/>
+                                            </td>
 
                                         </tr>
                                     </c:forEach>
