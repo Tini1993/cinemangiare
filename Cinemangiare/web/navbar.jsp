@@ -22,7 +22,7 @@
                 <li><a href="contact.jsp">Dove Siamo </a></li>
             </ul>
 
-            <c:if test="${empty user}"> 
+            <c:if test="${((empty user) or (((user.id_ruolo != 2)) and ((user.id_ruolo != 1))))}"> 
                 <%-- FORM DI LOGIN IN CASO L'UTENTE SIA SLOGGATO --%>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -87,7 +87,7 @@
                 </ul>
             </div>
 
-            <c:if test="${user.id_ruolo == 1}" > 
+            <c:if test="${((! empty user) and (user.id_ruolo == 1))}" > 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>${user.email}</b> <span class="caret"></span></a>
