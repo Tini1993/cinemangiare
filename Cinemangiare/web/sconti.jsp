@@ -73,9 +73,11 @@
                     <c:forEach items="${biglietti}" var="biglietti">
                         <div class="row">
                             <div class="col-xs-12 col-md-4">
-                                <button href="#" class="list-group-item" id="${biglietti.id_posto}">
+                                <button href="#" class="list-group-item dropdown-menu " id="${biglietti.id_posto}" >
 
-                                    Posto${biglietti.id_posto} </button> 
+                                    Posto${biglietti.id_posto} 
+                                    <span class="glyphicon glyphicon glyphicon-chevron-down pull-right" aria-hidden="true"></span>
+                                </button> 
                             </div>
                         </div>
                         <div class="row">
@@ -130,59 +132,40 @@
     <%-- Bisognerebbe usare la variabile ${prezzi.prezzo} immagino --%>
     <%-- e comunque sarebbe solo una cosa comoda per l'utente, alla servlet successiva non serve --%>
 
-    <script> <%-- Funzione che serve per rinominare le variabili scritte sopra, indispensabile per passare effettivamente i valori alla servlet successiva --%>
-                    function foo() {
-                        var Ngruppi = "${count}";
-                        if ($("input[type=radio]:checked").length < Ngruppi)
-{
-    alert ("Seleziona almeno una tipologia per biglietto");
-    return false;
-}
-else{                        var idShow = "${idShow}";
-                        var idHall = "${idHall}";
-                        var email = "${user.email}";
-                        var stringaPosti = "${stringaPosti}";
+    <script>
+        function foo() {
+            var Ngruppi = "${count}";
+            if ($("input[type=radio]:checked").length < Ngruppi)
+            {
+                alert("Seleziona almeno una tipologia per biglietto");
+                return false;
+            }
+            else {
+                var idShow = "${idShow}";
+                var idHall = "${idHall}";
+                var email = "${user.email}";
+                var stringaPosti = "${stringaPosti}";
 
-                        console.log(idShow); //debug
-                        console.log(idHall); //debug
-                        console.log(email); //debug
-                        console.log(stringaPosti); //debug
+                console.log(idShow); //debug
+                console.log(idHall); //debug
+                console.log(email); //debug
+                console.log(stringaPosti); //debug
 
-                        $("#idShow_").val(idShow);
-                        $("#idHall_").val(idHall);
-                        $("#email_").val(email);
-                        $("#stringaPosti_").val(stringaPosti);
+                $("#idShow_").val(idShow);
+                $("#idHall_").val(idHall);
+                $("#email_").val(email);
+                $("#stringaPosti_").val(stringaPosti);
 
-                        form.submit();
-                    }}
+                form.submit();
+            }
+        }
     </script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/Sconti.js"></script>
 
-    <script>
-                    $('.list-group-item').click(function () {
-                        var num = $(this).attr('id');
-                        $('.' + num).toggleClass('hidden');
-                    });
-    </script>
-    <script>
-        $(document).ready(function () {
-            function recalculate() {
-                var sum = 0;
 
-                $("input[type=radio]:checked").each(function () {
-                    sum += parseInt($(this).attr('rel'));
-                });
-
-                $("#total").html(sum);
-            }
-
-            $("input[type=radio]").change(function () {
-                recalculate();
-            });
-        });
-    </script>
 </html>
