@@ -272,18 +272,13 @@ public class PrenotazioneServlet extends HttpServlet {
         document.close();
 
         try {
-            Email.InvioEmail("smtp.gmail.com", "587", "cinemangiare@gmail.com", "Cinemangiaredb","mattia.tini93@gmail.com", "Recupero password cinema", "Gentile cliente," + "\n"
-                                + "le confermiamo che la password del suo account " + "\n"
-                                + "è stata ripristinata in seguito ad una richiesta" + "\n"
-                                + "Potrà continuare ad utilizzare il servizio utilizzando la seguente password: "  + "\n"
-                                + "Cordiali saluti.");
+           
             //invio la mail per la conferma della prenotazione con allegato il pdf
-             /*Email.InvioEmail("smtp.gmail.com", "587", "cinemangiare@gmail.com", "Cinemangiaredb",
-                    "mattia.tini93@gmail.com", "Conferma acquisto biglietti", "Gentile cliente," + "\n"
+            Email.ticketEmail("smtp.gmail.com", "587", "cinemangiare@gmail.com", "Cinemangiaredb",
+                    "andrea.cologna@gmail.com", "Conferma acquisto biglietti", "Gentile cliente," + "\n"
                             + "le confermiamo la prenotazione presso il nostro cinema." + "\n"
-                            + "In allegato troverà il file pdf da stampare contenente i biglietti");*/
-                    //servletContext.getRealPath("/") + "ticket.pdf");
-        } catch (Exception ex) {
+                            + "In allegato troverà il file pdf da stampare contenente i biglietti",
+                    servletContext.getRealPath("/") + "ticket.pdf");} catch (Exception ex) {
             System.out.println("logan");
         }
     }

@@ -8,6 +8,7 @@ package funzioni;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Date;
+import java.util.*;
 import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
