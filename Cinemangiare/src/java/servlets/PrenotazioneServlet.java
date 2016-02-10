@@ -80,9 +80,11 @@ public class PrenotazioneServlet extends HttpServlet {
                 rd.forward(request, response);
             }
         }
-
-        RequestDispatcher rd = request.getRequestDispatcher("/prenotazione.jsp");
-        rd.forward(request, response);
+        
+        session.setAttribute("idpre", manager.getLastId_prenotazione());
+        
+        RequestDispatcher rdjsp = request.getRequestDispatcher("/prenotazione.jsp");
+        rdjsp.forward(request, response);
     }
 
     @Override

@@ -29,7 +29,8 @@
     <%@ include file="navbar.jsp" %>
     
     <div class="container">
-        <p> TI E' STATA INVIATA UNA MAIL COM BIGLIETTO COMPLIMENTI! </p>
+        <p> CLICCA <a href="InvioServlet?idpre=${idpre}">QUI</a> PER AVERE IL BIGLIETTO VIA EMAIL </p>
+        
     </div>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

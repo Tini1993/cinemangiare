@@ -58,8 +58,11 @@ public class InvioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        servletContext = getServletContext();
+        
         HttpSession session = request.getSession(true);
-        int idpre=Integer.parseInt(request.getParameter("prenota"));
+        int idpre=Integer.parseInt(request.getParameter("idpre"));
+        System.out.println(idpre);
         Prenotazione preno = null;
         try {
             preno=manager.getPrenotazione(idpre);
@@ -67,10 +70,10 @@ public class InvioServlet extends HttpServlet {
             Logger.getLogger(InvioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        int id=preno.getId_prenotazione();
+        //int id=preno.getId_prenotazione();
         double prezzo_pagato = preno.getId_prezzo();
         int posto = preno.getId_posto();
-        int spettacolo = preno.id_spettacolo;
+        int spettacolo = preno.getId_spettacolo();
         Date data =preno.getData_ora_prenotazione();
         String email;
         email = preno.getEmail();
@@ -92,7 +95,7 @@ public class InvioServlet extends HttpServlet {
         
     
             //creo il paragrafo per il tiolo della pagina
-            Paragraph p = new Paragraph("Biglietto n° " + id);
+            Paragraph p = new Paragraph("Biglietto n° " + idpre);
             p.setAlignment(Element.ALIGN_CENTER);
             try {
                 document.add(p);
@@ -106,7 +109,7 @@ public class InvioServlet extends HttpServlet {
             //creo il paragrafo per i dati del biglietto
             p = new Paragraph("");
             p.setAlignment(Element.ALIGN_LEFT);
-            p.add("Biglietto: " + id + "\n");
+            p.add("Biglietto: " + idpre + "\n");
             p.add("Utente: " + email + "\n");
             p.add("Prezzo pagato: " + prezzo_pagato + "€\n");
             p.add("Numero posto: " + posto+ "\n");
@@ -162,7 +165,7 @@ public class InvioServlet extends HttpServlet {
         
         try {
             //invio la mail per la conferma della prenotazione con allegato il pdf
-             Email.ticketEmail("smtp.gmail.com", "587", "ccinemangiare@gmail.com", "Cinemangiaredb",
+             Email.ticketEmail("smtp.gmail.com", "587", "cinemangiare@gmail.com", "Cinemangiaredb",
                     email, "Conferma acquisto biglietti", "Gentile cliente," + "\n"
                             + "le confermiamo la prenotazione presso il nostro cinema." + "\n"
                             + "In allegato troverà il file pdf da stampare contenente i biglietti",
