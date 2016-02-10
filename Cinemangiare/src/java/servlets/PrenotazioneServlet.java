@@ -43,7 +43,7 @@ import static servlets.InvioServlet.servletContext;
  * @author Mattia
  */
 public class PrenotazioneServlet extends HttpServlet {
-
+    String email;
     ArrayList<Integer> posti = null;
     ArrayList<Integer> id_prenotazione = new ArrayList<>();
     private DBManager manager;
@@ -66,7 +66,7 @@ public class PrenotazioneServlet extends HttpServlet {
 
         int id_spettacolo = Integer.parseInt(request.getParameter("idShow"));
         int id_sala = Integer.parseInt(request.getParameter("idHall"));
-        String email = request.getParameter("email");
+        email = request.getParameter("email");
         String stringaPosti = request.getParameter("stringaPosti");
 
         double credito = manager.checkCredito(email);
@@ -176,7 +176,7 @@ public class PrenotazioneServlet extends HttpServlet {
         ArrayList<Integer> posto = new ArrayList<>();
         ArrayList<Integer> spettacolo = new ArrayList<>();
         ArrayList<Date> data = new ArrayList<>();
-        ArrayList<String> email = new ArrayList<>();
+        ArrayList<String> emails = new ArrayList<>();
 
         Prenotazione preno = null;
 
@@ -190,7 +190,7 @@ public class PrenotazioneServlet extends HttpServlet {
                 posto.add(preno.getId_posto());
                 spettacolo.add(preno.getId_spettacolo());
                 data.add(preno.getData_ora_prenotazione());
-                email.add(preno.getEmail());
+                emails.add(preno.getEmail());
             }
 
         } catch (SQLException ex) {
@@ -223,13 +223,13 @@ public class PrenotazioneServlet extends HttpServlet {
             p = new Paragraph("");
             p.setAlignment(Element.ALIGN_LEFT);
             p.add("Biglietto: " + id_prenotazione.get(i) + "\n");
-            p.add("Utente: " + email.get(i) + "\n");
+            p.add("Utente: " + emails.get(i) + "\n");
             p.add("Prezzo pagato: " + prezzo_pagato.get(i) + "€\n");
             p.add("Numero posto: " + posto.get(i) + "\n");
             p.add("Spettacolo: " + spettacolo.get(i) + "\n");
             p.add("Data: " + data.get(i) + "\n");
             
-            System.out.println("INFO INFO INFO" + id_prenotazione.get(i) + " " + email.get(i) + " " + prezzo_pagato.get(i) + " "+ posto.get(i) + " "+ spettacolo.get(i) + " "+ data.get(i) + " "+ "FINE FINE FINE");
+            System.out.println("INFO INFO INFO" + id_prenotazione.get(i) + " " + emails.get(i) + " " + prezzo_pagato.get(i) + " "+ posto.get(i) + " "+ spettacolo.get(i) + " "+ data.get(i) + " "+ "FINE FINE FINE");
 
             try {
                 document.add(p);
@@ -275,7 +275,7 @@ public class PrenotazioneServlet extends HttpServlet {
            
             //invio la mail per la conferma della prenotazione con allegato il pdf
             Email.ticketEmail("smtp.gmail.com", "587", "cinemangiare@gmail.com", "Cinemangiaredb",
-                    "andrea.cologna@gmail.com", "Conferma acquisto biglietti", "Gentile cliente," + "\n"
+                    email, "Conferma acquisto biglietti", "Gentile cliente," + "\n"
                             + "le confermiamo la prenotazione presso il nostro cinema." + "\n"
                             + "In allegato troverà il file pdf da stampare contenente i biglietti",
                     servletContext.getRealPath("/") + "ticket.pdf");} catch (Exception ex) {
