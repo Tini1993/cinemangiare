@@ -177,7 +177,10 @@ public class PrenotazioneServlet extends HttpServlet {
         ArrayList<Integer> spettacolo = new ArrayList<>();
         ArrayList<Date> data = new ArrayList<>();
         ArrayList<String> emails = new ArrayList<>();
-
+        ArrayList<String> titolo = new ArrayList<>();
+        ArrayList<Date> data_spettacolo = new ArrayList<>();
+        ArrayList<Integer> sala = new ArrayList<>();
+        
         Prenotazione preno = null;
 
         try {
@@ -187,10 +190,13 @@ public class PrenotazioneServlet extends HttpServlet {
                 
 
                 prezzo_pagato.add(preno.getId_prezzo());
-                posto.add(preno.getId_posto());
+                posto.add(preno.getId_posto()-((preno.getSala()-1)*50));
                 spettacolo.add(preno.getId_spettacolo());
                 data.add(preno.getData_ora_prenotazione());
                 emails.add(preno.getEmail());
+                titolo.add(preno.getTitolo());
+                data_spettacolo.add(preno.getData_ora_spettacolo());
+                sala.add(preno.getSala());
             }
 
         } catch (SQLException ex) {
@@ -228,6 +234,9 @@ public class PrenotazioneServlet extends HttpServlet {
             p.add("Numero posto: " + posto.get(i) + "\n");
             p.add("Spettacolo: " + spettacolo.get(i) + "\n");
             p.add("Data: " + data.get(i) + "\n");
+            p.add("Film: " + titolo.get(i) + "\n");
+            p.add("Data spettacolo: " + data_spettacolo.get(i) + "\n");
+            p.add("Sala: " + sala.get(i) + "\n");
             
             System.out.println("INFO INFO INFO" + id_prenotazione.get(i) + " " + emails.get(i) + " " + prezzo_pagato.get(i) + " "+ posto.get(i) + " "+ spettacolo.get(i) + " "+ data.get(i) + " "+ "FINE FINE FINE");
 
@@ -242,11 +251,14 @@ public class PrenotazioneServlet extends HttpServlet {
         Image image = null;
         File file;
         Paragraph p = new Paragraph("");
-        file = QRCode.from("u:" + email
-                + "p:" + prezzo_pagato
-                + "np:" + posto
-                + "s:" + spettacolo
-                + "d:" + data).to(ImageType.JPG).withSize(100, 100).file();
+        file = QRCode.from("Email:" + email + "\n"
+                + "Prezzo:" + prezzo_pagato + "\n" 
+                + "Numero posto:" + posto + "\n"
+                + "Spettacolo:" + spettacolo.get(0) + "\n"
+                + "Data:" + data.get(0) + "\n"
+                + "Film: " + titolo.get(0) + "\n"
+                + "Data spettacolo: " + data_spettacolo.get(0) +"\n"
+                + "Sala: " + sala.get(0)).to(ImageType.JPG).withSize(300, 300).file();
         try {
             image = Image.getInstance(file.getAbsolutePath());
         } catch (BadElementException | MalformedURLException ex) {

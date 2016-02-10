@@ -1091,7 +1091,8 @@ public class DBManager implements Serializable {
                     s.setId_posto(rs.getInt("id_posto"));
                     s.setEmail(rs.getString("email"));
                     s.setData_ora_spettacolo(rs.getTimestamp("data_ora"));
-                    s.setTitolo(rs.getString("titolo"));  
+                    s.setTitolo(rs.getString("titolo"));
+                    s.setSala(rs.getInt("id_sala"));
                     s.setId_prenotazione(id);
 
                     return s;
