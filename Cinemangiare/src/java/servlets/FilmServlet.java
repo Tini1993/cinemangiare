@@ -56,7 +56,7 @@ public class FilmServlet extends HttpServlet {
             // Prendo il titolo del film dall'url, perchè è un GET
 
             Film film = manager.getFilm(titolo);
-            List <Spettacolo> spettacolo = manager.getSpettacolo(film.id_film);
+            List <Spettacolo> spettacolo = manager.getSpettacolo(film.getId());
             
             // guardo se la query ha dato dei risultati
             if (film == null) {

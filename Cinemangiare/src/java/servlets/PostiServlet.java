@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import db.Hall;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -73,7 +72,7 @@ public class PostiServlet extends HttpServlet {
             int x=0;
             for (int j = 1; j <= 5; j++) {
                 for (int i = 1; i <= 10; i++) {
-                    if (posto.get(x).prenotato || !posto.get(x).esiste) {
+                    if (posto.get(x).isPrenotato() || !posto.get(x).isEsiste()) {
                         postiStringa += "u";
                     }
                     else {

@@ -11,12 +11,12 @@ package Bean;
  */
 public class Posto {
     
-    public int id;
-    public int id_sala;
-    public int riga;
-    public int colonna;
-    public boolean esiste;
-    public boolean prenotato;
+    private int id;
+    private int id_sala;
+    private int riga;
+    private int colonna;
+    private boolean esiste;
+    private boolean prenotato;
     
     public Posto(){
         

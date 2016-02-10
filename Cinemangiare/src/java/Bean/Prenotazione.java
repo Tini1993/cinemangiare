@@ -15,15 +15,15 @@ import java.sql.Timestamp;
 
 public class Prenotazione {
 
-    public int id_prenotazione;
-    public int id_film;
-    public int id_spettacolo;
-    public double id_prezzo;
-    public int id_posto;
-    public Timestamp data_ora_prenotazione;
-    public String titolo,email;
-    public int sala;
-    public Timestamp data_ora_spettacolo;
+    private int id_prenotazione;
+    private int id_film;
+    private int id_spettacolo;
+    private double id_prezzo;
+    private int id_posto;
+    private Timestamp data_ora_prenotazione;
+    private String titolo,email;
+    private int sala;
+    private Timestamp data_ora_spettacolo;
     
 
     public int getId_film() {

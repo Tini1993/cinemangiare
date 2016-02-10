@@ -16,13 +16,13 @@ import java.sql.Timestamp;
 
 public class Spettacolo {
 
-    public int id_spettacolo;
-    public int id_film;
-    public Timestamp data_ora;
-    public int id_sala;
-    public double prezzo;
-    public int posti;
-    public String titolo;
+    private int id_spettacolo;
+    private int id_film;
+    private Timestamp data_ora;
+    private int id_sala;
+    private double prezzo;
+    private int posti;
+    private String titolo;
 
     public int getId_spettacolo() {
         return id_spettacolo;

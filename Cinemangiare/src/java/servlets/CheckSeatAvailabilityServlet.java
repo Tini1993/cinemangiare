@@ -3,8 +3,7 @@ package servlets;
 
 import Bean.Prenotazione;
 import Bean.Price;
-import db.DBManager;import db.Hall;
-;
+import db.DBManager;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;

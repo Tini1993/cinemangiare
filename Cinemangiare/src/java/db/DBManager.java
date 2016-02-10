@@ -362,61 +362,6 @@ public class DBManager implements Serializable {
     }
 
     /**
-     * Prepara la classe che contiene la disposizione dei posti liberi e
-     * occupati di una determinata sala
-     *
-     * @param id_spettacolo Il numero identificativo dello spettacolo
-     * @param id_sala Il numero identificativo della sala
-     * @return Un oggetto Hall, contenente tutti i dati relativi ai posti di una
-     * sala
-     * @throws SQLException
-     */
-    public Hall getSeatMatrix(int id_spettacolo, int id_sala) throws SQLException {
-
-        String sqlQueryPostiTotali = "SELECT * FROM posto NATURAL JOIN sala WHERE id_sala=? ORDER BY riga, colonna ASC";
-        String sqlQueryPostiOccupati = "SELECT * FROM spettacolo NATURAL JOIN posto NATURAL JOIN prenotazione WHERE id_spettacolo=?";
-        PreparedStatement stmTotali = null;
-        PreparedStatement stmOccupati = null;
-        Hall hall = new Hall();
-
-        try {
-
-            stmTotali = con.prepareStatement(sqlQueryPostiTotali);
-            stmOccupati = con.prepareStatement(sqlQueryPostiOccupati);
-            stmTotali.setInt(1, id_sala);
-            stmOccupati.setInt(1, id_spettacolo);
-
-            ResultSet rs = stmTotali.executeQuery();
-            ResultSet rsOccupati = stmOccupati.executeQuery();
-
-            try {
-                while (rs.next()) {
-                    int riga = rs.getInt("riga");
-                    int colonna = rs.getInt("colonna");
-                    hall.addSeat(riga, colonna, rs.getBoolean("esiste"));
-                }
-
-                while (rsOccupati.next()) {
-                    int riga = rsOccupati.getInt("riga");
-                    int colonna = rsOccupati.getInt("colonna");
-                    hall.modifySeatBookedStatus(riga, colonna, true);
-                }
-
-            } finally {
-
-                rs.close();
-                rsOccupati.close();
-            }
-        } finally {
-
-            stmOccupati.close();
-            stmTotali.close();
-
-        }
-        return hall;
-    }
-
-    /**
      * Ritorna una lista di interi che rappresentano gli identificatori di tutte
      * le sale presenti nel database
      *

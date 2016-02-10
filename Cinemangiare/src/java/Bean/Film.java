@@ -11,14 +11,14 @@ package Bean;
  * @author Mattia
  */
 public class Film {
-    public int id_film;
-    public String titolo;
-    public int durata;
-    public int id_genere;
-    public String url_trailer;
-    public String trama;
-    public String uri_locandina;
-    public double incassi;
+    private int id_film;
+    private String titolo;
+    private int durata;
+    private int id_genere;
+    private String url_trailer;
+    private String trama;
+    private String uri_locandina;
+    private double incassi;
     
     public Film() {
     }

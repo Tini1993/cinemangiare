@@ -10,9 +10,9 @@ package Bean;
  * @author jack
  */
 public class Price {
-    public int id_price;
-    public String tipo;
-    public double prezzo;
+    private int id_price;
+    private String tipo;
+    private double prezzo;
     
     public Price() {
     }
