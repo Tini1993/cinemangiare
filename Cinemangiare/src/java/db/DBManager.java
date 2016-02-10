@@ -962,48 +962,35 @@ public class DBManager implements Serializable {
         return 0;
     }
 
-    public void setPrenotazione(int id_prenotazione, int id_spettacolo, int id_prezzo, int id_posto, String email) throws SQLException {
+    public int setPrenotazione(int id_prenotazione, int id_spettacolo, int id_prezzo, int id_posto, String email) throws SQLException {
 
         PreparedStatement statement = con.prepareStatement("INSERT INTO prenotazione(id_prenotazione, id_spettacolo, id_prezzo, id_posto, data_ora_operazione, email) VALUES (?, ?, ?, ?, ?, ?)");
 
         java.util.Date date = new java.util.Date();
         Timestamp data_ora_operazione = new Timestamp(date.getTime());
 
-            try {
+        try {
 
-        
-            try{
+            statement.setInt(1, id_prenotazione);
+            statement.setInt(2, id_spettacolo);
+            statement.setInt(3, id_prezzo);
+            statement.setInt(4, id_posto);
+            statement.setTimestamp(5, data_ora_operazione);
+            statement.setString(6, email);
 
-                statement.setInt(1, id_prenotazione);
-                statement.setInt(2, id_spettacolo);
-                statement.setInt(3, id_prezzo);
-                statement.setInt(4, id_posto);
-                statement.setTimestamp(5, data_ora_operazione);
-                statement.setString(6, email);
+            int i = statement.executeUpdate();
 
-                int i = statement.executeUpdate();
-
-                if (i > 0) {
-                    System.out.println("success!!!");
-                }
-
-
-            } finally {
-                // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
-                statement.close();
+            if (i > 0) {
+                System.out.println("success!!!");
+                return id_prenotazione;
             }
-
-            }catch(SQLException ex){
-                System.out.println("HELLOOO:" + ex);
-                
-            }finally {
+        } finally {
             // Chiusura del PreparedStatement, da fare SEMPRE in un blocco finally
             statement.close();
-
         }
+        
+        return 0;
     }
-
-    
 
     public boolean checkPrenotazione(int id_spettacolo, int id_posto) throws SQLException {
 
@@ -1032,8 +1019,6 @@ public class DBManager implements Serializable {
         }
         return true;
     }
-    
-    
 
     public double checkCredito(String email) throws SQLException {
 
@@ -1108,7 +1093,7 @@ public class DBManager implements Serializable {
                     s.setData_ora_spettacolo(rs.getTimestamp("data_ora"));
                     s.setTitolo(rs.getString("titolo"));  
                     s.setId_prenotazione(id);
-                    
+
                     return s;
                 }
 
@@ -1152,46 +1137,46 @@ public class DBManager implements Serializable {
         }
         return null;
     }
-    
-    public void blocca_sbloccaPosto(int id_sala, int id_posto) throws SQLException{
+
+    public void blocca_sbloccaPosto(int id_sala, int id_posto) throws SQLException {
         PreparedStatement stm = null;
         PreparedStatement s = null;
         PreparedStatement s2 = null;
-        
-        try{
-            String sql="SELECT esiste FROM posto WHERE id_posto=? AND id_sala=?";
+
+        try {
+            String sql = "SELECT esiste FROM posto WHERE id_posto=? AND id_sala=?";
             s = con.prepareStatement(sql);
 
             s.setInt(1, id_posto);
             s.setInt(2, id_sala);
 
             ResultSet results = s.executeQuery();
-            Boolean check=true;
+            Boolean check = true;
             if (results.next()) {
-                    check=results.getBoolean("esiste");
-                }
-            if(check){
-                try{
-                String sqlInsert = "UPDATE posto SET esiste=false WHERE id_sala=? AND id_posto=?";
-                
-                stm = con.prepareStatement(sqlInsert);
-                stm.setInt(1, id_sala);
-                stm.setInt(2, id_posto);
+                check = results.getBoolean("esiste");
+            }
+            if (check) {
+                try {
+                    String sqlInsert = "UPDATE posto SET esiste=false WHERE id_sala=? AND id_posto=?";
 
-                int i = stm.executeUpdate();
+                    stm = con.prepareStatement(sqlInsert);
+                    stm.setInt(1, id_sala);
+                    stm.setInt(2, id_posto);
 
-                if (i > 0) {
-                    System.out.println("success!!!");
-                }
-                }catch(Exception ex){
+                    int i = stm.executeUpdate();
+
+                    if (i > 0) {
+                        System.out.println("success!!!");
+                    }
+                } catch (Exception ex) {
                     System.out.println("HELL" + ex);
-                    
+
                 }
                 stm.close();
-            }else{
-                try{
+            } else {
+                try {
                     String sqlInsert = "UPDATE posto SET esiste=true WHERE id_sala=? AND id_posto=?";
-            
+
                     s2 = con.prepareStatement(sqlInsert);
                     s2.setInt(1, id_sala);
                     s2.setInt(2, id_posto);
@@ -1201,21 +1186,19 @@ public class DBManager implements Serializable {
                     if (i > 0) {
                         //System.out.println("success!!!");
                     }
-                }catch(Exception ex){
+                } catch (Exception ex) {
                     System.out.println("HELLllllllI" + ex);
-                    
-                }finally{
+
+                } finally {
                     s2.close();
                 }
             }
-            
-        }finally{
+
+        } finally {
             s.close();
-            
-            
+
         }
-        
-        
+
     }
 
 }

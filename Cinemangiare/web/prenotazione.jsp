@@ -29,7 +29,8 @@
     <%@ include file="navbar.jsp" %>
     
     <div class="container">
-        <p> CLICCA <a href="InvioServlet?idpre=${idpre}">QUI</a> PER AVERE IL BIGLIETTO VIA EMAIL </p>
+        
+        <p>  PER AVERE IL BIGLIETTO VIA EMAIL </p>
         
     </div>
     
