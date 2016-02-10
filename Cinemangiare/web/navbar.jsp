@@ -5,17 +5,17 @@
             <a class="navbar-brand">
                 <img alt="Brand" src="img/icona.png">
             </a>
-             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                 <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
             </button>
             <a class="navbar-brand" href="ListaFilmServlet">Cinema Limoni</a>
         </div>
 
         <div class="collapse navbar-collapse" id="myNavbar">
-           
+
             <ul class="nav navbar-nav">
                 <%--<li><a href="index.html">Home <span class="sr-only">(current)</span></a></li>--%>
                 <li><a href="PriceServlet">Prezzi </a></li>
@@ -51,7 +51,7 @@
                                                 <button type="submit" class="btn btn-primary btn-block">Login</button>
                                             </div>
 
-                                          
+
 
                                         </form>                      
                                     </div>                                
@@ -63,37 +63,39 @@
             </c:if>
 
             <%-- questo lo fa se invece c'è un utente connesso --%>
-            <c:if test="${(! empty user) and (user.id_ruolo == 2)}"> 
+            <c:if test="${(! empty user) and ((user.id_ruolo == 2))}"> 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>${user.email}</b> <span class="caret"></span></a>
-                        <ul id="login-dp" class="dropdown-menu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="InfoUtenteServlet"><button type="button" class="btn btn-success" >Visualizza profilo</button></a>
-                                        <button type="button" data-toggle="modal" class="btn btn-info" onclick="location.href = 'LogoutServlet'">Logout</button>
-                                    </div>
-                                </div>
-                            </li>
+                        <ul class="dropdown-menu">
+                            <li><a type="button" href ="InfoUtenteServlet">Visualizza profilo</a></li>
+                            <li><a type="button" data-toggle="modal"  onclick="location.href = 'LogoutServlet'">Logout</a></li>
+
                         </ul>
                     </li>
                 </ul>  
             </c:if>
-                        
+            <!-- Single button -->
+            <div class="btn-group">
+
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+
             <c:if test="${user.id_ruolo == 1}" > 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>${user.email}</b> <span class="caret"></span></a>
-                        <ul id="login-dp" class="dropdown-menu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="AdminServlet"><button type="button" class="btn btn-success" >Admin</button></a>
-                                        <button type="button" data-toggle="modal" class="btn btn-info" onclick="location.href = 'LogoutServlet'">Logout</button>
-                                    </div>
-                                </div>
-                            </li>
+                        <ul class="dropdown-menu">
+                            <li><a type="button" href ="InfoUtenteServlet">Visualizza profilo</a></li>
+                            <li><a type="button" href = "AdminServlet" >Admin</a></li>
+                            <li><a type="button" data-toggle="modal"  onclick="location.href = 'LogoutServlet'">Logout</a></li>
+
                         </ul>
                     </li>
                 </ul>  
