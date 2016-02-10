@@ -29,15 +29,28 @@
     <%@ include file="navbar.jsp" %>
     
     <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-3"></div>
+            <div class="col-xs-12 col-md-6 "> 
+                <div class="page-header">
+                    <h2>Registrazione Avvenuta Con Successo!</h2>
+                </div>
+                <p>Controlla la tua casella email, a breve troverai il riepilogo dell'acquisto in formato digitale:
+                potrai stamparli oppure presentare direttamente il qrcode agli sportelli. </p>
+                <nav>
+  <ul class="pager">
+    <li class="next"><a href="ListaFilmServlet">└[∵┌]└[ ∵ ]┘[┐∵]┘ <span aria-hidden="true">&rarr;</span></a></li>
+  </ul>
+</nav>
+
+            </div>
+        </div>
+ 
         
-        <p>  PER AVERE IL BIGLIETTO VIA EMAIL </p>
+        
         
     </div>
     
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script><!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
