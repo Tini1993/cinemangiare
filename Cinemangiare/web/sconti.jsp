@@ -110,9 +110,9 @@
                     </c:forEach>
                 </div>
                 <a href="#" class="btn btn-success" onclick="foo()">Procedi
-                    Totale: <span id="euro"> <b>€ <span id="total">0</span></b> </span>
+                    Totale: <span id="euro"> <b>€ <span id="total">0.0</span></b> </span>
                 </a>
-                </form>
+                
 
 
 

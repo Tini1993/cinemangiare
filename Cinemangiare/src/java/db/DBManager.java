@@ -754,8 +754,6 @@ public class DBManager implements Serializable {
                     Price price = new Price();
                     price.setId(results.getInt("id_prezzo"));
                     price.setTipo(results.getString("tipo"));
-                    price.setPrezzo(results.getFloat("prezzo"));
-
                     price.setPrezzo(results.getDouble("prezzo"));
 
                     listPrice.add(price);
@@ -1087,7 +1085,7 @@ public class DBManager implements Serializable {
                     Prenotazione s = new Prenotazione();
                     s.setData_ora_prenotazione(rs.getTimestamp("data_ora_operazione"));
                     s.setId_spettacolo(rs.getInt("id_spettacolo"));
-                    s.setId_prezzo(rs.getInt("prezzo"));
+                    s.setId_prezzo(rs.getDouble("prezzo"));
                     s.setId_posto(rs.getInt("id_posto"));
                     s.setEmail(rs.getString("email"));
                     s.setData_ora_spettacolo(rs.getTimestamp("data_ora"));
