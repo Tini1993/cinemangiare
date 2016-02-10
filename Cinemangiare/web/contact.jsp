@@ -70,33 +70,10 @@
 
         </div><!-- /container -->
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+        
         <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
         <script>
 
-            function init_map() {
-                var myLocation = new google.maps.LatLng(63.7768887, -171.7231638);
-
-                var mapOptions = {
-                    mapTypeId: google.maps.MapTypeId.HYBRID,
-                    center: myLocation,
-                    zoom: 10
-                };
-
-                var marker = new google.maps.Marker({
-                    position: myLocation,
-                    title: "Limoni Movie Theater"});
-
-                var map = new google.maps.Map(document.getElementById("map-container"),
-                        mapOptions);
-
-                marker.setMap(map);
-
-            }
-
-            google.maps.event.addDomListener(window, 'load', init_map);
 
         </script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
