@@ -33,7 +33,7 @@
             <div class="col-xs-12 col-md-3"></div>
             <div class="col-xs-12 col-md-6 "> 
                 <div class="page-header">
-                    <h2>Registrazione Avvenuta Con Successo!</h2>
+                    <h2>Prenotazione Avvenuta Con Successo!</h2>
                 </div>
                 <p>Controlla la tua casella email, a breve troverai il riepilogo dell'acquisto in formato digitale:
                 potrai stamparli oppure presentare direttamente il qrcode agli sportelli. </p>
