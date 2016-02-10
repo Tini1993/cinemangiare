@@ -77,7 +77,8 @@ public class InvioServlet extends HttpServlet {
         Date data =preno.getData_ora_prenotazione();
         String email;
         email = preno.getEmail();
-        
+        Date data_spettacolo=preno.getData_ora_spettacolo();
+        String film=preno.getTitolo();
         
         
         //creo il pdf per la prenotazione
@@ -115,6 +116,8 @@ public class InvioServlet extends HttpServlet {
             p.add("Numero posto: " + posto+ "\n");
             p.add("Spettacolo: " + spettacolo + "\n");
             p.add("Data: " + data  + "\n");
+            p.add("Data spettacolo: " + data_spettacolo  + "\n");
+            p.add("Film: " + film  + "\n");
             
             try {
                 document.add(p);
@@ -130,11 +133,13 @@ public class InvioServlet extends HttpServlet {
             Image image = null;
             File file;
             p = new Paragraph("");
-            file = QRCode.from("u:" + email + 
-                    "p:" + prezzo_pagato +
-                    "np:" + posto + 
-                    "s:" + spettacolo + 
-                    "d:" + data).to(ImageType.JPG).withSize(100, 100).file();
+            file = QRCode.from("utente:" + email + 
+                    "\n" + "prezzo:" + prezzo_pagato +
+                    "\n" + "numero posto:" + posto + 
+                    "\n" +"spettacolo:" + spettacolo + 
+                    "\n" +"data prenotazione:" + data +
+                    "\n" +"data spettacolo:" + data_spettacolo +
+                    "\n" +"film:" + film).to(ImageType.JPG).withSize(100, 100).file();
             try {
                 image = Image.getInstance(file.getAbsolutePath());
             } catch (BadElementException | MalformedURLException ex) {
