@@ -20,13 +20,42 @@
     </head>
     <body>
         <%@ include file="navbar.jsp" %>
-        
-        <c:if test="${empty errorMessage}" >            
-            <p> NESSUN ERRORE DA VISUALIZZARE </P>
-        </c:if>
-        
-        <p> <c:out value ="${errorMessage}"/> </p>
-        <p> Eccezione: <c:out value ="${errorEx}"/> </p>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-3"></div>
+                <div class="col-xs-12 col-md-6 "> 
+                    <div class="page-header">
+                        <h2>
+                            <c:if test="${empty errorMessage}" >            
+                                Nessun Errore da Visualizzare
+                            </c:if>
+                            <c:if test="${!empty errorMessage}" >            
+                                <c:out value ="${errorMessage}"/>
+                            </c:if>
+                             
+
+                        </h2>
+                    </div>
+                    <p>
+                        <c:if test="${!empty errorMessage}" >
+                        Eccezione: <c:out value ="${errorEx}"/>
+                        </c:if>
+                    </p>
+                    <nav>
+                        <ul class="pager">
+                            <li class="next"><a href="#" onclick="history.go(-1)">(ノಠ益ಠ)ノ彡┻━┻ </a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
